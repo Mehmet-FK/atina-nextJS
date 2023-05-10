@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 
 const useSortColumn = (data, columnObj) => {
-  //? Siralanacak local state (sutun verilerinin local state hali)
   const [sortedData, setSortedData] = useState(data);
   const [columns, setColumns] = useState(columnObj);
 
-  //! data state'i her guncellendiginde local state'i de guncelle
   useEffect(() => {
     setSortedData(data);
   }, [data]);

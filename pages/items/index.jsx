@@ -1,12 +1,16 @@
 import ItemsTable from "@/components/tables/ItemsTable";
 import { AtinaCalls } from "@/helpers/apiFunctions";
 import { getSession } from "next-auth/react";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import React from "react";
 
 const AtinaItems = ({ data }) => {
   return (
     <div>
+      <Head>
+        <title>Datensätze</title>
+      </Head>
       <h1 style={{ marginBottom: "1rem" }}>Datensätze</h1>
       <ItemsTable data={data} />
     </div>

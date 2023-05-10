@@ -43,6 +43,7 @@ const ContextMenu = ({
   setSelectedColumns,
   contextMenu,
   setContextMenu,
+  setOpenItemsModal,
 }) => {
   const styles = {
     contextMenu: {
@@ -103,6 +104,11 @@ const ContextMenu = ({
       <Button onClick={() => setOpen({ ...open, columns: !open.columns })}>
         Spalten Verwalten
       </Button>
+      {setOpenItemsModal !== undefined && (
+        <Button onClick={() => setOpenItemsModal((prev) => !prev)}>
+          neu einfügen
+        </Button>
+      )}
 
       {open.columns && (
         <ColumnMenu

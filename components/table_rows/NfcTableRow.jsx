@@ -44,62 +44,63 @@ const NfcTableRow = ({ tag, item, selectedColumns }) => {
         </TableCell>
       )}
 
-      {selectedColumns.includes("daten 1") && (
+      {selectedColumns.includes("daten1") && (
         <TableCell sx={tableStyles.tr.cell} align="left">
           {item?.data1 ? item?.data1 : ""}
         </TableCell>
       )}
 
-      {selectedColumns.includes("daten 2") && (
+      {selectedColumns.includes("daten2") && (
         <TableCell sx={tableStyles.tr.cell} align="left">
           {item?.data2 ? item?.data2 : ""}
         </TableCell>
       )}
 
-      {selectedColumns.includes("daten 3") && (
+      {selectedColumns.includes("daten3") && (
         <TableCell sx={tableStyles.tr.cell} align="left">
           {item?.data3 ? item?.data3 : ""}
         </TableCell>
       )}
 
-      {selectedColumns.includes("daten 4") && (
+      {selectedColumns.includes("daten4") && (
         <TableCell sx={tableStyles.tr.cell} align="left">
           {item?.data4 ? item?.data4 : ""}
         </TableCell>
       )}
-      {selectedColumns.includes("daten 5") && (
+      {selectedColumns.includes("daten5") && (
         <TableCell sx={tableStyles.tr.cell} align="left">
           {item?.data5 ? item?.data5 : ""}
         </TableCell>
       )}
-      {selectedColumns.includes("daten 6") && (
+      {selectedColumns.includes("daten6") && (
         <TableCell sx={tableStyles.tr.cell} align="left">
           {item?.data6 ? item?.data6 : ""}
         </TableCell>
       )}
-      {selectedColumns.includes("daten 7") && (
+      {selectedColumns.includes("daten7") && (
         <TableCell sx={tableStyles.tr.cell} align="left">
           {item?.data7 ? item?.data7 : ""}
         </TableCell>
       )}
-      {selectedColumns.includes("daten 8") && (
+      {selectedColumns.includes("daten8") && (
         <TableCell sx={tableStyles.tr.cell} align="left">
           {item?.data8 ? item?.data8 : ""}
         </TableCell>
       )}
-      {selectedColumns.includes("daten 9") && (
+      {selectedColumns.includes("daten9") && (
         <TableCell sx={tableStyles.tr.cell} align="left">
           {item?.data9 ? item?.data9 : ""}
         </TableCell>
       )}
-      {selectedColumns.includes("daten 10") && (
+      {selectedColumns.includes("daten10") && (
         <TableCell sx={tableStyles.tr.cell} align="left">
           {item?.data10 ? item?.data10 : ""}
         </TableCell>
       )}
       {selectedColumns.includes("erstellt am") && (
         <TableCell sx={tableStyles.tr.cell} align="left">
-          {JSON.stringify(tag?.createdDate)}
+          {/* {JSON.stringify(tag?.createdDate)} */}
+          {new Date(item?.createdDate).toLocaleDateString("de")}
         </TableCell>
       )}
     </TableRow>

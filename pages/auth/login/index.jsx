@@ -35,18 +35,37 @@ const Login = () => {
     <Box
       sx={{
         width: "100%",
-        minHeight: "100vh",
+        height: "100vh",
         display: "flex",
         justifyContent: "center",
-        alignItems: "center",
+        backgroundColor: "#ccc",
+        // border: "2px solid blue",
       }}
     >
+      <Box
+        sx={{
+          width: "50%",
+          height: "100%",
+          display: { xs: "none", md: "none", lg: "grid" },
+
+          placeItems: "center",
+          // backgroundImage: `url("/assets/login.svg")`,
+          // backgroundPosition: "center",
+          // backgroundSize: "contain",
+        }}
+      >
+        <img
+          src="/assets/login1.svg"
+          alt="background image"
+          style={{ width: "500px" }}
+        />
+      </Box>
       <Box
         component="form"
         onSubmit={handleSubmit}
         sx={{
           backgroundColor: "#e10000",
-          borderRadius: "10px",
+
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
@@ -54,6 +73,8 @@ const Login = () => {
           minWidth: "300px",
           rowGap: "15px",
           padding: "2rem",
+          width: "50%",
+          height: "100%",
         }}
       >
         <Image

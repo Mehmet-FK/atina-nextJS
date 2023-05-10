@@ -27,6 +27,8 @@ import TapAndPlayOutlinedIcon from "@mui/icons-material/TapAndPlayOutlined";
 import Link from "next/link";
 import { dashboardStyles } from "@/styles/dashboard_styles";
 import { getSession, signOut } from "next-auth/react";
+import { useRouter } from "next/router";
+import { useSelector } from "react-redux";
 // import useAtinaCalls from "@/app/hooks/useAtinaCalls";
 // import { dashboardStyles } from "@/app/styles/dashboard_styles";
 
@@ -102,7 +104,10 @@ export default function Layout({ children }) {
   const [open, setOpen] = React.useState(false);
   const [session, setSession] = React.useState({});
 
+  const { darkMode } = useSelector((state) => state.settings);
+
   // const { getUsersData } = useAtinaCalls();
+  const router = useRouter();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -189,9 +194,13 @@ export default function Layout({ children }) {
 
                 <Typography
                   variant="h5"
-                  sx={{ display: "flex", alignItems: "center" }}
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    textTransform: "capitalize",
+                  }}
                 >
-                  {`${session?.user?.userInfo?.firstname?.toUpperCase()} ${session?.user?.userInfo?.lastname?.toUpperCase()}`}
+                  {`${session?.user?.userInfo?.firstname} ${session?.user?.userInfo?.lastname}`}
                 </Typography>
                 <Link href="">
                   <Button
@@ -222,7 +231,10 @@ export default function Layout({ children }) {
               <ListItem
                 key={item.text}
                 disablePadding
-                sx={{ display: "block" }}
+                sx={{
+                  display: "block",
+                  backgroundColor: router.pathname === "/" + item.nav && "#eee",
+                }}
               >
                 <Tooltip title={item.text} placement="right" arrow>
                   <Link href={item.nav} style={dashboardStyles.link}>

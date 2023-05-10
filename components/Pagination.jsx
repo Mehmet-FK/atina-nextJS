@@ -3,6 +3,7 @@
 import { IconButton, Tooltip } from "@mui/material";
 import TablePagination from "@mui/material/TablePagination";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
+import { useRouter } from "next/router";
 
 const Pagination = ({
   data,
@@ -20,6 +21,7 @@ const Pagination = ({
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+  const router = useRouter();
 
   return (
     <>
@@ -34,9 +36,9 @@ const Pagination = ({
         onRowsPerPageChange={handleChangeRowsPerPage}
         labelRowsPerPage={"Anzahl Zeilen"}
       />
-
+      {/* setRestart((prev) => !prev) */}
       <Tooltip title="Aktualisieren" arrow>
-        <IconButton onClick={() => setRestart((prev) => !prev)}>
+        <IconButton onClick={() => router.reload()}>
           <RestartAltIcon />
         </IconButton>
       </Tooltip>

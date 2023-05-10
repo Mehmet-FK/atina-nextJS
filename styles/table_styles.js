@@ -6,26 +6,36 @@ export const tableStyles = {
   },
   helpersWrapper: {
     display: "flex",
-    justifyContent: "end",
+    justifyContent: "space-between",
     alignItems: "center",
   },
   th: {
     cell: {
+      // textTransform: "capitalize",
+      // fontWeight: "600",
+      // // paddingInline: "5px",
+      // minWidth: "6rem",
+      // height: "100%",
+      // cursor: "pointer",
+      // color: "#888",
+      // borderRight: "1px solid #aaa",
+      // fontSize: "0.7rem",
       textTransform: "capitalize",
       fontWeight: "600",
-      paddingInline: "5px",
-      minWidth: "4rem",
+      color: "#888",
+      fontSize: "0.7rem",
+      cursor: "pointer",
+      borderRight: "1px solid #ddd",
     },
   },
   tr: {
     row: {
-      cursor: "pointer",
       "&:last-child td, &:last-child th": { border: 0 },
       "&:hover": { backgroundColor: "#ddd" },
     },
     cell: {
-      fontSize: "0.8em",
-      padding: " 10px",
+      fontSize: "0.7em",
+      // padding: " 10px",
     },
     image: {
       transition: "0.3s all",

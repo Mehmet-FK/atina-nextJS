@@ -6,9 +6,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-
 import { useMediaQuery } from "@mui/material";
-
 import Pagination from "../Pagination";
 import { useEffect, useState } from "react";
 import { Box } from "@mui/system";
@@ -19,6 +17,10 @@ import ContextMenu from "../ContextMenu";
 import useContextMenu from "../../hooks/useContextMenu";
 import DownloadCSV from "../DownloadCSV";
 import { tableStyles } from "@/styles/table_styles";
+
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import useSortColumn from "@/hooks/useSortColumn";
 
 const initalContextMenu = {
   show: false,
@@ -52,12 +54,28 @@ const UsersTable = ({ data }) => {
   };
   // ===pagination states END===
 
+  // ===Table sort  START===
+
+  const columnObj = {
+    firstname: 1,
+    lastname: 1,
+    passwordSalt: 1,
+    username: 1,
+    personnelnumber: 1,
+  };
+
+  const { sortedData, handleSort, columns } = useSortColumn(
+    shownData,
+    columnObj
+  );
+  // ===Table sort  END===
+
   // ===Table Filter START===
   const [filterVal, setFilterVal] = useState({});
   const handleFilter = () => {
     //TODO: Search Function
-    const filteredData = "";
-    setShownData(filteredData);
+    /* const filteredData = "";
+    setShownData(filteredData); */
   };
 
   const handleReset = () => {
@@ -132,39 +150,109 @@ const UsersTable = ({ data }) => {
           <TableHead>
             <TableRow>
               {selectedColumns.includes("vorname") && (
-                <TableCell sx={tableStyles.th.cell} align="left">
-                  vorname
+                <TableCell
+                  sx={tableStyles.th.cell}
+                  onClick={() => handleSort("firstname")}
+                  align="left"
+                >
+                  <Box
+                    sx={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "space-around",
+                    }}
+                  >
+                    <Box sx={{ color: "#000" }}>vorname </Box>
+                    {columns.firstname === 1 && <ArrowDownwardIcon />}
+                    {columns.firstname !== 1 && <ArrowUpwardIcon />}
+                  </Box>
                 </TableCell>
               )}
               {selectedColumns.includes("nachname") && (
-                <TableCell sx={tableStyles.th.cell} align="left">
-                  nachname
+                <TableCell
+                  sx={tableStyles.th.cell}
+                  onClick={() => handleSort("lastname")}
+                  align="left"
+                >
+                  <Box
+                    sx={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "space-around",
+                    }}
+                  >
+                    <Box sx={{ color: "#000" }}>nachname </Box>
+                    {columns.lastname === 1 && <ArrowDownwardIcon />}
+                    {columns.lastname !== 1 && <ArrowUpwardIcon />}
+                  </Box>
                 </TableCell>
               )}
               {selectedColumns.includes("benutzername") && (
-                <TableCell sx={tableStyles.th.cell} align="left">
-                  benutzername
+                <TableCell
+                  sx={tableStyles.th.cell}
+                  onClick={() => handleSort("username")}
+                  align="left"
+                >
+                  <Box
+                    sx={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "space-around",
+                    }}
+                  >
+                    <Box sx={{ color: "#000" }}>benutzername </Box>
+                    {columns.username === 1 && <ArrowDownwardIcon />}
+                    {columns.username !== 1 && <ArrowUpwardIcon />}
+                  </Box>
                 </TableCell>
               )}
               {selectedColumns.includes("kennwort") && (
-                <TableCell sx={tableStyles.th.cell} align="left">
-                  kennwort
+                <TableCell
+                  sx={tableStyles.th.cell}
+                  onClick={() => handleSort("passwordSalt")}
+                  align="left"
+                >
+                  <Box
+                    sx={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "space-around",
+                    }}
+                  >
+                    <Box sx={{ color: "#000" }}>kennwort </Box>
+                    {columns.passwordSalt === 1 && <ArrowDownwardIcon />}
+                    {columns.passwordSalt !== 1 && <ArrowUpwardIcon />}
+                  </Box>
                 </TableCell>
               )}
               {selectedColumns.includes("personalnummer") && (
-                <TableCell sx={tableStyles.th.cell} align="left">
-                  personalnummer
+                <TableCell
+                  sx={tableStyles.th.cell}
+                  onClick={() => handleSort("personnelnumber")}
+                  align="left"
+                >
+                  <Box
+                    sx={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "space-around",
+                    }}
+                  >
+                    <Box sx={{ color: "#000" }}>personalnummer </Box>
+                    {columns.personnelnumber === 1 && <ArrowDownwardIcon />}
+                    {columns.personnelnumber !== 1 && <ArrowUpwardIcon />}
+                  </Box>
                 </TableCell>
               )}
               {selectedColumns.includes("bild") && (
                 <TableCell sx={tableStyles.th.cell} align="left">
-                  bild
+                  <Box sx={{ color: "#000" }}>bild </Box>
                 </TableCell>
               )}
             </TableRow>
           </TableHead>
           <TableBody>
-            {shownData?.map((user, i) => {
+            {sortedData?.map((user, i) => {
               return (
                 <UsersTableRow
                   key={i}

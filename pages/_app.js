@@ -6,6 +6,8 @@ import { Provider } from "react-redux";
 import "../styles/global.css";
 import Loading from "@/components/Loading";
 import { useState } from "react";
+import { ThemeProvider, createTheme } from "@mui/material";
+import { blueGrey } from "@mui/material/colors";
 
 export default function App({ Component, pageProps }) {
   const [loading, setLoading] = useState(false);
@@ -14,17 +16,28 @@ export default function App({ Component, pageProps }) {
   Router.events.on("routeChangeStart", () => setLoading(true));
   Router.events.on("routeChangeComplete", () => setLoading(false));
 
+  const theme = createTheme({
+    palette: {
+      mode: `${"light"}`,
+      primary: {
+        main: blueGrey[600],
+      },
+    },
+  });
+
   return (
     <Provider store={store}>
-      {loading && <Loading />}
-      <SessionProvider>
-        {router.pathname.includes("login") && <Component {...pageProps} />}
-        {!router.pathname.includes("login") && (
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        )}
-      </SessionProvider>
+      <ThemeProvider theme={theme}>
+        {loading && <Loading />}
+        <SessionProvider>
+          {router.pathname.includes("login") && <Component {...pageProps} />}
+          {!router.pathname.includes("login") && (
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          )}
+        </SessionProvider>
+      </ThemeProvider>
     </Provider>
   );
 }
