@@ -11,15 +11,20 @@ const useAtinaCalls = () => {
   //!--------------- GET CALL --------------
   const getAtinaData = async (url) => {
     dispatch(fetchStart());
+    let res = null;
+    let error = null;
     try {
       const { data } = await axiosInstance.get(`${url}`);
       dispatch(getSuccess({ data, url }));
+      res = data;
     } catch (err) {
       const { message } = err;
       dispatch(fetchFail({ message }));
       console.log(err);
       console.log(message);
+      error = err;
     }
+    return { error, res };
   };
 
   //!--------------- PUT CALL --------------

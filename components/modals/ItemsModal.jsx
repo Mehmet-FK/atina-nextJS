@@ -20,12 +20,6 @@ const ItemsModal = ({ setOpenItemsModal, openItemsModal, item }) => {
   const handleChange = (e) => {
     setInputVal({ ...inputVal, [e.target.name]: e.target.value });
   };
-  const { deleteAtinaItems } = useAtinaCalls();
-  const handleDelete = () => {
-    const response = deleteAtinaItems(item.id);
-    console.log("RESPONSE", response);
-    handleClose();
-  };
 
   return (
     <div>
@@ -37,6 +31,11 @@ const ItemsModal = ({ setOpenItemsModal, openItemsModal, item }) => {
           aria-describedby="modal-modal-description"
         >
           <Card sx={modalStyles.bookingModal.cardStyle}>
+            <Box sx={{ textAlign: "right" }}>
+              <IconButton onClick={handleClose}>
+                <CloseIcon />
+              </IconButton>
+            </Box>
             <CardContent sx={modalStyles.bookingModal.content}>
               <Box sx={{ display: "flex" }}>
                 <TextField
@@ -158,10 +157,11 @@ const ItemsModal = ({ setOpenItemsModal, openItemsModal, item }) => {
                 </Button>
                 <Button
                   sx={modalStyles.bookingModal.button}
-                  onClick={handleDelete}
+                  //   onClick={handleDelete}
+                  onClick={handleClose}
                   variant="contained"
                 >
-                  Löschen
+                  Abbrechen
                 </Button>
               </Box>
             </CardContent>
@@ -178,7 +178,6 @@ const ItemsModal = ({ setOpenItemsModal, openItemsModal, item }) => {
           <Card
             sx={{
               ...modalStyles.bookingModal.cardStyle,
-              position: "relative",
             }}
           >
             <Box sx={{ textAlign: "right" }}>

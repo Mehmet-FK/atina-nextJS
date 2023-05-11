@@ -61,7 +61,6 @@ const initalContextMenu = {
 
 const ItemsTable = ({ data }) => {
   const { atinaItems } = useSelector((state) => state.atina);
-
   const { getAtinaItemsData } = useAtinaCalls();
 
   const dispatch = useDispatch();
@@ -72,7 +71,7 @@ const ItemsTable = ({ data }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [shownData, setShownData] = useState(data);
-  const [restart, setRestart] = useState(false);
+  // const [restart, setRestart] = useState(false);
   const [isError, setIsError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [openItemsModal, setOpenItemsModal] = useState(false);
@@ -139,7 +138,7 @@ const ItemsTable = ({ data }) => {
   const { handleRightClick } = useContextMenu(contextMenu, setContextMenu);
 
   useEffect(() => {
-    setShownData(atinaItems);
+    // setShownData(atinaItems);
     handlePagination();
     setLoading(false);
   }, [atinaItems]);
@@ -187,8 +186,10 @@ const ItemsTable = ({ data }) => {
               // onClick={() => setItemType(1)}
               onClick={() => {
                 setLoading(true);
-                getAtinaItemsData("Order");
-                setShownData(atinaItems);
+                getAtinaItemsData("Order").then((response) => {
+                  setShownData(response.res);
+                  // setLoading(false);
+                });
               }}
               sx={{
                 padding: "7px",
@@ -206,8 +207,10 @@ const ItemsTable = ({ data }) => {
               // onClick={() => setItemType(2)}
               onClick={() => {
                 setLoading(true);
-                getAtinaItemsData("Meter");
-                setShownData(atinaItems);
+                getAtinaItemsData("Meter").then((response) => {
+                  setShownData(response.res);
+                  // setLoading(false);
+                });
               }}
               sx={{
                 padding: "7px",
@@ -224,8 +227,10 @@ const ItemsTable = ({ data }) => {
             <Typography
               onClick={() => {
                 setLoading(true);
-                getAtinaItemsData("Vehicle");
-                setShownData(atinaItems);
+                getAtinaItemsData("Vehicle").then((response) => {
+                  setShownData(response.res);
+                  // setLoading(false);
+                });
               }}
               sx={{
                 padding: "7px",
@@ -248,7 +253,7 @@ const ItemsTable = ({ data }) => {
               rowsPerPage={rowsPerPage}
               setRowsPerPage={setRowsPerPage}
               handlePagination={handlePagination}
-              setRestart={setRestart}
+              // setRestart={setRestart}
             />
             <DownloadCSV rawData={shownData} />
             <IconButton onClick={() => setOpenItemsModal(true)}>
@@ -264,11 +269,6 @@ const ItemsTable = ({ data }) => {
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell
-                sx={{ borderRight: "1px solid #ddd", textAlign: "center" }}
-              >
-                #
-              </TableCell>
               {selectedColumns.includes("typ") && (
                 <TableCell
                   sx={{
@@ -617,6 +617,16 @@ const ItemsTable = ({ data }) => {
                   {columns.createdDate !== 1 && <ArrowUpwardIcon />}
                 </TableCell>
               )}
+              <TableCell
+                sx={{ borderRight: "1px solid #ddd", textAlign: "center" }}
+              >
+                #
+              </TableCell>
+              <TableCell
+                sx={{ borderRight: "1px solid #ddd", textAlign: "center" }}
+              >
+                #
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
