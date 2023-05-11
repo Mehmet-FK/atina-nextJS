@@ -6,16 +6,16 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
 import Typography from "@mui/material/Typography";
-import { modalStyles } from "@/app/styles/modal_styles";
+import { modalStyles } from "@/styles/modal_styles";
 // import { useSelector } from "react-redux";
 
 // import errorImg from "../../assets/error.png";
 
-const ErrorModal = () => {
+const ErrorModal = ({ error }) => {
   // const { error, errorMsg } = useSelector((state) => state.atina);
-  let error = false;
+
   let errorMsg = "";
-  const [open, setOpen] = React.useState(error);
+  const [open, setOpen] = React.useState(error ? true : false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -47,14 +47,14 @@ const ErrorModal = () => {
                 Fehlermeldung
               </Typography>
               <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-                {errorMsg}
+                {error}
               </Typography>
             </Box>
-            {/* <img
-              modalStyles.errorModal={{ width: "10rem", height: "10rem" }}
+            <img
+              style={{ width: "10rem", height: "10rem" }}
               alt="error"
-              src={errorImg}
-            /> */}
+              src={"/assets/error.png"}
+            />
           </Box>
         </Fade>
       </Modal>

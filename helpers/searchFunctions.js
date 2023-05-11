@@ -116,3 +116,79 @@ export const searchBookings = async (params) => {
 
   return bookingsArray;
 };
+export const searchItems = async (params) => {
+  let itemArray = null;
+  let error = null;
+
+  const {
+    id,
+    itemType,
+    itemID,
+    itemNumber,
+    street,
+    streetnumber,
+    zip,
+    city,
+    country,
+    data1,
+    data2,
+    data3,
+    data4,
+    data5,
+  } = params;
+
+  let base = `https://pbsolutions.dev/atina/api/AtinaItems/SearchByKeyValue?filters[ItemType]=Order`;
+
+  if (id) {
+    base += `&filters[ID]=${id}`;
+  }
+  if (itemType) {
+    base += `&filters[ItemType]=${itemType}`;
+  }
+  if (itemID) {
+    base += `&filters[ItemId]=${itemID}`;
+  }
+  if (itemNumber) {
+    base += `&filters[ItemNumber]=${itemNumber}`;
+  }
+  if (street) {
+    base += `&filters[Street]=${street}`;
+  }
+  if (streetnumber) {
+    base += `&filters[Streetnumber]=${streetnumber}`;
+  }
+  if (zip) {
+    base += `&filters[Zip]=${zip}`;
+  }
+  if (city) {
+    base += `&filters[City]=${city}`;
+  }
+  if (country) {
+    base += `&filters[Country]=${country}`;
+  }
+  if (data1) {
+    base += `&filters[Data1]=${data1}`;
+  }
+  if (data2) {
+    base += `&filters[Data2]=${data2}`;
+  }
+  if (data3) {
+    base += `&filters[Data3]=${data3}`;
+  }
+  if (data4) {
+    base += `&filters[Data4]=${data4}`;
+  }
+  if (data5) {
+    base += `&filters[Data5]=${data5}`;
+  }
+  console.log(base);
+  try {
+    const { data } = await axios(base);
+    itemArray = data;
+  } catch (err) {
+    console.log(err);
+    error = err;
+  }
+
+  return { itemArray, error };
+};

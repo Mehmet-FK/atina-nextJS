@@ -24,100 +24,100 @@ const ItemsTableRow = ({ item, selectedColumns }) => {
             item={item}
           />
 
-          {item?.ItemType === "Order" && "Auftrag"}
+          {item?.itemType === "Order" && "Auftrag"}
           {item?.itemType === "Meter" && "Zähler"}
-          {item?.itemType === "Car" && "KFZ"}
+          {item?.itemType === "Vehicle" && "KFZ"}
         </TableCell>
       )}
       {selectedColumns.includes("artikelnummer") && (
         <TableCell sx={tableStyles.tr.cell} align="left">
-          {item?.ItemNumber}
+          {item?.itemNumber}
         </TableCell>
       )}
 
       {selectedColumns.includes("straße") && (
         <TableCell sx={tableStyles.tr.cell} align="left">
-          {item?.Street}
+          {item?.street}
         </TableCell>
       )}
       {selectedColumns.includes("hausnummer") && (
         <TableCell sx={tableStyles.tr.cell} align="left">
-          {item?.Streetnumber}
+          {item?.streetnumber}
         </TableCell>
       )}
       {selectedColumns.includes("plz") && (
         <TableCell sx={tableStyles.tr.cell} align="left">
-          {item?.Zip}
+          {item?.zip}
         </TableCell>
       )}
       {selectedColumns.includes("stadt") && (
         <TableCell sx={tableStyles.tr.cell} align="left">
-          {item?.City}
+          {item?.city}
         </TableCell>
       )}
       {selectedColumns.includes("land") && (
         <TableCell sx={tableStyles.tr.cell} align="left">
-          {item?.Country ? item?.Country : ""}
+          {item?.country ? item?.country : ""}
         </TableCell>
       )}
 
       {selectedColumns.includes("daten1") && (
         <TableCell sx={tableStyles.tr.cell} align="left">
-          {item?.Data1 ? item?.data1 : ""}
+          {item?.data1 ? item?.data1 : ""}
         </TableCell>
       )}
 
       {selectedColumns.includes("daten2") && (
         <TableCell sx={tableStyles.tr.cell} align="left">
-          {item?.Data2 ? item?.data2 : ""}
+          {item?.data2 ? item?.data2 : ""}
         </TableCell>
       )}
 
       {selectedColumns.includes("daten3") && (
         <TableCell sx={tableStyles.tr.cell} align="left">
-          {item?.Data3 ? item?.data3 : ""}
+          {item?.data3 ? item?.data3 : ""}
         </TableCell>
       )}
 
       {selectedColumns.includes("daten4") && (
         <TableCell sx={tableStyles.tr.cell} align="left">
-          {item?.Data4 ? item?.data4 : ""}
+          {item?.data4 ? item?.data4 : ""}
         </TableCell>
       )}
       {selectedColumns.includes("daten5") && (
         <TableCell sx={tableStyles.tr.cell} align="left">
-          {item?.Data5 ? item?.data5 : ""}
+          {item?.data5 ? item?.data5 : ""}
         </TableCell>
       )}
       {selectedColumns.includes("daten6") && (
         <TableCell sx={tableStyles.tr.cell} align="left">
-          {item?.Data6 ? item?.data6 : ""}
+          {item?.data6 ? item?.data6 : ""}
         </TableCell>
       )}
       {selectedColumns.includes("daten7") && (
         <TableCell sx={tableStyles.tr.cell} align="left">
-          {item?.Data7 ? item?.data7 : ""}
+          {item?.data7 ? item?.data7 : ""}
         </TableCell>
       )}
       {selectedColumns.includes("daten8") && (
         <TableCell sx={tableStyles.tr.cell} align="left">
-          {item?.Data8 ? item?.data8 : ""}
+          {item?.data8 ? item?.data8 : ""}
         </TableCell>
       )}
       {selectedColumns.includes("daten9") && (
         <TableCell sx={tableStyles.tr.cell} align="left">
-          {item?.Data9 ? item?.data9 : ""}
+          {item?.data9 ? item?.data9 : ""}
         </TableCell>
       )}
       {selectedColumns.includes("daten10") && (
         <TableCell sx={tableStyles.tr.cell} align="left">
-          {item?.Data10 ? item?.data10 : ""}
+          {item?.data10 ? item?.data10 : ""}
         </TableCell>
       )}
       {selectedColumns.includes("erstellt am") && (
         <TableCell sx={tableStyles.tr.cell} align="left">
           {/* {JSON.stringify(item?.CreatedDate)} */}
-          {new Date(item?.CreatedDate).toLocaleDateString("de")}
+          {new Date(item?.createdDate).toLocaleDateString("de")}
         </TableCell>
       )}
     </TableRow>

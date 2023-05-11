@@ -36,7 +36,8 @@ export const getServerSideProps = async (context) => {
 
   return {
     props: {
-      data: x,
+      data: x.res,
+      error: x.error,
       session,
     },
   };

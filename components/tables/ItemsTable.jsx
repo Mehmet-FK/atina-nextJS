@@ -30,6 +30,8 @@ import useSortColumn from "@/hooks/useSortColumn";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import ItemsModal from "../modals/ItemsModal";
 import LoadingIcon from "../LoadingIcon";
+import ItemsFilter from "../filters/ItemsFilter";
+import { searchItems } from "@/helpers/searchFunctions";
 
 const tableColumns = [
   "typ",
@@ -71,7 +73,7 @@ const ItemsTable = ({ data }) => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [shownData, setShownData] = useState(data);
   const [restart, setRestart] = useState(false);
-  const [itemType, setItemType] = useState(null);
+  const [isError, setIsError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [openItemsModal, setOpenItemsModal] = useState(false);
   const handlePagination = () => {
@@ -83,24 +85,24 @@ const ItemsTable = ({ data }) => {
   // ===Table sort  START===
 
   const columnObj = {
-    ItemType: 1,
-    ItemNumber: 1,
-    Street: 1,
-    Streetnumber: 1,
-    Zip: 1,
-    City: 1,
-    Country: 1,
-    Data1: 1,
-    Data2: 1,
-    Data3: 1,
-    Data4: 1,
-    Data5: 1,
-    Data6: 1,
-    Data7: 1,
-    Data8: 1,
-    Data9: 1,
-    Data10: 1,
-    CreatedDate: 1,
+    itemType: 1,
+    itemNumber: 1,
+    street: 1,
+    streetnumber: 1,
+    zip: 1,
+    city: 1,
+    country: 1,
+    data1: 1,
+    data2: 1,
+    data3: 1,
+    data4: 1,
+    data5: 1,
+    data6: 1,
+    data7: 1,
+    data8: 1,
+    data9: 1,
+    data10: 1,
+    createdDate: 1,
   };
   const { sortedData, handleSort, columns } = useSortColumn(
     shownData,
@@ -111,28 +113,20 @@ const ItemsTable = ({ data }) => {
   // ===Table Filter START===
   const [filterVal, setFilterVal] = useState({});
 
-  const handleFilter = () => {};
+  const handleFilter = () => {
+    setLoading(true);
+    searchItems(filterVal).then((res) => {
+      setShownData(res.itemArray);
+      setIsError(res.error ? true : false);
+      setLoading(false);
+      console.log(res.error);
+    });
+  };
 
   const handleReset = () => {
     setFilterVal({});
     handlePagination();
   };
-  /* const handleSort = () => {
-    const arr = shownData.map((item) => ({
-      ...item,
-      createdDate: new Date(item.createdDate),
-    }));
-
-    if (newest) {
-      let temp = arr.sort((a, b) => b.createdDate - a.createdDate);
-      setNewest(!newest);
-      setShownData(temp);
-    } else {
-      let temp = arr.sort((a, b) => a.createdDate - b.createdDate);
-      setNewest(!newest);
-      setShownData(temp);
-    }
-  }; */
   // ===Table Filter END===
 
   // === Column Select START ===
@@ -146,6 +140,7 @@ const ItemsTable = ({ data }) => {
 
   useEffect(() => {
     setShownData(atinaItems);
+    handlePagination();
     setLoading(false);
   }, [atinaItems]);
 
@@ -169,6 +164,7 @@ const ItemsTable = ({ data }) => {
           selectedColumns={selectedColumns}
           setSelectedColumns={setSelectedColumns}
           setOpenItemsModal={setOpenItemsModal}
+          openItemsModal={openItemsModal}
         />
       )}
       <TableContainer
@@ -179,7 +175,7 @@ const ItemsTable = ({ data }) => {
           maxWidth: xxl ? "90vw" : { lg: "1250px" },
         }}
       >
-        <NfcFilter
+        <ItemsFilter
           handleReset={handleReset}
           handleFilter={handleFilter}
           filterVal={filterVal}
@@ -191,7 +187,7 @@ const ItemsTable = ({ data }) => {
               // onClick={() => setItemType(1)}
               onClick={() => {
                 setLoading(true);
-                getAtinaItemsData(1);
+                getAtinaItemsData("Order");
                 setShownData(atinaItems);
               }}
               sx={{
@@ -210,7 +206,7 @@ const ItemsTable = ({ data }) => {
               // onClick={() => setItemType(2)}
               onClick={() => {
                 setLoading(true);
-                getAtinaItemsData(2);
+                getAtinaItemsData("Meter");
                 setShownData(atinaItems);
               }}
               sx={{
@@ -228,7 +224,7 @@ const ItemsTable = ({ data }) => {
             <Typography
               onClick={() => {
                 setLoading(true);
-                getAtinaItemsData(3);
+                getAtinaItemsData("Vehicle");
                 setShownData(atinaItems);
               }}
               sx={{
@@ -255,7 +251,7 @@ const ItemsTable = ({ data }) => {
               setRestart={setRestart}
             />
             <DownloadCSV rawData={shownData} />
-            <IconButton onClick={() => setOpenItemsModal(!openItemsModal)}>
+            <IconButton onClick={() => setOpenItemsModal(true)}>
               <AddCircleIcon
                 sx={{
                   borderRadius: "10px",
@@ -283,7 +279,7 @@ const ItemsTable = ({ data }) => {
                     cursor: "pointer",
                     borderRight: "1px solid #aaa",
                   }}
-                  onClick={() => handleSort("ItemType")}
+                  onClick={() => handleSort("itemType")}
                   align="left"
                 >
                   <Box
@@ -294,15 +290,15 @@ const ItemsTable = ({ data }) => {
                     }}
                   >
                     <Box sx={{ color: "#000" }}>Typ </Box>
-                    {columns.ItemType === 1 && <ArrowDownwardIcon />}
-                    {columns.ItemType !== 1 && <ArrowUpwardIcon />}
+                    {columns.itemType === 1 && <ArrowDownwardIcon />}
+                    {columns.itemType !== 1 && <ArrowUpwardIcon />}
                   </Box>
                 </TableCell>
               )}
               {selectedColumns.includes("artikelnummer") && (
                 <TableCell
                   sx={tableStyles.th.cell}
-                  onClick={() => handleSort("ItemNumber")}
+                  onClick={() => handleSort("itemNumber")}
                   align="left"
                 >
                   <Box
@@ -313,15 +309,15 @@ const ItemsTable = ({ data }) => {
                     }}
                   >
                     <Box sx={{ color: "#000" }}>artikelnummer </Box>
-                    {columns.ItemNumber === 1 && <ArrowDownwardIcon />}
-                    {columns.ItemNumber !== 1 && <ArrowUpwardIcon />}
+                    {columns.itemNumber === 1 && <ArrowDownwardIcon />}
+                    {columns.itemNumber !== 1 && <ArrowUpwardIcon />}
                   </Box>
                 </TableCell>
               )}
               {selectedColumns.includes("straße") && (
                 <TableCell
                   sx={tableStyles.th.cell}
-                  onClick={() => handleSort("Street")}
+                  onClick={() => handleSort("street")}
                   align="left"
                 >
                   <Box
@@ -332,15 +328,15 @@ const ItemsTable = ({ data }) => {
                     }}
                   >
                     <Box sx={{ color: "#000" }}>straße </Box>
-                    {columns.Street === 1 && <ArrowDownwardIcon />}
-                    {columns.Street !== 1 && <ArrowUpwardIcon />}
+                    {columns.street === 1 && <ArrowDownwardIcon />}
+                    {columns.street !== 1 && <ArrowUpwardIcon />}
                   </Box>
                 </TableCell>
               )}
               {selectedColumns.includes("hausnummer") && (
                 <TableCell
                   sx={tableStyles.th.cell}
-                  onClick={() => handleSort("Streetnumber")}
+                  onClick={() => handleSort("streetnumber")}
                   align="left"
                 >
                   <Box
@@ -351,15 +347,15 @@ const ItemsTable = ({ data }) => {
                     }}
                   >
                     <Box sx={{ color: "#000" }}>hausnummer </Box>
-                    {columns.Streetnumber === 1 && <ArrowDownwardIcon />}
-                    {columns.Streetnumber !== 1 && <ArrowUpwardIcon />}
+                    {columns.streetnumber === 1 && <ArrowDownwardIcon />}
+                    {columns.streetnumber !== 1 && <ArrowUpwardIcon />}
                   </Box>
                 </TableCell>
               )}
               {selectedColumns.includes("plz") && (
                 <TableCell
                   sx={tableStyles.th.cell}
-                  onClick={() => handleSort("Zip")}
+                  onClick={() => handleSort("zip")}
                   align="left"
                 >
                   <Box
@@ -370,15 +366,15 @@ const ItemsTable = ({ data }) => {
                     }}
                   >
                     <Box sx={{ color: "#000" }}>plz </Box>
-                    {columns.Zip === 1 && <ArrowDownwardIcon />}
-                    {columns.Zip !== 1 && <ArrowUpwardIcon />}
+                    {columns.zip === 1 && <ArrowDownwardIcon />}
+                    {columns.zip !== 1 && <ArrowUpwardIcon />}
                   </Box>
                 </TableCell>
               )}
               {selectedColumns.includes("stadt") && (
                 <TableCell
                   sx={tableStyles.th.cell}
-                  onClick={() => handleSort("City")}
+                  onClick={() => handleSort("city")}
                   align="left"
                 >
                   <Box
@@ -389,13 +385,17 @@ const ItemsTable = ({ data }) => {
                     }}
                   >
                     <Box sx={{ color: "#000" }}>stadt </Box>
-                    {columns.City === 1 && <ArrowDownwardIcon />}
-                    {columns.City !== 1 && <ArrowUpwardIcon />}
+                    {columns.city === 1 && <ArrowDownwardIcon />}
+                    {columns.city !== 1 && <ArrowUpwardIcon />}
                   </Box>
                 </TableCell>
               )}
               {selectedColumns.includes("land") && (
-                <TableCell sx={tableStyles.th.cell} align="left">
+                <TableCell
+                  sx={tableStyles.th.cell}
+                  onClick={() => handleSort("country")}
+                  align="left"
+                >
                   <Box
                     sx={{
                       width: "100%",
@@ -404,13 +404,17 @@ const ItemsTable = ({ data }) => {
                     }}
                   >
                     <Box sx={{ color: "#000" }}>land </Box>
-                    {columns.Country === 1 && <ArrowDownwardIcon />}
-                    {columns.Country !== 1 && <ArrowUpwardIcon />}
+                    {columns.country === 1 && <ArrowDownwardIcon />}
+                    {columns.country !== 1 && <ArrowUpwardIcon />}
                   </Box>
                 </TableCell>
               )}
               {selectedColumns.includes("daten1") && (
-                <TableCell sx={tableStyles.th.cell} align="left">
+                <TableCell
+                  sx={tableStyles.th.cell}
+                  onClick={() => handleSort("data1")}
+                  align="left"
+                >
                   <Box
                     sx={{
                       width: "100%",
@@ -419,13 +423,17 @@ const ItemsTable = ({ data }) => {
                     }}
                   >
                     <Box sx={{ color: "#000" }}>daten1 </Box>
-                    {columns.Data1 === 1 && <ArrowDownwardIcon />}
-                    {columns.Data1 !== 1 && <ArrowUpwardIcon />}
+                    {columns.data1 === 1 && <ArrowDownwardIcon />}
+                    {columns.data1 !== 1 && <ArrowUpwardIcon />}
                   </Box>
                 </TableCell>
               )}
               {selectedColumns.includes("daten2") && (
-                <TableCell sx={tableStyles.th.cell} align="left">
+                <TableCell
+                  sx={tableStyles.th.cell}
+                  onClick={() => handleSort("data2")}
+                  align="left"
+                >
                   <Box
                     sx={{
                       width: "100%",
@@ -434,13 +442,17 @@ const ItemsTable = ({ data }) => {
                     }}
                   >
                     <Box sx={{ color: "#000" }}> daten2 </Box>
-                    {columns.Data2 === 1 && <ArrowDownwardIcon />}
-                    {columns.Data2 !== 1 && <ArrowUpwardIcon />}
+                    {columns.data2 === 1 && <ArrowDownwardIcon />}
+                    {columns.data2 !== 1 && <ArrowUpwardIcon />}
                   </Box>
                 </TableCell>
               )}
               {selectedColumns.includes("daten3") && (
-                <TableCell sx={tableStyles.th.cell} align="left">
+                <TableCell
+                  sx={tableStyles.th.cell}
+                  onClick={() => handleSort("data3")}
+                  align="left"
+                >
                   <Box
                     sx={{
                       width: "100%",
@@ -449,13 +461,17 @@ const ItemsTable = ({ data }) => {
                     }}
                   >
                     <Box sx={{ color: "#000" }}>daten3 </Box>
-                    {columns.Data3 === 1 && <ArrowDownwardIcon />}
-                    {columns.Data3 !== 1 && <ArrowUpwardIcon />}
+                    {columns.data3 === 1 && <ArrowDownwardIcon />}
+                    {columns.data3 !== 1 && <ArrowUpwardIcon />}
                   </Box>
                 </TableCell>
               )}
               {selectedColumns.includes("daten4") && (
-                <TableCell sx={tableStyles.th.cell} align="left">
+                <TableCell
+                  sx={tableStyles.th.cell}
+                  onClick={() => handleSort("data4")}
+                  align="left"
+                >
                   <Box
                     sx={{
                       width: "100%",
@@ -464,13 +480,17 @@ const ItemsTable = ({ data }) => {
                     }}
                   >
                     <Box sx={{ color: "#000" }}> daten4 </Box>
-                    {columns.Data4 === 1 && <ArrowDownwardIcon />}
-                    {columns.Data4 !== 1 && <ArrowUpwardIcon />}
+                    {columns.data4 === 1 && <ArrowDownwardIcon />}
+                    {columns.data4 !== 1 && <ArrowUpwardIcon />}
                   </Box>
                 </TableCell>
               )}
               {selectedColumns.includes("daten5") && (
-                <TableCell sx={tableStyles.th.cell} align="left">
+                <TableCell
+                  sx={tableStyles.th.cell}
+                  onClick={() => handleSort("data5")}
+                  align="left"
+                >
                   <Box
                     sx={{
                       width: "100%",
@@ -479,13 +499,17 @@ const ItemsTable = ({ data }) => {
                     }}
                   >
                     <Box sx={{ color: "#000" }}>daten5 </Box>
-                    {columns.Data5 === 1 && <ArrowDownwardIcon />}
-                    {columns.Data5 !== 1 && <ArrowUpwardIcon />}
+                    {columns.data5 === 1 && <ArrowDownwardIcon />}
+                    {columns.data5 !== 1 && <ArrowUpwardIcon />}
                   </Box>
                 </TableCell>
               )}
               {selectedColumns.includes("daten6") && (
-                <TableCell sx={tableStyles.th.cell} align="left">
+                <TableCell
+                  sx={tableStyles.th.cell}
+                  onClick={() => handleSort("data6")}
+                  align="left"
+                >
                   <Box
                     sx={{
                       width: "100%",
@@ -494,13 +518,17 @@ const ItemsTable = ({ data }) => {
                     }}
                   >
                     <Box sx={{ color: "#000" }}>daten6 </Box>
-                    {columns.Data6 === 1 && <ArrowDownwardIcon />}
-                    {columns.Data6 !== 1 && <ArrowUpwardIcon />}
+                    {columns.data6 === 1 && <ArrowDownwardIcon />}
+                    {columns.data6 !== 1 && <ArrowUpwardIcon />}
                   </Box>
                 </TableCell>
               )}
               {selectedColumns.includes("daten7") && (
-                <TableCell sx={tableStyles.th.cell} align="left">
+                <TableCell
+                  sx={tableStyles.th.cell}
+                  onClick={() => handleSort("data7")}
+                  align="left"
+                >
                   <Box
                     sx={{
                       width: "100%",
@@ -509,13 +537,17 @@ const ItemsTable = ({ data }) => {
                     }}
                   >
                     <Box sx={{ color: "#000" }}>daten7 </Box>
-                    {columns.Data7 === 1 && <ArrowDownwardIcon />}
-                    {columns.Data7 !== 1 && <ArrowUpwardIcon />}
+                    {columns.data7 === 1 && <ArrowDownwardIcon />}
+                    {columns.data7 !== 1 && <ArrowUpwardIcon />}
                   </Box>
                 </TableCell>
               )}
               {selectedColumns.includes("daten8") && (
-                <TableCell sx={tableStyles.th.cell} align="left">
+                <TableCell
+                  sx={tableStyles.th.cell}
+                  onClick={() => handleSort("data8")}
+                  align="left"
+                >
                   <Box
                     sx={{
                       width: "100%",
@@ -524,13 +556,17 @@ const ItemsTable = ({ data }) => {
                     }}
                   >
                     <Box sx={{ color: "#000" }}>daten8 </Box>
-                    {columns.Data8 === 1 && <ArrowDownwardIcon />}
-                    {columns.Data8 !== 1 && <ArrowUpwardIcon />}
+                    {columns.data8 === 1 && <ArrowDownwardIcon />}
+                    {columns.data8 !== 1 && <ArrowUpwardIcon />}
                   </Box>
                 </TableCell>
               )}
               {selectedColumns.includes("daten9") && (
-                <TableCell sx={tableStyles.th.cell} align="left">
+                <TableCell
+                  sx={tableStyles.th.cell}
+                  onClick={() => handleSort("data9")}
+                  align="left"
+                >
                   <Box
                     sx={{
                       width: "100%",
@@ -539,13 +575,17 @@ const ItemsTable = ({ data }) => {
                     }}
                   >
                     <Box sx={{ color: "#000" }}>daten9 </Box>
-                    {columns.Data9 === 1 && <ArrowDownwardIcon />}
-                    {columns.Data9 !== 1 && <ArrowUpwardIcon />}
+                    {columns.data9 === 1 && <ArrowDownwardIcon />}
+                    {columns.data9 !== 1 && <ArrowUpwardIcon />}
                   </Box>
                 </TableCell>
               )}
               {selectedColumns.includes("daten10") && (
-                <TableCell sx={tableStyles.th.cell} align="left">
+                <TableCell
+                  sx={tableStyles.th.cell}
+                  onClick={() => handleSort("data10")}
+                  align="left"
+                >
                   <Box
                     sx={{
                       width: "100%",
@@ -554,14 +594,14 @@ const ItemsTable = ({ data }) => {
                     }}
                   >
                     <Box sx={{ color: "#000" }}>daten10 </Box>
-                    {columns.Data10 === 1 && <ArrowDownwardIcon />}
-                    {columns.Data10 !== 1 && <ArrowUpwardIcon />}
+                    {columns.data10 === 1 && <ArrowDownwardIcon />}
+                    {columns.data10 !== 1 && <ArrowUpwardIcon />}
                   </Box>
                 </TableCell>
               )}
               {selectedColumns.includes("erstellt am") && (
                 <TableCell
-                  onClick={() => handleSort("CreatedDate")}
+                  onClick={() => handleSort("createdDate")}
                   sx={{
                     ...tableStyles.th.cell,
                     display: "flex",
@@ -573,8 +613,8 @@ const ItemsTable = ({ data }) => {
                   align="left"
                 >
                   <Box color={"#000"}>erstellt am</Box>
-                  {columns.CreatedDate === 1 && <ArrowDownwardIcon />}
-                  {columns.CreatedDate !== 1 && <ArrowUpwardIcon />}
+                  {columns.createdDate === 1 && <ArrowDownwardIcon />}
+                  {columns.createdDate !== 1 && <ArrowUpwardIcon />}
                 </TableCell>
               )}
             </TableRow>

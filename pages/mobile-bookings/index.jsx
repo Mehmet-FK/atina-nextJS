@@ -1,12 +1,15 @@
+import ErrorModal from "@/components/modals/ErrorModal";
 import MobileBookingsTable from "@/components/tables/MobileBookingsTable";
 import { AtinaCalls } from "@/helpers/apiFunctions";
 import axios from "axios";
 import { getSession } from "next-auth/react";
 import Head from "next/head";
 
-const MobileBookings = ({ data }) => {
+const MobileBookings = ({ data, error }) => {
+  console.log("ERROR", error);
   return (
     <div>
+      <ErrorModal error={error} />
       <Head>
         <title>Mobile Buchungen</title>
       </Head>
@@ -35,6 +38,6 @@ export const getServerSideProps = async (context) => {
   const x = await atinaCalls.fetchData("api/AtinaMobileBookings");
 
   return {
-    props: { data: x },
+    props: { data: x.res, error: x.error.message },
   };
 };

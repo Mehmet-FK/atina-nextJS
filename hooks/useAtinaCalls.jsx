@@ -35,14 +35,34 @@ const useAtinaCalls = () => {
       console.log(err);
     }
   };
+  //!--------------- DELETE CALL --------------
+  const deleteAtinaData = async (url, id) => {
+    let res = null;
+    let error = null;
+    try {
+      res = await axiosInstance.delete(`${url}/${id}`);
+      toastSuccessNotify(`Erfolgreich aktualisiert..`);
+    } catch (err) {
+      error = err;
+      const { message } = err;
+      dispatch(fetchFail({ message }));
+      toastErrorNotify(`Etwas schiefgelaufen.. `);
+      toastErrorNotify(`${message}`);
+      console.log(err);
+    }
+    return { res, error };
+  };
   //GET
   const getUsersData = () => getAtinaData("AtinaUsers");
   const getMobileBookingsData = () => getAtinaData("api/AtinaMobileBookings");
   const getNfcTagsData = () => getAtinaData("AtinaNfcTags");
-  const getAtinaItemsData = (a) =>
-    getAtinaData(`api/AtinaItems/search?filter=aufeldgasse&type=${a}`);
+  const getAtinaItemsData = (type) =>
+    getAtinaData(`api/AtinaItems/SearchByKeyValue?filters[ItemType]=${type}`);
   //PUT
   const putUserData = (info) => putAtinaData("AtinaUsers", info);
+
+  // DELETE
+  const deleteAtinaItems = (id) => deleteAtinaData("api/AtinaItems/Delete", id);
 
   return {
     getUsersData,
@@ -50,6 +70,7 @@ const useAtinaCalls = () => {
     getNfcTagsData,
     getAtinaItemsData,
     putUserData,
+    deleteAtinaItems,
   };
 };
 

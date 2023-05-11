@@ -31,9 +31,9 @@ export const getServerSideProps = async (context) => {
 
   const atinaCalls = new AtinaCalls();
 
-  const x = await atinaCalls.fetchData("api/AtinaItems/search");
+  const x = await atinaCalls.fetchData("api/AtinaItems/SearchByKeyValue");
 
   return {
-    props: { data: x },
+    props: { data: x.res },
   };
 };

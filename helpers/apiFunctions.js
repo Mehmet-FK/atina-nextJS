@@ -29,12 +29,14 @@ export class AtinaCalls {
 
   async fetchData(url) {
     let res = null;
+    let error = null;
     try {
       const { data } = await axios(`${this.baseUrl}${url}`);
       res = data;
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      console.log(err);
+      error = err;
     }
-    return res;
+    return { res, error };
   }
 }

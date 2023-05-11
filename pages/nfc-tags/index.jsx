@@ -30,9 +30,9 @@ export const getServerSideProps = async (context) => {
   const atinaCalls = new AtinaCalls();
 
   const x = await atinaCalls.fetchData("AtinaNfcTags");
-  const editedData = x?.map((item) => item.item);
+  const editedData = x?.res?.map((item) => item.item);
 
   return {
-    props: { data: editedData },
+    props: { data: editedData, error: x.error },
   };
 };

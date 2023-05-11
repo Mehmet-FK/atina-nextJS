@@ -105,7 +105,10 @@ const ContextMenu = ({
         Spalten Verwalten
       </Button>
       {setOpenItemsModal !== undefined && (
-        <Button onClick={() => setOpenItemsModal((prev) => !prev)}>
+        <Button
+          onClick={() => setOpenItemsModal(true)}
+          // onClick={() => console.log("clicked")}
+        >
           neu einfügen
         </Button>
       )}
