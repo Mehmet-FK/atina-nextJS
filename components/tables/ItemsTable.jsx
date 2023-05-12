@@ -149,8 +149,10 @@ const ItemsTable = ({ data }) => {
 
   useEffect(() => {
     handlePagination();
+    setType("Order");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, rowsPerPage, data]);
+
   return (
     <>
       <ItemsModal
@@ -437,7 +439,11 @@ const ItemsTable = ({ data }) => {
                       justifyContent: "space-around",
                     }}
                   >
-                    <Box sx={{ color: "#000" }}>daten1 </Box>
+                    <Box sx={{ color: "#000" }}>
+                      {type === "Order" && "Mandant"}
+                      {type === "Meter" && "Letzte Ablesung am"}
+                      {type === "Vehicle" && "Mandant"}
+                    </Box>
                     {columns.data1 === 1 && <ArrowDownwardIcon />}
                     {columns.data1 !== 1 && <ArrowUpwardIcon />}
                   </Box>
@@ -456,13 +462,17 @@ const ItemsTable = ({ data }) => {
                       justifyContent: "space-around",
                     }}
                   >
-                    <Box sx={{ color: "#000" }}> daten2 </Box>
+                    <Box sx={{ color: "#000" }}>
+                      {type === "Order" && "Auftragsart"}
+                      {type === "Meter" && "Letzte Ablesung"}
+                      {type === "Vehicle" && "Standort"}
+                    </Box>
                     {columns.data2 === 1 && <ArrowDownwardIcon />}
                     {columns.data2 !== 1 && <ArrowUpwardIcon />}
                   </Box>
                 </TableCell>
               )}
-              {selectedColumns.includes("daten3") && (
+              {selectedColumns.includes("daten3") && type !== "Meter" && (
                 <TableCell
                   sx={tableStyles.th.cell}
                   onClick={() => handleSort("data3")}
@@ -475,13 +485,17 @@ const ItemsTable = ({ data }) => {
                       justifyContent: "space-around",
                     }}
                   >
-                    <Box sx={{ color: "#000" }}>daten3 </Box>
+                    <Box sx={{ color: "#000" }}>
+                      {type === "Order" && "Auftragsbetreff"}
+                      {type === "Meter" && "daten3"}
+                      {type === "Vehicle" && "Kennzeichen"}
+                    </Box>
                     {columns.data3 === 1 && <ArrowDownwardIcon />}
                     {columns.data3 !== 1 && <ArrowUpwardIcon />}
                   </Box>
                 </TableCell>
               )}
-              {selectedColumns.includes("daten4") && (
+              {selectedColumns.includes("daten4") && type !== "Meter" && (
                 <TableCell
                   sx={tableStyles.th.cell}
                   onClick={() => handleSort("data4")}
@@ -494,32 +508,40 @@ const ItemsTable = ({ data }) => {
                       justifyContent: "space-around",
                     }}
                   >
-                    <Box sx={{ color: "#000" }}> daten4 </Box>
+                    <Box sx={{ color: "#000" }}>
+                      {type === "Order" && "Kundennummer"}
+                      {type === "Meter" && "daten4"}
+                      {type === "Vehicle" && "Modell"}
+                    </Box>
                     {columns.data4 === 1 && <ArrowDownwardIcon />}
                     {columns.data4 !== 1 && <ArrowUpwardIcon />}
                   </Box>
                 </TableCell>
               )}
-              {selectedColumns.includes("daten5") && (
-                <TableCell
-                  sx={tableStyles.th.cell}
-                  onClick={() => handleSort("data5")}
-                  align="left"
-                >
-                  <Box
-                    sx={{
-                      width: "100%",
-                      display: "flex",
-                      justifyContent: "space-around",
-                    }}
+              {selectedColumns.includes("daten5") &&
+                type !== "Meter" &&
+                type !== "Vehicle" && (
+                  <TableCell
+                    sx={tableStyles.th.cell}
+                    onClick={() => handleSort("data5")}
+                    align="left"
                   >
-                    <Box sx={{ color: "#000" }}>daten5 </Box>
-                    {columns.data5 === 1 && <ArrowDownwardIcon />}
-                    {columns.data5 !== 1 && <ArrowUpwardIcon />}
-                  </Box>
-                </TableCell>
-              )}
-              {selectedColumns.includes("daten6") && (
+                    <Box
+                      sx={{
+                        width: "100%",
+                        display: "flex",
+                        justifyContent: "space-around",
+                      }}
+                    >
+                      <Box sx={{ color: "#000" }}>
+                        {type === "Order" && "Kundenname"}
+                      </Box>
+                      {columns.data5 === 1 && <ArrowDownwardIcon />}
+                      {columns.data5 !== 1 && <ArrowUpwardIcon />}
+                    </Box>
+                  </TableCell>
+                )}
+              {/* {selectedColumns.includes("daten6") && (
                 <TableCell
                   sx={tableStyles.th.cell}
                   onClick={() => handleSort("data6")}
@@ -613,7 +635,7 @@ const ItemsTable = ({ data }) => {
                     {columns.data10 !== 1 && <ArrowUpwardIcon />}
                   </Box>
                 </TableCell>
-              )}
+              )} */}
               {selectedColumns.includes("erstellt am") && (
                 <TableCell
                   onClick={() => handleSort("createdDate")}

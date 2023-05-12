@@ -87,23 +87,25 @@ const ItemsTableRow = ({ item, selectedColumns }) => {
           </TableCell>
         )}
 
-        {selectedColumns.includes("daten3") && (
+        {selectedColumns.includes("daten3") && item?.itemType !== "Meter" && (
           <TableCell sx={tableStyles.tr.cell} align="left">
             {item?.data3 ? item?.data3 : ""}
           </TableCell>
         )}
 
-        {selectedColumns.includes("daten4") && (
+        {selectedColumns.includes("daten4") && item?.itemType !== "Meter" && (
           <TableCell sx={tableStyles.tr.cell} align="left">
             {item?.data4 ? item?.data4 : ""}
           </TableCell>
         )}
-        {selectedColumns.includes("daten5") && (
-          <TableCell sx={tableStyles.tr.cell} align="left">
-            {item?.data5 ? item?.data5 : ""}
-          </TableCell>
-        )}
-        {selectedColumns.includes("daten6") && (
+        {selectedColumns.includes("daten5") &&
+          item?.itemType !== "Vehicle" &&
+          item?.itemType !== "Meter" && (
+            <TableCell sx={tableStyles.tr.cell} align="left">
+              {item?.data5 ? item?.data5 : ""}
+            </TableCell>
+          )}
+        {/* {selectedColumns.includes("daten6") && (
           <TableCell sx={tableStyles.tr.cell} align="left">
             {item?.data6 ? item?.data6 : ""}
           </TableCell>
@@ -127,7 +129,7 @@ const ItemsTableRow = ({ item, selectedColumns }) => {
           <TableCell sx={tableStyles.tr.cell} align="left">
             {item?.data10 ? item?.data10 : ""}
           </TableCell>
-        )}
+        )} */}
         {selectedColumns.includes("erstellt am") && (
           <TableCell sx={tableStyles.tr.cell} align="left">
             {/* {JSON.stringify(item?.CreatedDate)} */}
