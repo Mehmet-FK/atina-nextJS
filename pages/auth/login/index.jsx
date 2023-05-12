@@ -73,20 +73,21 @@ const Login = () => {
           minWidth: "300px",
           rowGap: "15px",
           padding: "2rem",
-          width: "50%",
+          width: { xs: "100%", md: "100%", lg: "50%" },
           height: "100%",
         }}
       >
         <Image
           src={"/assets/attensam-logo.svg"}
-          width={250}
-          height={100}
+          style={{ marginBottom: "3rem" }}
+          width={375}
+          height={150}
           alt="logo"
         />
 
         <TextField
           onChange={handleChange}
-          sx={{ width: "100%" }}
+          sx={{ width: "350px" }}
           inputProps={{
             sx: { backgroundColor: "#fff", borderRadius: "5px" },
           }}
@@ -98,7 +99,7 @@ const Login = () => {
         />
         <TextField
           onChange={handleChange}
-          sx={{ width: "100%" }}
+          sx={{ width: "350px" }}
           inputProps={{
             sx: { backgroundColor: "#fff", borderRadius: "5px" },
           }}
@@ -111,7 +112,7 @@ const Login = () => {
         <Button
           type="submit"
           variant="contained"
-          sx={{ ...dashboardStyles.logoutBtn, width: "100%" }}
+          sx={{ ...dashboardStyles.logoutBtn, width: "350px" }}
         >
           einloggen
         </Button>
