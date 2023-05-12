@@ -48,27 +48,28 @@ const ItemsTableRow = ({ item, selectedColumns }) => {
           </TableCell>
         )}
 
-        {selectedColumns.includes("straße") && (
+        {selectedColumns.includes("straße") && item?.itemType !== "Vehicle" && (
           <TableCell sx={tableStyles.tr.cell} align="left">
             {item?.street}
           </TableCell>
         )}
-        {selectedColumns.includes("hausnummer") && (
-          <TableCell sx={tableStyles.tr.cell} align="left">
-            {item?.streetnumber}
-          </TableCell>
-        )}
-        {selectedColumns.includes("plz") && (
+        {selectedColumns.includes("hausnummer") &&
+          item?.itemType !== "Vehicle" && (
+            <TableCell sx={tableStyles.tr.cell} align="left">
+              {item?.streetnumber}
+            </TableCell>
+          )}
+        {selectedColumns.includes("plz") && item?.itemType !== "Vehicle" && (
           <TableCell sx={tableStyles.tr.cell} align="left">
             {item?.zip}
           </TableCell>
         )}
-        {selectedColumns.includes("stadt") && (
+        {selectedColumns.includes("stadt") && item?.itemType !== "Vehicle" && (
           <TableCell sx={tableStyles.tr.cell} align="left">
             {item?.city}
           </TableCell>
         )}
-        {selectedColumns.includes("land") && (
+        {selectedColumns.includes("land") && item?.itemType !== "Vehicle" && (
           <TableCell sx={tableStyles.tr.cell} align="left">
             {item?.country ? item?.country : ""}
           </TableCell>

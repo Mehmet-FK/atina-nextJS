@@ -7,7 +7,6 @@ const useSortColumn = (data, columnObj) => {
   useEffect(() => {
     setSortedData(data);
   }, [data]);
-
   const handleSort = (arg) => {
     setColumns({ ...columns, [arg]: columns[arg] * -1 });
     setSortedData(
@@ -27,7 +26,11 @@ const useSortColumn = (data, columnObj) => {
     );
   };
 
-  return { sortedData, handleSort, columns };
+  return {
+    sortedData,
+    handleSort,
+    columns,
+  };
 };
 
 export default useSortColumn;

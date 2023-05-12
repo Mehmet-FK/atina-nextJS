@@ -32,6 +32,7 @@ import ItemsModal from "../modals/ItemsModal";
 import LoadingIcon from "../LoadingIcon";
 import ItemsFilter from "../filters/ItemsFilter";
 import { searchItems } from "@/helpers/searchFunctions";
+import { AtinaCalls } from "@/helpers/apiFunctions";
 
 const tableColumns = [
   "typ",
@@ -62,18 +63,20 @@ const initalContextMenu = {
 const ItemsTable = ({ data }) => {
   const { atinaItems } = useSelector((state) => state.atina);
   const { getAtinaItemsData } = useAtinaCalls();
-
-  const dispatch = useDispatch();
+  const [isError, setIsError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [shownData, setShownData] = useState(data);
+  const [type, setType] = useState("Order");
+  const [columnsToSort, setColumnsToSort] = useState(["street", "zip"]);
 
   const [contextMenu, setContextMenu] = useState(initalContextMenu);
 
   // ===pagination states START===
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [shownData, setShownData] = useState(data);
+
   // const [restart, setRestart] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [loading, setLoading] = useState(false);
+
   const [openItemsModal, setOpenItemsModal] = useState(false);
   const handlePagination = () => {
     let currentPage = rowsPerPage * page;
@@ -138,7 +141,8 @@ const ItemsTable = ({ data }) => {
   const { handleRightClick } = useContextMenu(contextMenu, setContextMenu);
 
   useEffect(() => {
-    // setShownData(atinaItems);
+    setShownData(atinaItems);
+
     handlePagination();
     setLoading(false);
   }, [atinaItems]);
@@ -183,9 +187,9 @@ const ItemsTable = ({ data }) => {
         <Box sx={tableStyles.helpersWrapper}>
           <Box sx={{ display: "flex", columnGap: "10px" }}>
             <Typography
-              // onClick={() => setItemType(1)}
               onClick={() => {
                 setLoading(true);
+                setType("Order");
                 getAtinaItemsData("Order").then((response) => {
                   setShownData(response.res);
                   // setLoading(false);
@@ -198,15 +202,18 @@ const ItemsTable = ({ data }) => {
                 cursor: "pointer",
                 borderRadius: "1rem",
                 fontSize: "0.7rem",
+                outline: type === "Order" && "1px solid #aaa",
+                outlineOffset: "2px",
+                minWidth: "3rem",
               }}
             >
               Auftrag
             </Typography>
 
             <Typography
-              // onClick={() => setItemType(2)}
               onClick={() => {
                 setLoading(true);
+                setType("Meter");
                 getAtinaItemsData("Meter").then((response) => {
                   setShownData(response.res);
                   // setLoading(false);
@@ -219,6 +226,9 @@ const ItemsTable = ({ data }) => {
                 cursor: "pointer",
                 borderRadius: "1rem",
                 fontSize: "0.7rem",
+                outline: type === "Meter" && "1px solid #aaa",
+                outlineOffset: "2px",
+                textAlign: "center",
               }}
             >
               Zähler
@@ -227,9 +237,10 @@ const ItemsTable = ({ data }) => {
             <Typography
               onClick={() => {
                 setLoading(true);
+                setType("Vehicle");
                 getAtinaItemsData("Vehicle").then((response) => {
                   setShownData(response.res);
-                  // setLoading(false);
+                  setLoading(false);
                 });
               }}
               sx={{
@@ -239,6 +250,10 @@ const ItemsTable = ({ data }) => {
                 cursor: "pointer",
                 borderRadius: "1rem",
                 fontSize: "0.7rem",
+                outline: type === "Vehicle" && "1px solid #aaa",
+                outlineOffset: "2px",
+                minWidth: "3rem",
+                textAlign: "center",
               }}
             >
               KFZ
@@ -247,7 +262,7 @@ const ItemsTable = ({ data }) => {
           </Box>
           <Box sx={{ display: "flex" }}>
             <Pagination
-              data={data}
+              data={shownData}
               page={page}
               setPage={setPage}
               rowsPerPage={rowsPerPage}
@@ -314,7 +329,7 @@ const ItemsTable = ({ data }) => {
                   </Box>
                 </TableCell>
               )}
-              {selectedColumns.includes("straße") && (
+              {selectedColumns.includes("straße") && type !== "Vehicle" && (
                 <TableCell
                   sx={tableStyles.th.cell}
                   onClick={() => handleSort("street")}
@@ -333,7 +348,7 @@ const ItemsTable = ({ data }) => {
                   </Box>
                 </TableCell>
               )}
-              {selectedColumns.includes("hausnummer") && (
+              {selectedColumns.includes("hausnummer") && type !== "Vehicle" && (
                 <TableCell
                   sx={tableStyles.th.cell}
                   onClick={() => handleSort("streetnumber")}
@@ -352,7 +367,7 @@ const ItemsTable = ({ data }) => {
                   </Box>
                 </TableCell>
               )}
-              {selectedColumns.includes("plz") && (
+              {selectedColumns.includes("plz") && type !== "Vehicle" && (
                 <TableCell
                   sx={tableStyles.th.cell}
                   onClick={() => handleSort("zip")}
@@ -371,7 +386,7 @@ const ItemsTable = ({ data }) => {
                   </Box>
                 </TableCell>
               )}
-              {selectedColumns.includes("stadt") && (
+              {selectedColumns.includes("stadt") && type !== "Vehicle" && (
                 <TableCell
                   sx={tableStyles.th.cell}
                   onClick={() => handleSort("city")}
@@ -390,7 +405,7 @@ const ItemsTable = ({ data }) => {
                   </Box>
                 </TableCell>
               )}
-              {selectedColumns.includes("land") && (
+              {selectedColumns.includes("land") && type !== "Vehicle" && (
                 <TableCell
                   sx={tableStyles.th.cell}
                   onClick={() => handleSort("country")}
@@ -647,20 +662,3 @@ const ItemsTable = ({ data }) => {
 };
 
 export default ItemsTable;
-
-{
-  /* <Tooltip title={"Zähler"} placement="top" arrow>
-              <SpeedIcon
-                sx={{
-                  padding: "7px",
-                  backgroundColor: "#e10000",
-                  color: "#fff",
-                  cursor: "pointer",
-                  borderRadius: "1rem",
-                }}
-                fontSize="large"
-                color="inherit"
-                onClick={() => setItemType(2)}
-              />
-            </Tooltip> */
-}
