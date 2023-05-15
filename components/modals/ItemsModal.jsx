@@ -20,7 +20,6 @@ const ItemsModal = ({ setOpenItemsModal, openItemsModal, item }) => {
   const handleChange = (e) => {
     setInputVal({ ...inputVal, [e.target.name]: e.target.value });
   };
-  console.log("modal");
 
   return (
     <div>

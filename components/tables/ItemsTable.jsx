@@ -8,7 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useDispatch, useSelector } from "react-redux";
 import Pagination from "../Pagination";
-import { useCallback, useEffect, useState } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import { Box } from "@mui/system";
 import useAtinaCalls from "../../hooks/useAtinaCalls";
 import NfcFilter from "../filters/NfcFilter";
@@ -32,6 +32,7 @@ import ItemsModal from "../modals/ItemsModal";
 import LoadingIcon from "../LoadingIcon";
 import ItemsFilter from "../filters/ItemsFilter";
 import { searchItems } from "@/helpers/searchFunctions";
+import { getSuccess } from "@/redux/slices/atinaSlice";
 // import { AtinaCalls } from "@/helpers/apiFunctions";
 
 const tableColumns = [
@@ -61,8 +62,10 @@ const initalContextMenu = {
 };
 
 const ItemsTable = ({ data }) => {
+  const dispatch = useDispatch();
   const { atinaItems } = useSelector((state) => state.atina);
   const { getAtinaItemsData } = useAtinaCalls();
+  const [allData, setAllData] = useState(data);
   const [isError, setIsError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [shownData, setShownData] = useState(data);
@@ -78,11 +81,11 @@ const ItemsTable = ({ data }) => {
   // const [restart, setRestart] = useState(false);
 
   const [openItemsModal, setOpenItemsModal] = useState(false);
-  const handlePagination = () => {
+  const handlePagination = useCallback(() => {
     let currentPage = rowsPerPage * page;
-    const newArray = data?.slice(currentPage, currentPage + rowsPerPage);
+    const newArray = allData?.slice(currentPage, currentPage + rowsPerPage);
     return setShownData(newArray);
-  };
+  }, [page, rowsPerPage, atinaItems, allData]);
 
   // ===pagination states END===
   // ===Table sort  START===
@@ -128,7 +131,7 @@ const ItemsTable = ({ data }) => {
 
   const handleReset = () => {
     setFilterVal({});
-    handlePagination();
+    // handlePagination();
   };
   // ===Table Filter END===
 
@@ -140,13 +143,16 @@ const ItemsTable = ({ data }) => {
   const xxl = useMediaQuery("(min-width:1500px)");
 
   const { handleRightClick } = useContextMenu(contextMenu, setContextMenu);
+  useEffect(() => {
+    dispatch(getSuccess({ data, url: "items" }));
+  }, []);
 
   useEffect(() => {
-    setShownData(atinaItems);
+    setShownData(allData);
 
     handlePagination();
     setLoading(false);
-  }, [atinaItems]);
+  }, [allData]);
 
   useEffect(() => {
     handlePagination();
@@ -194,7 +200,7 @@ const ItemsTable = ({ data }) => {
                 setLoading(true);
                 setType("Order");
                 getAtinaItemsData("Order").then((response) => {
-                  setShownData(response.res);
+                  setAllData(response.res);
                   // setLoading(false);
                 });
               }}
@@ -218,7 +224,7 @@ const ItemsTable = ({ data }) => {
                 setLoading(true);
                 setType("Meter");
                 getAtinaItemsData("Meter").then((response) => {
-                  setShownData(response.res);
+                  setAllData(response.res);
                   // setLoading(false);
                 });
               }}
@@ -242,7 +248,7 @@ const ItemsTable = ({ data }) => {
                 setLoading(true);
                 setType("Vehicle");
                 getAtinaItemsData("Vehicle").then((response) => {
-                  setShownData(response.res);
+                  setAllData(response.res);
                   // setLoading(false);
                 });
               }}
