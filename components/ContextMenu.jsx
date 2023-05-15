@@ -98,6 +98,7 @@ const ContextMenu = ({
       setSelectedColumns([...selectedColumns, name]);
     }
   };
+  console.log("context");
 
   return (
     <Box sx={styles.contextMenu} component={Paper} ref={contextMenuRef}>

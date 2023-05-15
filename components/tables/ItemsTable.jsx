@@ -8,7 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useDispatch, useSelector } from "react-redux";
 import Pagination from "../Pagination";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Box } from "@mui/system";
 import useAtinaCalls from "../../hooks/useAtinaCalls";
 import NfcFilter from "../filters/NfcFilter";
@@ -32,7 +32,7 @@ import ItemsModal from "../modals/ItemsModal";
 import LoadingIcon from "../LoadingIcon";
 import ItemsFilter from "../filters/ItemsFilter";
 import { searchItems } from "@/helpers/searchFunctions";
-import { AtinaCalls } from "@/helpers/apiFunctions";
+// import { AtinaCalls } from "@/helpers/apiFunctions";
 
 const tableColumns = [
   "typ",
@@ -67,7 +67,7 @@ const ItemsTable = ({ data }) => {
   const [loading, setLoading] = useState(false);
   const [shownData, setShownData] = useState(data);
   const [type, setType] = useState("Order");
-  const [columnsToSort, setColumnsToSort] = useState(["street", "zip"]);
+  // const [columnsToSort, setColumnsToSort] = useState(["street", "zip"]);
 
   const [contextMenu, setContextMenu] = useState(initalContextMenu);
 
@@ -83,6 +83,7 @@ const ItemsTable = ({ data }) => {
     const newArray = data?.slice(currentPage, currentPage + rowsPerPage);
     return setShownData(newArray);
   };
+
   // ===pagination states END===
   // ===Table sort  START===
 
@@ -242,7 +243,7 @@ const ItemsTable = ({ data }) => {
                 setType("Vehicle");
                 getAtinaItemsData("Vehicle").then((response) => {
                   setShownData(response.res);
-                  setLoading(false);
+                  // setLoading(false);
                 });
               }}
               sx={{

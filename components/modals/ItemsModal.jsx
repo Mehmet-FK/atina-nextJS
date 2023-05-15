@@ -5,7 +5,7 @@ import Modal from "@mui/material/Modal";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import { Button, IconButton, TextField, Tooltip } from "@mui/material";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { modalStyles } from "@/styles/modal_styles";
 import useAtinaCalls from "@/hooks/useAtinaCalls";
 import CloseIcon from "@mui/icons-material/Close";
@@ -20,6 +20,7 @@ const ItemsModal = ({ setOpenItemsModal, openItemsModal, item }) => {
   const handleChange = (e) => {
     setInputVal({ ...inputVal, [e.target.name]: e.target.value });
   };
+  console.log("modal");
 
   return (
     <div>
@@ -326,4 +327,4 @@ const ItemsModal = ({ setOpenItemsModal, openItemsModal, item }) => {
   );
 };
 
-export default ItemsModal;
+export default memo(ItemsModal);

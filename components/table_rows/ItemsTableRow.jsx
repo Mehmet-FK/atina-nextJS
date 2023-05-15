@@ -1,6 +1,6 @@
 import { tableStyles } from "@/styles/table_styles";
 import { IconButton, TableCell, TableRow, Tooltip } from "@mui/material";
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import ItemsModal from "../modals/ItemsModal";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
@@ -155,4 +155,4 @@ const ItemsTableRow = ({ item, selectedColumns }) => {
   );
 };
 
-export default ItemsTableRow;
+export default memo(ItemsTableRow);
