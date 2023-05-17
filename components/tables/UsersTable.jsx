@@ -8,7 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useMediaQuery } from "@mui/material";
 import Pagination from "../Pagination";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Box } from "@mui/system";
 import useAtinaCalls from "../../hooks/useAtinaCalls";
 import UsersTableRow from "../table_rows/UsersTableRow";
@@ -21,21 +21,14 @@ import { tableStyles } from "@/styles/table_styles";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import useSortColumn from "@/hooks/useSortColumn";
+import { USER_TABLE_COLUMNS } from "./columns";
+import { useTable } from "react-table";
 
 const initalContextMenu = {
   show: false,
   x: 0,
   y: 0,
 };
-
-const tableColumns = [
-  "vorname",
-  "nachname",
-  "benutzername",
-  "kennwort",
-  "personalnummer",
-  "bild",
-];
 
 const UsersTable = ({ data }) => {
   const [contextMenu, setContextMenu] = useState(initalContextMenu);
@@ -68,6 +61,14 @@ const UsersTable = ({ data }) => {
     shownData,
     columnObj
   );
+
+  //? Table Utilities START
+  const tableColumns = useMemo(() => USER_TABLE_COLUMNS, []);
+
+  const tableInstance = useTable({ columns, shownData });
+
+  //? Table Utilities END
+
   // ===Table sort  END===
 
   // ===Table Filter START===
@@ -91,7 +92,7 @@ const UsersTable = ({ data }) => {
   //==== MediaQuery ===
   const xxl = useMediaQuery("(min-width:1400px)");
 
-  const { getUsersData } = useAtinaCalls();
+  // const { getUsersData } = useAtinaCalls();
 
   useEffect(() => {
     // getUsersData();
