@@ -271,7 +271,7 @@ const ItemsTable = ({ data }) => {
           </Box>
           <Box sx={{ display: "flex" }}>
             <Pagination
-              data={shownData}
+              data={allData}
               page={page}
               setPage={setPage}
               rowsPerPage={rowsPerPage}

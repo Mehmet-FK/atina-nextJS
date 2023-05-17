@@ -26,7 +26,7 @@ import TapAndPlayOutlinedIcon from "@mui/icons-material/TapAndPlayOutlined";
 // import Loading from "../Loading";
 import Link from "next/link";
 import { dashboardStyles } from "@/styles/dashboard_styles";
-import { getSession, signOut } from "next-auth/react";
+import { getSession, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 // import useAtinaCalls from "@/app/hooks/useAtinaCalls";

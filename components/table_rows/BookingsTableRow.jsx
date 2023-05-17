@@ -1,7 +1,7 @@
 "use client";
 
 import { TableCell, TableRow } from "@mui/material";
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import BookingsModal from "../modals/BookingsModal";
 import { tableStyles } from "@/styles/table_styles";
 
@@ -72,4 +72,4 @@ const CustomTableRow = ({ booking, selectedColumns }) => {
   );
 };
 
-export default CustomTableRow;
+export default memo(CustomTableRow);

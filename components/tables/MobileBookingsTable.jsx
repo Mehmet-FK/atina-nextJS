@@ -6,9 +6,9 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import Pagination from "../Pagination";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Box } from "@mui/system";
 import { useMediaQuery } from "@mui/material";
 import BookingsFilter from "../filters/BookingsFilter";
@@ -17,12 +17,12 @@ import ContextMenu from "../ContextMenu";
 import useContextMenu from "../../hooks/useContextMenu";
 import DownloadCSV from "../DownloadCSV";
 
-import useAtinaCalls from "@/hooks/useAtinaCalls";
+// import useAtinaCalls from "@/hooks/useAtinaCalls";
 import { tableStyles } from "@/styles/table_styles";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { searchBookings } from "@/helpers/searchFunctions";
-import axios from "axios";
+// import axios from "axios";
 
 const tableColumns = [
   "datum",
@@ -44,6 +44,7 @@ const initalContextMenu = {
 
 const MobileBookings = ({ data }) => {
   const [contextMenu, setContextMenu] = useState(initalContextMenu);
+  const [allData, setAllData] = useState(data);
 
   // ===pagination states START===
   const [page, setPage] = useState(0);
@@ -52,12 +53,12 @@ const MobileBookings = ({ data }) => {
   const [restart, setRestart] = useState(false);
   const [newest, setNewest] = useState(true);
 
-  const handlePagination = () => {
+  const handlePagination = useCallback(() => {
     let currentPage = rowsPerPage * page;
-    const newArray = data?.slice(currentPage, currentPage + rowsPerPage);
+    const newArray = allData?.slice(currentPage, currentPage + rowsPerPage);
 
     return setShownData(newArray);
-  };
+  }, [page, rowsPerPage, allData]);
   // ===pagination states END===
 
   // ===Table Filter START===
@@ -121,7 +122,7 @@ const MobileBookings = ({ data }) => {
   useEffect(() => {
     handlePagination();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, rowsPerPage, data]);
+  }, [page, rowsPerPage, allData]);
   // console.log(data[0]);
 
   return (
@@ -160,7 +161,7 @@ const MobileBookings = ({ data }) => {
         />
         <Box sx={{ display: "flex", justifyContent: "end" }}>
           <Pagination
-            data={data}
+            data={allData}
             page={page}
             setPage={setPage}
             rowsPerPage={rowsPerPage}

@@ -6,18 +6,11 @@ import RestartAltIcon from "@mui/icons-material/RestartAlt";
 import { useRouter } from "next/router";
 import { memo } from "react";
 
-const Pagination = ({
-  data,
-  page,
-  setPage,
-  rowsPerPage,
-  setRowsPerPage,
-  setRestart,
-}) => {
+const Pagination = ({ data, page, setPage, rowsPerPage, setRowsPerPage }) => {
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
-  console.log("pagi render");
+  // console.log("pagi render");
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);

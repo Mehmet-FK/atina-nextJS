@@ -1,7 +1,7 @@
 "use client";
 
 import { Avatar, TableCell, TableRow } from "@mui/material";
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import UserModal from "../modals/UserModal";
 import { tableStyles } from "@/styles/table_styles";
 
@@ -69,4 +69,4 @@ const UsersTableRow = ({ user, selectedColumns }) => {
   );
 };
 
-export default UsersTableRow;
+export default memo(UsersTableRow);

@@ -1,6 +1,6 @@
 import { tableStyles } from "@/styles/table_styles";
 import { TableCell, TableRow } from "@mui/material";
-import React from "react";
+import React, { memo } from "react";
 
 const NfcTableRow = ({ tag, item, selectedColumns }) => {
   return (
@@ -107,4 +107,4 @@ const NfcTableRow = ({ tag, item, selectedColumns }) => {
   );
 };
 
-export default NfcTableRow;
+export default memo(NfcTableRow);

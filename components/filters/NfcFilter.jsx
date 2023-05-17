@@ -24,7 +24,7 @@ const NfcFilter = ({ filterVal, setFilterVal, handleFilter, handleReset }) => {
     });
   };
   const xxl = useMediaQuery("(min-width:1350px)");
-
+  // console.log(filterVal.createdFrom);
   return (
     <Box
       component={Paper}
@@ -52,7 +52,7 @@ const NfcFilter = ({ filterVal, setFilterVal, handleFilter, handleReset }) => {
                 value={filterVal.createdFrom || ""}
                 className={"date-input"}
                 variant="outlined"
-                type="date"
+                type="datetime-local"
                 size="small"
                 label="Erstellt (von)"
                 name="createdFrom"
@@ -69,6 +69,15 @@ const NfcFilter = ({ filterVal, setFilterVal, handleFilter, handleReset }) => {
                     "&::-webkit-datetime-edit-day-field": {
                       color: filterVal.createdFrom ? "inherit" : "#ddd5",
                     },
+                    "&::-webkit-datetime-edit-minute-field": {
+                      color: filterVal.createdFrom ? "inherit" : "#ddd5",
+                    },
+                    "&::-webkit-datetime-edit-hour-field": {
+                      color: filterVal.createdFrom ? "inherit" : "#ddd5",
+                    },
+                    "&::-webkit-datetime-edit-text": {
+                      color: filterVal.createdFrom ? "inherit" : "#ddd5",
+                    },
                   },
                 }}
               />
@@ -79,7 +88,7 @@ const NfcFilter = ({ filterVal, setFilterVal, handleFilter, handleReset }) => {
                 value={filterVal.createdTo || ""}
                 className={"date-input"}
                 variant="outlined"
-                type="date"
+                type="datetime-local"
                 size="small"
                 label="Erstellt (bis)"
                 name="createdTo"
@@ -94,6 +103,15 @@ const NfcFilter = ({ filterVal, setFilterVal, handleFilter, handleReset }) => {
                       color: filterVal.createdTo ? "inherit" : "#ddd5",
                     },
                     "&::-webkit-datetime-edit-day-field": {
+                      color: filterVal.createdTo ? "inherit" : "#ddd5",
+                    },
+                    "&::-webkit-datetime-edit-minute-field": {
+                      color: filterVal.createdTo ? "inherit" : "#ddd5",
+                    },
+                    "&::-webkit-datetime-edit-hour-field": {
+                      color: filterVal.createdTo ? "inherit" : "#ddd5",
+                    },
+                    "&::-webkit-datetime-edit-text": {
                       color: filterVal.createdTo ? "inherit" : "#ddd5",
                     },
                   },

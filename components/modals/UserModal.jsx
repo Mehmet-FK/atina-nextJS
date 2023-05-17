@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import placeholder from "@/public/assets/placeholder.jpg";
-import { useRef, useState } from "react";
+import { memo, useRef, useState } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import useAtinaCalls from "../../hooks/useAtinaCalls";

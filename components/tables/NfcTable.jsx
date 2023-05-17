@@ -8,7 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useSelector } from "react-redux";
 import Pagination from "../Pagination";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Box } from "@mui/system";
 import useAtinaCalls from "../../hooks/useAtinaCalls";
 import NfcFilter from "../filters/NfcFilter";
@@ -22,6 +22,7 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { searchNfcTag } from "@/helpers/searchFunctions";
 import useSortColumn from "@/hooks/useSortColumn";
+import { getSession, useSession } from "next-auth/react";
 const tableColumns = [
   "typ",
   "artikelnummer",
@@ -53,18 +54,17 @@ const NfcTable = ({ data }) => {
   // console.log(data.map((x) => x.item));
 
   // ===pagination states START===
+  const [allData, setAllData] = useState(data);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [shownData, setShownData] = useState(data);
+  const session = useSession();
 
-  const [restart, setRestart] = useState(false);
-  const [newest, setNewest] = useState(true);
-
-  const handlePagination = () => {
+  const handlePagination = useCallback(() => {
     let currentPage = rowsPerPage * page;
-    const newArray = data?.slice(currentPage, currentPage + rowsPerPage);
+    const newArray = allData?.slice(currentPage, currentPage + rowsPerPage);
     return setShownData(newArray);
-  };
+  }, [page, rowsPerPage]);
   // ===pagination states END===
 
   // ===Table sort  START===
@@ -128,11 +128,11 @@ const NfcTable = ({ data }) => {
 
   //==== MediaQuery ===
   const xxl = useMediaQuery("(min-width:1400px)");
-
   useEffect(() => {
-    // getdataData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [restart]);
+    if (session.status === "loading") {
+      setLoading(true);
+    }
+  }, [session]);
 
   useEffect(() => {
     handlePagination();
@@ -168,13 +168,12 @@ const NfcTable = ({ data }) => {
         />
         <Box sx={{ display: "flex", justifyContent: "end" }}>
           <Pagination
-            data={data}
+            data={allData}
             page={page}
             setPage={setPage}
             rowsPerPage={rowsPerPage}
             setRowsPerPage={setRowsPerPage}
             handlePagination={handlePagination}
-            setRestart={setRestart}
           />
           <DownloadCSV rawData={shownData} />
         </Box>

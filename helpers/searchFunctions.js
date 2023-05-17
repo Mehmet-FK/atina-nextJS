@@ -30,6 +30,7 @@ export const searchNfcTag = async (params) => {
     base += `&ItemID=${itemID}`;
   }
   try {
+    console.log(base);
     const { data } = await axios(base);
     nfcArray = data;
   } catch (error) {

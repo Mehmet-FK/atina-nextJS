@@ -7,13 +7,6 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 const Loading = () => {
-  /* const { loading } = useSelector((state) => state.atina);
-
-  useEffect(() => {
-    loading && handleOpen();
-    !loading && handleClose();
-  }, [loading]);
- */
   return (
     <div>
       <Backdrop
