@@ -9,26 +9,19 @@ import {
   Paper,
 } from "@mui/material";
 import useOnClickOutside from "../hooks/useOnClickOutside";
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import useContextMenu from "../hooks/useContextMenu";
 
-const ColumnMenu = ({
-  styles,
-  tableColumns,
-  handleSelectColumn,
-  selectedColumns,
-}) => {
+const ColumnMenu = ({ allColumns, styles }) => {
   return (
     <Box sx={styles.itemWrap}>
-      {tableColumns.map((name) => (
-        <MenuItem
-          key={name}
-          sx={{ padding: 0 }}
-          onClick={() => handleSelectColumn(name)}
-          value={name}
-        >
-          <Checkbox checked={selectedColumns.indexOf(name) > -1} />
-          <ListItemText sx={{ textTransform: "capitalize" }} primary={name} />
+      {allColumns.map((column, i) => (
+        <MenuItem key={i} sx={{ padding: 0 }} value={column.Header}>
+          <Checkbox {...column.getToggleHiddenProps()} />
+          <ListItemText
+            sx={{ textTransform: "capitalize" }}
+            primary={column.Header}
+          />
         </MenuItem>
       ))}
     </Box>
@@ -36,11 +29,9 @@ const ColumnMenu = ({
 };
 
 const ContextMenu = ({
+  allColumns,
   X,
   Y,
-  tableColumns,
-  selectedColumns,
-  setSelectedColumns,
   contextMenu,
   setContextMenu,
   setOpenItemsModal,
@@ -55,7 +46,6 @@ const ContextMenu = ({
       flexDirection: "column",
       justifyContent: "center",
       alugnItems: "center",
-      // backgroundColor: "paper",
       padding: "0.5rem",
       rowGap: "5px",
       border: "1px solid #000",
@@ -88,40 +78,16 @@ const ContextMenu = ({
 
   useOnClickOutside(contextMenuRef, closeContextMenu);
 
-  const handleSelectColumn = (name) => {
-    let i = selectedColumns.indexOf(name);
-    if (i > -1) {
-      let temp = [...selectedColumns];
-      temp.splice(i, 1);
-      setSelectedColumns(temp);
-    } else {
-      setSelectedColumns([...selectedColumns, name]);
-    }
-  };
-  console.log("context");
-
   return (
     <Box sx={styles.contextMenu} component={Paper} ref={contextMenuRef}>
       <Button onClick={() => setOpen({ ...open, columns: !open.columns })}>
         Spalten Verwalten
       </Button>
       {setOpenItemsModal !== undefined && (
-        <Button
-          onClick={() => setOpenItemsModal(true)}
-          // onClick={() => console.log("clicked")}
-        >
-          neu einfügen
-        </Button>
+        <Button onClick={() => setOpenItemsModal(true)}>neu einfügen</Button>
       )}
 
-      {open.columns && (
-        <ColumnMenu
-          tableColumns={tableColumns}
-          handleSelectColumn={handleSelectColumn}
-          selectedColumns={selectedColumns}
-          styles={styles}
-        />
-      )}
+      {open.columns && <ColumnMenu allColumns={allColumns} styles={styles} />}
     </Box>
   );
 };

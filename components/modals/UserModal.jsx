@@ -73,9 +73,7 @@ const UserModal = ({ setOpenUserModal, openUserModal, user }) => {
   const handleClose = () => setOpenUserModal(false);
   const [visible, setVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
-  const [inputVal, setInputVal] = useState({
-    ...user,
-  });
+  const [inputVal, setInputVal] = useState(user);
 
   // To keep the value of which tab is selected
   const [tab, setTab] = useState("Allgemein");
@@ -103,7 +101,7 @@ const UserModal = ({ setOpenUserModal, openUserModal, user }) => {
   };
 
   return (
-    <div>
+    <>
       <Modal
         open={openUserModal}
         onClose={handleClose}
@@ -272,7 +270,7 @@ const UserModal = ({ setOpenUserModal, openUserModal, user }) => {
           )}
         </Card>
       </Modal>
-    </div>
+    </>
   );
 };
 

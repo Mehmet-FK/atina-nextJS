@@ -23,26 +23,9 @@ import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { searchNfcTag } from "@/helpers/searchFunctions";
 import useSortColumn from "@/hooks/useSortColumn";
 import { getSession, useSession } from "next-auth/react";
-const tableColumns = [
-  "typ",
-  "artikelnummer",
-  "straße",
-  "hausnummer",
-  "plz",
-  "stadt",
-  "land",
-  "daten1",
-  "daten2",
-  "daten3",
-  "daten4",
-  "daten5",
-  "daten6",
-  "daten7",
-  "daten8",
-  "daten9",
-  "daten10",
-  "erstellt am",
-];
+import { NFC_TABLE_COLUMNS } from "./columns";
+import { useSortBy, useTable } from "react-table";
+
 const initalContextMenu = {
   show: false,
   x: 0,
@@ -69,31 +52,19 @@ const NfcTable = ({ data }) => {
 
   // ===Table sort  START===
 
-  const columnObj = {
-    itemType: 1,
-    itemNumber: 1,
-    street: 1,
-    streetnumber: 1,
-    zip: 1,
-    city: 1,
-    country: 1,
-    data1: 1,
-    data2: 1,
-    data3: 1,
-    data4: 1,
-    data5: 1,
-    data6: 1,
-    data7: 1,
-    data8: 1,
-    data9: 1,
-    data10: 1,
-    createdDate: 1,
-  };
+  //? Table Utilities START
+  const tableColumns = NFC_TABLE_COLUMNS;
 
-  const { sortedData, handleSort, columns } = useSortColumn(
-    shownData,
-    columnObj
-  );
+  const {
+    headerGroups,
+    getTableProps,
+    getTableBodyProps,
+    rows,
+    prepareRow,
+    allColumns,
+  } = useTable({ columns: tableColumns, data: shownData }, useSortBy);
+
+  //? Table Utilities END
 
   // ===Table sort  END===
 
@@ -121,18 +92,18 @@ const NfcTable = ({ data }) => {
   // ===Table Filter END===
 
   // === Column Select START ===
-  const [selectedColumns, setSelectedColumns] = useState(tableColumns);
+  // const [selectedColumns, setSelectedColumns] = useState(tableColumns);
   // === Column Select END ===
 
   const { handleRightClick } = useContextMenu(contextMenu, setContextMenu);
 
   //==== MediaQuery ===
   const xxl = useMediaQuery("(min-width:1400px)");
-  useEffect(() => {
+  /* useEffect(() => {
     if (session.status === "loading") {
       setLoading(true);
     }
-  }, [session]);
+  }, [session]); */
 
   useEffect(() => {
     handlePagination();
@@ -143,13 +114,14 @@ const NfcTable = ({ data }) => {
     <Box sx={{ display: "flex", flexDirection: "column" }}>
       {contextMenu.show && (
         <ContextMenu
+          allColumns={allColumns}
           X={contextMenu.x}
           Y={contextMenu.y}
           contextMenu={contextMenu}
           setContextMenu={setContextMenu}
           tableColumns={tableColumns}
-          selectedColumns={selectedColumns}
-          setSelectedColumns={setSelectedColumns}
+          // selectedColumns={selectedColumns}
+          // setSelectedColumns={setSelectedColumns}
         />
       )}
       <TableContainer
@@ -177,9 +149,46 @@ const NfcTable = ({ data }) => {
           />
           <DownloadCSV rawData={shownData} />
         </Box>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <Table
+          {...getTableProps()}
+          sx={{ minWidth: 650 }}
+          aria-label="simple table"
+        >
           <TableHead>
-            <TableRow>
+            {headerGroups.map((headerGroup) => (
+              <TableRow {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column) => (
+                  <TableCell
+                    {...column.getHeaderProps(column.getSortByToggleProps())}
+                    sx={tableStyles.th.cell}
+                    align="left"
+                  >
+                    <Box
+                      sx={{
+                        width: "100%",
+                        display: "flex",
+                        justifyContent: "space-around",
+                      }}
+                    >
+                      <Box sx={{ color: "#000" }}>
+                        {column.render("Header")}{" "}
+                      </Box>
+
+                      {column.isSorted ? (
+                        column.isSortedDesc ? (
+                          <ArrowDownwardIcon fontSize="small" />
+                        ) : (
+                          <ArrowUpwardIcon fontSize="small" />
+                        )
+                      ) : (
+                        ""
+                      )}
+                    </Box>
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))}
+            {/* <TableRow>
               {selectedColumns.includes("typ") && (
                 <TableCell
                   sx={tableStyles.th.cell}
@@ -538,18 +547,19 @@ const NfcTable = ({ data }) => {
                   {columns.createdDate !== 1 && <ArrowUpwardIcon />}
                 </TableCell>
               )}
-            </TableRow>
+            </TableRow> */}
           </TableHead>
-          <TableBody>
-            {sortedData?.map((tag, i) => {
-              // const { item } = tag;
+          <TableBody {...getTableBodyProps()}>
+            {rows?.map((row, i) => {
+              prepareRow(row);
 
               return (
                 <NfcTableRow
                   key={i}
-                  item={tag}
-                  tag={tag}
-                  selectedColumns={selectedColumns}
+                  // item={tag}
+                  // tag={tag}
+                  row={row}
+                  prepareRow={prepareRow}
                 />
               );
             })}

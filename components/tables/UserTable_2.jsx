@@ -11,7 +11,7 @@ import Pagination from "../Pagination";
 import { useEffect, useMemo, useState } from "react";
 import { Box } from "@mui/system";
 import useAtinaCalls from "../../hooks/useAtinaCalls";
-import UsersTableRow from "../table_rows/UsersTableRow";
+import UsersTableRow from "../table_rows/UsersTableRow_2";
 import UsersFilter from "../filters/UsersFilter";
 import ContextMenu from "../ContextMenu";
 import useContextMenu from "../../hooks/useContextMenu";
@@ -122,6 +122,8 @@ const UsersTable = ({ data }) => {
           setContextMenu={setContextMenu}
           // ref={contextMenuRef}
           tableColumns={tableColumns}
+          selectedColumns={selectedColumns}
+          setSelectedColumns={setSelectedColumns}
         />
       )}
       <TableContainer
@@ -141,7 +143,6 @@ const UsersTable = ({ data }) => {
         />
         <Box sx={{ display: "flex", justifyContent: "end" }}>
           <Pagination
-            //TODO: set allData state
             data={data}
             page={page}
             setPage={setPage}
@@ -189,15 +190,98 @@ const UsersTable = ({ data }) => {
                     </Box>
                   </TableCell>
                 ))}
+
+                <>
+                  {/* {selectedColumns.includes("nachname") && (
+                <TableCell
+                  sx={tableStyles.th.cell}
+                  onClick={() => handleSort("lastname")}
+                  align="left"
+                >
+                  <Box
+                    sx={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "space-around",
+                    }}
+                  >
+                    <Box sx={{ color: "#000" }}>nachname </Box>
+                    {columns.lastname === 1 && <ArrowDownwardIcon />}
+                    {columns.lastname !== 1 && <ArrowUpwardIcon />}
+                  </Box>
+                </TableCell>
+              )}
+              {selectedColumns.includes("benutzername") && (
+                <TableCell
+                  sx={tableStyles.th.cell}
+                  onClick={() => handleSort("username")}
+                  align="left"
+                >
+                  <Box
+                    sx={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "space-around",
+                    }}
+                  >
+                    <Box sx={{ color: "#000" }}>benutzername </Box>
+                    {columns.username === 1 && <ArrowDownwardIcon />}
+                    {columns.username !== 1 && <ArrowUpwardIcon />}
+                  </Box>
+                </TableCell>
+              )}
+              {selectedColumns.includes("kennwort") && (
+                <TableCell
+                  sx={tableStyles.th.cell}
+                  onClick={() => handleSort("passwordSalt")}
+                  align="left"
+                >
+                  <Box
+                    sx={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "space-around",
+                    }}
+                  >
+                    <Box sx={{ color: "#000" }}>kennwort </Box>
+                    {columns.passwordSalt === 1 && <ArrowDownwardIcon />}
+                    {columns.passwordSalt !== 1 && <ArrowUpwardIcon />}
+                  </Box>
+                </TableCell>
+              )}
+              {selectedColumns.includes("personalnummer") && (
+                <TableCell
+                  sx={tableStyles.th.cell}
+                  onClick={() => handleSort("personnelnumber")}
+                  align="left"
+                >
+                  <Box
+                    sx={{
+                      width: "100%",
+                      display: "flex",
+                      justifyContent: "space-around",
+                    }}
+                  >
+                    <Box sx={{ color: "#000" }}>personalnummer </Box>
+                    {columns.personnelnumber === 1 && <ArrowDownwardIcon />}
+                    {columns.personnelnumber !== 1 && <ArrowUpwardIcon />}
+                  </Box>
+                </TableCell>
+              )}
+              {selectedColumns.includes("bild") && (
+                <TableCell sx={tableStyles.th.cell} align="left">
+                  <Box sx={{ color: "#000" }}>bild </Box>
+                </TableCell>
+              )} */}
+                </>
               </TableRow>
             ))}
           </TableHead>
           <TableBody {...getTableBodyProps()}>
-            {rows.map((row, i) => {
+            {rows.map((row) => {
               prepareRow(row);
               return (
                 <UsersTableRow
-                  key={i}
                   row={row}
                   prepareRow={prepareRow}
                   //   key={i}
@@ -206,6 +290,15 @@ const UsersTable = ({ data }) => {
                 />
               );
             })}
+            {/* {sortedData?.map((user, i) => {
+              return (
+                <UsersTableRow
+                  key={i}
+                  user={user}
+                  selectedColumns={selectedColumns}
+                />
+              );
+            })} */}
           </TableBody>
         </Table>
       </TableContainer>
