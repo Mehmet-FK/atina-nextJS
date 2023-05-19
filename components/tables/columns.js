@@ -1,3 +1,4 @@
+import { tableStyles } from "@/styles/table_styles";
 import { Avatar } from "@mui/material";
 export const USER_TABLE_COLUMNS = [
   {
@@ -24,7 +25,10 @@ export const USER_TABLE_COLUMNS = [
   {
     Header: "bild",
     Cell: (row) => (
-      <Avatar src={`data:image/png;base64,${row.original?.image}`} />
+      <Avatar
+        sx={tableStyles.tr.image}
+        src={`data:image/png;base64,${row.original?.image}`}
+      />
     ),
   },
 ];

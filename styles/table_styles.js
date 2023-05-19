@@ -41,7 +41,7 @@ export const tableStyles = {
       transition: "0.3s all",
       cursor: "pointer",
       "&:hover": {
-        transform: "scale(2.5)",
+        transform: "scale(2)",
         zIndex: "4",
       },
     },
