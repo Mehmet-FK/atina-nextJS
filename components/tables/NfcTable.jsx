@@ -21,7 +21,15 @@ import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { searchNfcTag } from "@/helpers/searchFunctions";
 import { getSession, useSession } from "next-auth/react";
 import { NFC_TABLE_COLUMNS } from "./columns";
-import { useSortBy, useTable } from "react-table";
+import {
+  useBlockLayout,
+  useResizeColumns,
+  useSortBy,
+  useTable,
+} from "react-table";
+import styles from "./table_styles.module.css";
+import UndoIcon from "@mui/icons-material/Undo";
+import IconButton from "@mui/material/IconButton";
 
 const initalContextMenu = {
   show: false,
@@ -38,6 +46,7 @@ const NfcTable = ({ data }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [shownData, setShownData] = useState(data);
+  const [resetResize, setResetResize] = useState(false);
   const session = useSession();
 
   const handlePagination = useCallback(() => {
@@ -51,6 +60,15 @@ const NfcTable = ({ data }) => {
 
   //? Table Utilities START
 
+  const defaultColumn = useMemo(
+    () => ({
+      minWidth: 30,
+      width: 150,
+      maxWidth: 400,
+    }),
+    []
+  );
+
   const tableColumns = useMemo(() => NFC_TABLE_COLUMNS, []);
   const {
     headerGroups,
@@ -59,7 +77,13 @@ const NfcTable = ({ data }) => {
     rows,
     prepareRow,
     allColumns,
-  } = useTable({ columns: tableColumns, data: shownData }, useSortBy);
+    resetResizing,
+  } = useTable(
+    { columns: tableColumns, data: shownData, defaultColumn },
+    useSortBy,
+    useBlockLayout,
+    useResizeColumns
+  );
 
   //? Table Utilities END
 
@@ -138,20 +162,36 @@ const NfcTable = ({ data }) => {
             setRowsPerPage={setRowsPerPage}
             handlePagination={handlePagination}
           />
+
+          <IconButton
+            onClick={() => {
+              resetResizing();
+              setResetResize(!resetResize);
+            }}
+          >
+            <UndoIcon />
+          </IconButton>
           <DownloadCSV rawData={shownData} />
         </Box>
         <Table
           {...getTableProps()}
+          className="table"
           sx={{ minWidth: 650 }}
           aria-label="simple table"
         >
           <TableHead>
             {headerGroups.map((headerGroup) => (
-              <TableRow {...headerGroup.getHeaderGroupProps()}>
+              <TableRow
+                className={styles.tr}
+                {...headerGroup.getHeaderGroupProps()}
+              >
                 {headerGroup.headers.map((column) => (
                   <TableCell
                     {...column.getHeaderProps(column.getSortByToggleProps())}
-                    sx={tableStyles.th.cell}
+                    className={styles.th}
+                    sx={{
+                      ...tableStyles.th.cell,
+                    }}
                     align="left"
                   >
                     <Box
@@ -175,6 +215,12 @@ const NfcTable = ({ data }) => {
                         ""
                       )}
                     </Box>
+                    <div
+                      {...column.getResizerProps()}
+                      className={`${styles.resizer} ${
+                        column.isResizing ? styles.isResizing : null
+                      }`}
+                    />
                   </TableCell>
                 ))}
               </TableRow>
@@ -186,6 +232,7 @@ const NfcTable = ({ data }) => {
 
               return (
                 <NfcTableRow
+                  resetResize={resetResize}
                   key={i}
                   // item={tag}
                   // tag={tag}
