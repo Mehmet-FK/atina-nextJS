@@ -8,7 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useDispatch, useSelector } from "react-redux";
 import Pagination from "../Pagination";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Box } from "@mui/system";
 import useAtinaCalls from "../../hooks/useAtinaCalls";
 import { IconButton, Typography, useMediaQuery } from "@mui/material";
@@ -62,7 +62,7 @@ const ItemsTable = ({ data }) => {
   // ===Table sort  START===
 
   //? Table Utilities START
-  const tableColumns = ITEM_TABLE_COLUMNS;
+  const tableColumns = useMemo(() => ITEM_TABLE_COLUMNS, []);
 
   const {
     headerGroups,
@@ -71,7 +71,13 @@ const ItemsTable = ({ data }) => {
     rows,
     prepareRow,
     allColumns,
-  } = useTable({ columns: tableColumns, data: shownData }, useSortBy);
+  } = useTable(
+    {
+      columns: tableColumns,
+      data: shownData,
+    },
+    useSortBy
+  );
 
   //? Table Utilities END
 
@@ -89,7 +95,7 @@ const ItemsTable = ({ data }) => {
       console.log(res.error);
     });
   };
-
+  console.log(shownData);
   const handleReset = () => {
     setFilterVal({});
     // handlePagination();
@@ -105,7 +111,7 @@ const ItemsTable = ({ data }) => {
   }, []);
 
   useEffect(() => {
-    setShownData(allData);
+    // setShownData(allData);
 
     handlePagination();
     setLoading(false);
@@ -246,6 +252,7 @@ const ItemsTable = ({ data }) => {
             </IconButton>
           </Box>
         </Box>
+
         <Table
           {...getTableProps()}
           sx={{ minWidth: 650 }}

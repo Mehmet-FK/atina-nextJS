@@ -8,7 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 // import { useSelector } from "react-redux";
 import Pagination from "../Pagination";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Box } from "@mui/system";
 import { useMediaQuery } from "@mui/material";
 import BookingsFilter from "../filters/BookingsFilter";
@@ -22,6 +22,9 @@ import { tableStyles } from "@/styles/table_styles";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { searchBookings } from "@/helpers/searchFunctions";
+import { useSortBy, useTable } from "react-table";
+import { BUCHUNGEN_TABLE_COLUMNS } from "./columns";
+import BookingsTableRow from "../table_rows/BookingsTableRow";
 // import axios from "axios";
 
 const tableColumns = [
@@ -91,6 +94,20 @@ const MobileBookings = ({ data }) => {
     setFilterVal(bookingsFilterParams);
     handlePagination();
   };
+
+  //? Table Utilities START
+
+  const tableColumns = useMemo(() => BUCHUNGEN_TABLE_COLUMNS, []);
+  const {
+    headerGroups,
+    getTableProps,
+    getTableBodyProps,
+    rows,
+    prepareRow,
+    allColumns,
+  } = useTable({ columns: tableColumns, data: shownData }, useSortBy);
+
+  //? Table Utilities END
 
   const handleSort = () => {
     const arr = shownData.map((item) => ({
@@ -172,9 +189,46 @@ const MobileBookings = ({ data }) => {
 
           <DownloadCSV rawData={shownData} />
         </Box>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <Table
+          {...getTableProps()}
+          sx={{ minWidth: 650 }}
+          aria-label="simple table"
+        >
           <TableHead>
-            <TableRow>
+            {headerGroups.map((headerGroup) => (
+              <TableRow {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column) => (
+                  <TableCell
+                    {...column.getHeaderProps(column.getSortByToggleProps())}
+                    sx={tableStyles.th.cell}
+                    align="left"
+                  >
+                    <Box
+                      sx={{
+                        width: "100%",
+                        display: "flex",
+                        justifyContent: "space-around",
+                      }}
+                    >
+                      <Box sx={{ color: "#000" }}>
+                        {column.render("Header")}{" "}
+                      </Box>
+
+                      {column.isSorted ? (
+                        column.isSortedDesc ? (
+                          <ArrowDownwardIcon fontSize="small" />
+                        ) : (
+                          <ArrowUpwardIcon fontSize="small" />
+                        )
+                      ) : (
+                        ""
+                      )}
+                    </Box>
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))}
+            {/* <TableRow>
               {selectedColumns.includes("datum") && (
                 <TableCell sx={tableStyles.th.cell} align="left">
                   datum
@@ -233,15 +287,17 @@ const MobileBookings = ({ data }) => {
                   {!newest && <ArrowUpwardIcon />}
                 </TableCell>
               )}
-            </TableRow>
+            </TableRow> */}
           </TableHead>
-          <TableBody>
-            {shownData?.map((booking) => {
+          <TableBody {...getTableBodyProps()}>
+            {rows?.map((row, i) => {
+              prepareRow(row);
               return (
-                <CustomTableRow
-                  key={booking?.id}
+                <BookingsTableRow
+                  key={i}
                   selectedColumns={selectedColumns}
-                  booking={booking}
+                  row={row}
+                  prepareRow={prepareRow}
                 />
               );
             })}

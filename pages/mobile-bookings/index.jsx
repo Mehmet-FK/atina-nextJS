@@ -6,7 +6,6 @@ import { getSession } from "next-auth/react";
 import Head from "next/head";
 
 const MobileBookings = ({ data, error }) => {
-  console.log("ERROR", error);
   return (
     <div>
       <ErrorModal error={error} />
@@ -15,7 +14,7 @@ const MobileBookings = ({ data, error }) => {
       </Head>
       <h1 style={{ marginBottom: "1rem" }}>Mobile Buchungen</h1>
 
-      <MobileBookingsTable data={data} />
+      {!error && <MobileBookingsTable data={data} />}
     </div>
   );
 };

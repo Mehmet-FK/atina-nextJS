@@ -140,6 +140,10 @@ export const NFC_TABLE_COLUMNS = [
     Header: "daten4",
   },
   {
+    accessor: "data5",
+    Header: "daten5",
+  },
+  {
     accessor: "data6",
     Header: "daten6",
   },
@@ -163,5 +167,44 @@ export const NFC_TABLE_COLUMNS = [
     accessor: "createdDate",
     Header: "erstellt am",
     Cell: ({ value }) => new Date(value).toLocaleDateString("de"),
+  },
+];
+
+export const BUCHUNGEN_TABLE_COLUMNS = [
+  {
+    accessor: "date",
+    Header: "datum",
+  },
+  {
+    accessor: "time",
+    Header: "uhrzeit",
+  },
+  {
+    accessor: "bookingType",
+    Header: "buchungstyp",
+  },
+  {
+    accessor: "street",
+    Header: "straße",
+  },
+  {
+    accessor: "streetnumber",
+    Header: "hausnummer",
+  },
+  {
+    accessor: "zip",
+    Header: "plz",
+  },
+  {
+    accessor: "city",
+    Header: "stadt",
+  },
+  {
+    accessor: "country",
+    Header: "land",
+  },
+  {
+    accessor: "createdDate",
+    Header: "erstellt am",
   },
 ];

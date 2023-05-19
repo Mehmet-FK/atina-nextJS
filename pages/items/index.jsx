@@ -1,3 +1,4 @@
+import ErrorModal from "@/components/modals/ErrorModal";
 import ItemsTable from "@/components/tables/ItemsTable";
 import { AtinaCalls } from "@/helpers/apiFunctions";
 import { getSession } from "next-auth/react";
@@ -5,14 +6,15 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import React from "react";
 
-const AtinaItems = ({ data }) => {
+const AtinaItems = ({ data, error }) => {
   return (
     <div>
+      <ErrorModal error={error} />
       <Head>
         <title>Datensätze</title>
       </Head>
       <h1 style={{ marginBottom: "1rem" }}>Datensätze</h1>
-      <ItemsTable data={data} />
+      {!error && <ItemsTable data={data} error={error} />}{" "}
     </div>
   );
 };
@@ -34,6 +36,6 @@ export const getServerSideProps = async (context) => {
   const x = await atinaCalls.fetchData("api/AtinaItems/SearchByKeyValue");
 
   return {
-    props: { data: x.res },
+    props: { data: x.res, error: x.error.message },
   };
 };
