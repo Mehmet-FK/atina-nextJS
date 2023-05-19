@@ -217,6 +217,7 @@ const NfcTable = ({ data }) => {
                     </Box>
                     <div
                       {...column.getResizerProps()}
+                      onClick={() => setResetResize(!resetResize)}
                       className={`${styles.resizer} ${
                         column.isResizing ? styles.isResizing : null
                       }`}

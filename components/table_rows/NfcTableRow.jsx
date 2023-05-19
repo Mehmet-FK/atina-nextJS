@@ -18,7 +18,7 @@ const NfcTableRow = ({ row, prepareRow, resetResize }) => {
         return (
           <TableCell
             {...cell.getCellProps()}
-            sx={{ ...tableStyles.tr.cell, borderRight: "1px solid #ddd" }}
+            sx={{ ...tableStyles.tr.cell, borderRight: "1px solid #eee" }}
             className={styles.td}
             align="left"
           >
