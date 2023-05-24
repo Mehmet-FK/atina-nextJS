@@ -17,13 +17,21 @@ import ContextMenu from "../ContextMenu";
 import useContextMenu from "../../hooks/useContextMenu";
 import DownloadCSV from "../DownloadCSV";
 import { tableStyles } from "@/styles/table_styles";
+import styles from "./table_styles.module.css";
 
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import useSortColumn from "@/hooks/useSortColumn";
 import { USER_TABLE_COLUMNS } from "./columns";
-import { useSortBy, useTable } from "react-table";
+import {
+  useBlockLayout,
+  useResizeColumns,
+  useSortBy,
+  useTable,
+} from "react-table";
 import Tooltip from "@mui/material/Tooltip";
+import UndoIcon from "@mui/icons-material/Undo";
+import IconButton from "@mui/material/IconButton";
 const initalContextMenu = {
   show: false,
   x: 0,
@@ -39,6 +47,7 @@ const UsersTable = ({ data }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [shownData, setShownData] = useState([]);
+  const [resetResize, setResetResize] = useState(false);
 
   const handlePagination = () => {
     let currentPage = rowsPerPage * page;
@@ -63,7 +72,17 @@ const UsersTable = ({ data }) => {
   );
 
   //? Table Utilities START
-  const tableColumns = USER_TABLE_COLUMNS;
+
+  const defaultColumn = useMemo(
+    () => ({
+      minWidth: 30,
+      width: 200,
+      maxWidth: 600,
+    }),
+    []
+  );
+
+  const tableColumns = useMemo(() => USER_TABLE_COLUMNS, []);
 
   const {
     headerGroups,
@@ -72,7 +91,13 @@ const UsersTable = ({ data }) => {
     rows,
     prepareRow,
     allColumns,
-  } = useTable({ columns: tableColumns, data: shownData }, useSortBy);
+    resetResizing,
+  } = useTable(
+    { columns: tableColumns, data: shownData, defaultColumn },
+    useSortBy,
+    useBlockLayout,
+    useResizeColumns
+  );
 
   //? Table Utilities END
 
@@ -147,8 +172,16 @@ const UsersTable = ({ data }) => {
             setPage={setPage}
             rowsPerPage={rowsPerPage}
             setRowsPerPage={setRowsPerPage}
-            setRestart={setRestart}
+            // setRestart={setRestart}
           />
+          <IconButton
+            onClick={() => {
+              resetResizing();
+              setResetResize(!resetResize);
+            }}
+          >
+            <UndoIcon />
+          </IconButton>
           <DownloadCSV rawData={shownData} />
         </Box>
         <Table
@@ -158,12 +191,15 @@ const UsersTable = ({ data }) => {
         >
           <TableHead>
             {headerGroups.map((headerGroup) => (
-              <TableRow {...headerGroup.getHeaderGroupProps()}>
+              <TableRow
+                className={styles.tr}
+                {...headerGroup.getHeaderGroupProps()}
+              >
                 {headerGroup.headers.map((column) => (
                   <TableCell
+                    className={styles.th}
                     {...column.getHeaderProps(column.getSortByToggleProps())}
                     sx={tableStyles.th.cell}
-                    //   onClick={() => handleSort("firstname")}
                     align="left"
                   >
                     <Box
@@ -187,6 +223,13 @@ const UsersTable = ({ data }) => {
                         ""
                       )}
                     </Box>
+                    <div
+                      {...column.getResizerProps()}
+                      onClick={() => setResetResize(!resetResize)}
+                      className={`${styles.resizer} ${
+                        column.isResizing ? styles.isResizing : null
+                      }`}
+                    />
                   </TableCell>
                 ))}
               </TableRow>
@@ -200,9 +243,7 @@ const UsersTable = ({ data }) => {
                   key={i}
                   row={row}
                   prepareRow={prepareRow}
-                  //   key={i}
-                  //   user={user}
-                  selectedColumns={selectedColumns}
+                  resetResize={resetResize}
                 />
               );
             })}

@@ -35,6 +35,7 @@ export const tableStyles = {
     },
     cell: {
       fontSize: "0.7em",
+      borderRight: "1px solid #ddd",
       // padding: " 10px",
     },
     image: {

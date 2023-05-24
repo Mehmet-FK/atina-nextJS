@@ -37,6 +37,6 @@ export const getServerSideProps = async (context) => {
   const x = await atinaCalls.fetchData("api/AtinaMobileBookings");
 
   return {
-    props: { data: x.res, error: x.error.message },
+    props: { data: x.res, error: x.error },
   };
 };

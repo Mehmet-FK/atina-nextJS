@@ -5,8 +5,9 @@ import ItemsModal from "../modals/ItemsModal";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import ConfirmDialog from "../ConfirmDialog";
+import styles from "./table_row_styles.module.css";
 
-const ItemsTableRow = ({ row, prepareRow }) => {
+const ItemsTableRow = ({ row, prepareRow, resetResize }) => {
   const [openItemsModal, setOpenItemsModal] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
 
@@ -18,7 +19,7 @@ const ItemsTableRow = ({ row, prepareRow }) => {
 
   useEffect(() => {
     prepareRow(row);
-  }, []);
+  }, [resetResize]);
 
   return (
     <>
@@ -28,6 +29,7 @@ const ItemsTableRow = ({ row, prepareRow }) => {
         id={row?.original.id}
       />
       <TableRow
+        className={styles.tr}
         {...row.getRowProps()}
         onClick={handleDblClick}
         sx={tableStyles.tr.row}
@@ -35,8 +37,9 @@ const ItemsTableRow = ({ row, prepareRow }) => {
         {row.cells.map((cell) => {
           return (
             <TableCell
+              className={styles.td}
               {...cell.getCellProps()}
-              sx={tableStyles.tr.cell}
+              sx={{ ...tableStyles.tr.cell, wordBreak: "break-word" }}
               align="left"
             >
               {cell.render("Cell")}
@@ -44,15 +47,23 @@ const ItemsTableRow = ({ row, prepareRow }) => {
           );
         })}
 
-        <TableCell align="left" scope="row">
+        <TableCell
+          sx={{ borderRight: "1px solid #ddd", minWidth: "70px" }}
+          align="left"
+          scope="row"
+        >
           <Tooltip title="Bearbeiten" arrow>
             <IconButton onClick={() => setOpenItemsModal(true)}>
               <EditIcon fontSize="small" />
             </IconButton>
           </Tooltip>
         </TableCell>
-        <TableCell align="left" scope="row">
-          <Tooltip title="Bearbeiten" arrow>
+        <TableCell
+          sx={{ borderRight: "1px solid #ddd", minWidth: "70px" }}
+          align="left"
+          scope="row"
+        >
+          <Tooltip title="Löschen" arrow>
             <IconButton onClick={() => setOpenDialog(true)}>
               <DeleteForeverIcon fontSize="small" sx={{ color: "#ff0000" }} />
             </IconButton>

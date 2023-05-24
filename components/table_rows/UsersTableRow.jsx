@@ -5,7 +5,7 @@ import React, { memo, useEffect, useState } from "react";
 import UserModal from "../modals/UserModal";
 import { tableStyles } from "@/styles/table_styles";
 
-const UsersTableRow = ({ user, selectedColumns, row, prepareRow }) => {
+const UsersTableRow = ({ row, prepareRow, resetResize }) => {
   const [openUserModal, setOpenUserModal] = useState(false);
   const handleDblClick = (e) => {
     if (e.detail === 2) {
@@ -15,7 +15,7 @@ const UsersTableRow = ({ user, selectedColumns, row, prepareRow }) => {
   };
   useEffect(() => {
     prepareRow(row);
-  }, []);
+  }, [resetResize]);
 
   return (
     <>

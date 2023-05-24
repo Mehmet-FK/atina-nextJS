@@ -26,8 +26,19 @@ import LoadingIcon from "../LoadingIcon";
 import ItemsFilter from "../filters/ItemsFilter";
 import { searchItems } from "@/helpers/searchFunctions";
 import { getSuccess } from "@/redux/slices/atinaSlice";
-import { useSortBy, useTable } from "react-table";
-import { ITEM_TABLE_COLUMNS } from "./columns";
+import {
+  useBlockLayout,
+  useResizeColumns,
+  useSortBy,
+  useTable,
+} from "react-table";
+import {
+  ITEM_TABLE_METER_COLUMNS,
+  ITEM_TABLE_ORDER_COLUMNS,
+  ITEM_TABLE_VEHICLE_COLUMNS,
+} from "./columns";
+import styles from "./table_styles.module.css";
+import UndoIcon from "@mui/icons-material/Undo";
 
 const initalContextMenu = {
   show: false,
@@ -44,6 +55,7 @@ const ItemsTable = ({ data }) => {
   const [loading, setLoading] = useState(false);
   const [shownData, setShownData] = useState(data ? data : []);
   const [type, setType] = useState("Order");
+  const [resetResize, setResetResize] = useState(false);
 
   const [contextMenu, setContextMenu] = useState(initalContextMenu);
 
@@ -62,8 +74,26 @@ const ItemsTable = ({ data }) => {
   // ===Table sort  START===
 
   //? Table Utilities START
-  const tableColumns = useMemo(() => ITEM_TABLE_COLUMNS, []);
 
+  const defaultColumn = useMemo(
+    () => ({
+      minWidth: 100,
+      width: 200,
+      maxWidth: 400,
+    }),
+    []
+  );
+
+  const tableColumns = useMemo(() => {
+    if (type === "Order") {
+      return ITEM_TABLE_ORDER_COLUMNS;
+    } else if (type === "Meter") {
+      return ITEM_TABLE_METER_COLUMNS;
+    } else if (type === "Vehicle") {
+      return ITEM_TABLE_VEHICLE_COLUMNS;
+    }
+  }, [type]);
+  // console.log(type);
   const {
     headerGroups,
     getTableProps,
@@ -71,12 +101,16 @@ const ItemsTable = ({ data }) => {
     rows,
     prepareRow,
     allColumns,
+    resetResizing,
   } = useTable(
     {
       columns: tableColumns,
       data: shownData,
+      defaultColumn,
     },
-    useSortBy
+    useSortBy,
+    useBlockLayout,
+    useResizeColumns
   );
 
   //? Table Utilities END
@@ -95,7 +129,7 @@ const ItemsTable = ({ data }) => {
       console.log(res.error);
     });
   };
-  console.log(shownData);
+  // console.log(shownData);
   const handleReset = () => {
     setFilterVal({});
     // handlePagination();
@@ -120,9 +154,14 @@ const ItemsTable = ({ data }) => {
   useEffect(() => {
     handlePagination();
     setType("Order");
+    getAtinaItemsData("Order").then((response) => {
+      setAllData(response.res);
+      // setLoading(false);
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, rowsPerPage, data]);
+  }, [data]);
 
+  // console.log(allColumns);
   return (
     <>
       <ItemsModal
@@ -241,6 +280,14 @@ const ItemsTable = ({ data }) => {
               handlePagination={handlePagination}
               // setRestart={setRestart}
             />
+            <IconButton
+              onClick={() => {
+                resetResizing();
+                setResetResize(!resetResize);
+              }}
+            >
+              <UndoIcon />
+            </IconButton>
             <DownloadCSV rawData={shownData} />
             <IconButton onClick={() => setOpenItemsModal(true)}>
               <AddCircleIcon
@@ -254,15 +301,20 @@ const ItemsTable = ({ data }) => {
         </Box>
 
         <Table
+          className="table"
           {...getTableProps()}
           sx={{ minWidth: 650 }}
           aria-label="simple table"
         >
           <TableHead>
             {headerGroups.map((headerGroup) => (
-              <TableRow {...headerGroup.getHeaderGroupProps()}>
+              <TableRow
+                className={styles.tr}
+                {...headerGroup.getHeaderGroupProps()}
+              >
                 {headerGroup.headers.map((column) => (
                   <TableCell
+                    className={styles.th}
                     {...column.getHeaderProps(column.getSortByToggleProps())}
                     sx={{
                       textTransform: "capitalize",
@@ -270,7 +322,7 @@ const ItemsTable = ({ data }) => {
                       color: "#888",
                       fontSize: "0.7rem",
                       cursor: "pointer",
-                      borderRight: "1px solid #aaa",
+                      borderRight: "1px solid #ddd",
                     }}
                     align="left"
                   >
@@ -294,303 +346,40 @@ const ItemsTable = ({ data }) => {
                         ""
                       )}
                     </Box>
+                    <div
+                      {...column.getResizerProps()}
+                      onClick={() => setResetResize(!resetResize)}
+                      className={`${styles.resizer} ${
+                        column.isResizing ? styles.isResizing : null
+                      }`}
+                    />
                   </TableCell>
                 ))}
+                <TableCell
+                  className={styles.th}
+                  sx={{ borderRight: "1px solid #eee", minWidth: "70px" }}
+                >
+                  #
+                </TableCell>
+                <TableCell
+                  className={styles.th}
+                  sx={{ borderRight: "1px solid #eee", minWidth: "70px" }}
+                >
+                  #
+                </TableCell>
               </TableRow>
             ))}
-            {/* <>
-            <TableRow>
-              {selectedColumns.includes("typ") && (
-                <TableCell
-                  sx={{
-                    textTransform: "capitalize",
-                    fontWeight: "600",
-                    color: "#888",
-                    fontSize: "0.7rem",
-                    cursor: "pointer",
-                    borderRight: "1px solid #aaa",
-                  }}
-                  onClick={() => handleSort("itemType")}
-                  align="left"
-                >
-                  <Box
-                    sx={{
-                      width: "100%",
-                      display: "flex",
-                      justifyContent: "space-around",
-                    }}
-                  >
-                    <Box sx={{ color: "#000" }}>Typ </Box>
-                    {columns.itemType === 1 && <ArrowDownwardIcon />}
-                    {columns.itemType !== 1 && <ArrowUpwardIcon />}
-                  </Box>
-                </TableCell>
-              )}
-              {selectedColumns.includes("artikelnummer") && (
-                <TableCell
-                  sx={tableStyles.th.cell}
-                  onClick={() => handleSort("itemNumber")}
-                  align="left"
-                >
-                  <Box
-                    sx={{
-                      width: "100%",
-                      display: "flex",
-                      justifyContent: "space-around",
-                    }}
-                  >
-                    <Box sx={{ color: "#000" }}>artikelnummer </Box>
-                    {columns.itemNumber === 1 && <ArrowDownwardIcon />}
-                    {columns.itemNumber !== 1 && <ArrowUpwardIcon />}
-                  </Box>
-                </TableCell>
-              )}
-              {selectedColumns.includes("straße") && type !== "Vehicle" && (
-                <TableCell
-                  sx={tableStyles.th.cell}
-                  onClick={() => handleSort("street")}
-                  align="left"
-                >
-                  <Box
-                    sx={{
-                      width: "100%",
-                      display: "flex",
-                      justifyContent: "space-around",
-                    }}
-                  >
-                    <Box sx={{ color: "#000" }}>straße </Box>
-                    {columns.street === 1 && <ArrowDownwardIcon />}
-                    {columns.street !== 1 && <ArrowUpwardIcon />}
-                  </Box>
-                </TableCell>
-              )}
-              {selectedColumns.includes("hausnummer") && type !== "Vehicle" && (
-                <TableCell
-                  sx={tableStyles.th.cell}
-                  onClick={() => handleSort("streetnumber")}
-                  align="left"
-                >
-                  <Box
-                    sx={{
-                      width: "100%",
-                      display: "flex",
-                      justifyContent: "space-around",
-                    }}
-                  >
-                    <Box sx={{ color: "#000" }}>hausnummer </Box>
-                    {columns.streetnumber === 1 && <ArrowDownwardIcon />}
-                    {columns.streetnumber !== 1 && <ArrowUpwardIcon />}
-                  </Box>
-                </TableCell>
-              )}
-              {selectedColumns.includes("plz") && type !== "Vehicle" && (
-                <TableCell
-                  sx={tableStyles.th.cell}
-                  onClick={() => handleSort("zip")}
-                  align="left"
-                >
-                  <Box
-                    sx={{
-                      width: "100%",
-                      display: "flex",
-                      justifyContent: "space-around",
-                    }}
-                  >
-                    <Box sx={{ color: "#000" }}>plz </Box>
-                    {columns.zip === 1 && <ArrowDownwardIcon />}
-                    {columns.zip !== 1 && <ArrowUpwardIcon />}
-                  </Box>
-                </TableCell>
-              )}
-              {selectedColumns.includes("stadt") && type !== "Vehicle" && (
-                <TableCell
-                  sx={tableStyles.th.cell}
-                  onClick={() => handleSort("city")}
-                  align="left"
-                >
-                  <Box
-                    sx={{
-                      width: "100%",
-                      display: "flex",
-                      justifyContent: "space-around",
-                    }}
-                  >
-                    <Box sx={{ color: "#000" }}>stadt </Box>
-                    {columns.city === 1 && <ArrowDownwardIcon />}
-                    {columns.city !== 1 && <ArrowUpwardIcon />}
-                  </Box>
-                </TableCell>
-              )}
-              {selectedColumns.includes("land") && type !== "Vehicle" && (
-                <TableCell
-                  sx={tableStyles.th.cell}
-                  onClick={() => handleSort("country")}
-                  align="left"
-                >
-                  <Box
-                    sx={{
-                      width: "100%",
-                      display: "flex",
-                      justifyContent: "space-around",
-                    }}
-                  >
-                    <Box sx={{ color: "#000" }}>land </Box>
-                    {columns.country === 1 && <ArrowDownwardIcon />}
-                    {columns.country !== 1 && <ArrowUpwardIcon />}
-                  </Box>
-                </TableCell>
-              )}
-              {selectedColumns.includes("daten1") && (
-                <TableCell
-                  sx={tableStyles.th.cell}
-                  onClick={() => handleSort("data1")}
-                  align="left"
-                >
-                  <Box
-                    sx={{
-                      width: "100%",
-                      display: "flex",
-                      justifyContent: "space-around",
-                    }}
-                  >
-                    <Box sx={{ color: "#000" }}>
-                      {type === "Order" && "Mandant"}
-                      {type === "Meter" && "Letzte Ablesung am"}
-                      {type === "Vehicle" && "Mandant"}
-                    </Box>
-                    {columns.data1 === 1 && <ArrowDownwardIcon />}
-                    {columns.data1 !== 1 && <ArrowUpwardIcon />}
-                  </Box>
-                </TableCell>
-              )}
-              {selectedColumns.includes("daten2") && (
-                <TableCell
-                  sx={tableStyles.th.cell}
-                  onClick={() => handleSort("data2")}
-                  align="left"
-                >
-                  <Box
-                    sx={{
-                      width: "100%",
-                      display: "flex",
-                      justifyContent: "space-around",
-                    }}
-                  >
-                    <Box sx={{ color: "#000" }}>
-                      {type === "Order" && "Auftragsart"}
-                      {type === "Meter" && "Letzte Ablesung"}
-                      {type === "Vehicle" && "Standort"}
-                    </Box>
-                    {columns.data2 === 1 && <ArrowDownwardIcon />}
-                    {columns.data2 !== 1 && <ArrowUpwardIcon />}
-                  </Box>
-                </TableCell>
-              )}
-              {selectedColumns.includes("daten3") && type !== "Meter" && (
-                <TableCell
-                  sx={tableStyles.th.cell}
-                  onClick={() => handleSort("data3")}
-                  align="left"
-                >
-                  <Box
-                    sx={{
-                      width: "100%",
-                      display: "flex",
-                      justifyContent: "space-around",
-                    }}
-                  >
-                    <Box sx={{ color: "#000" }}>
-                      {type === "Order" && "Auftragsbetreff"}
-                      {type === "Meter" && "daten3"}
-                      {type === "Vehicle" && "Kennzeichen"}
-                    </Box>
-                    {columns.data3 === 1 && <ArrowDownwardIcon />}
-                    {columns.data3 !== 1 && <ArrowUpwardIcon />}
-                  </Box>
-                </TableCell>
-              )}
-              {selectedColumns.includes("daten4") && type !== "Meter" && (
-                <TableCell
-                  sx={tableStyles.th.cell}
-                  onClick={() => handleSort("data4")}
-                  align="left"
-                >
-                  <Box
-                    sx={{
-                      width: "100%",
-                      display: "flex",
-                      justifyContent: "space-around",
-                    }}
-                  >
-                    <Box sx={{ color: "#000" }}>
-                      {type === "Order" && "Kundennummer"}
-                      {type === "Meter" && "daten4"}
-                      {type === "Vehicle" && "Modell"}
-                    </Box>
-                    {columns.data4 === 1 && <ArrowDownwardIcon />}
-                    {columns.data4 !== 1 && <ArrowUpwardIcon />}
-                  </Box>
-                </TableCell>
-              )}
-              {selectedColumns.includes("daten5") &&
-                type !== "Meter" &&
-                type !== "Vehicle" && (
-                  <TableCell
-                    sx={tableStyles.th.cell}
-                    onClick={() => handleSort("data5")}
-                    align="left"
-                  >
-                    <Box
-                      sx={{
-                        width: "100%",
-                        display: "flex",
-                        justifyContent: "space-around",
-                      }}
-                    >
-                      <Box sx={{ color: "#000" }}>
-                        {type === "Order" && "Kundenname"}
-                      </Box>
-                      {columns.data5 === 1 && <ArrowDownwardIcon />}
-                      {columns.data5 !== 1 && <ArrowUpwardIcon />}
-                    </Box>
-                  </TableCell>
-                )}
-              {selectedColumns.includes("erstellt am") && (
-                <TableCell
-                  onClick={() => handleSort("createdDate")}
-                  sx={{
-                    ...tableStyles.th.cell,
-                    display: "flex",
-                    alignItems: "center",
-                    columnGap: "5px",
-                    cursor: "pointer",
-                    color: "#888",
-                  }}
-                  align="left"
-                >
-                  <Box color={"#000"}>erstellt am</Box>
-                  {columns.createdDate === 1 && <ArrowDownwardIcon />}
-                  {columns.createdDate !== 1 && <ArrowUpwardIcon />}
-                </TableCell>
-              )}
-              <TableCell
-                sx={{ borderRight: "1px solid #ddd", textAlign: "center" }}
-              >
-                #
-              </TableCell>
-              <TableCell
-                sx={{ borderRight: "1px solid #ddd", textAlign: "center" }}
-              >
-                #
-              </TableCell>
-            </TableRow>
-            </> */}
           </TableHead>
           <TableBody {...getTableBodyProps()}>
             {rows?.map((row, i) => {
               prepareRow(row);
               return (
-                <ItemsTableRow key={i} row={row} prepareRow={prepareRow} />
+                <ItemsTableRow
+                  key={i}
+                  row={row}
+                  prepareRow={prepareRow}
+                  resetResize={resetResize}
+                />
               );
             })}
           </TableBody>

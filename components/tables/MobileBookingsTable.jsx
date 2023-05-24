@@ -22,22 +22,19 @@ import { tableStyles } from "@/styles/table_styles";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { searchBookings } from "@/helpers/searchFunctions";
-import { useSortBy, useTable } from "react-table";
+import {
+  useBlockLayout,
+  useResizeColumns,
+  useSortBy,
+  useTable,
+} from "react-table";
 import { BUCHUNGEN_TABLE_COLUMNS } from "./columns";
 import BookingsTableRow from "../table_rows/BookingsTableRow";
-// import axios from "axios";
+import styles from "./table_styles.module.css";
+import UndoIcon from "@mui/icons-material/Undo";
+import IconButton from "@mui/material/IconButton";
 
-const tableColumns = [
-  "datum",
-  "uhrzeit",
-  "buchungstyp",
-  "straße",
-  "hausnummer",
-  "plz",
-  "stadt",
-  "land",
-  "erstellt am",
-];
+// import axios from "axios";
 
 const initalContextMenu = {
   show: false,
@@ -48,13 +45,12 @@ const initalContextMenu = {
 const MobileBookings = ({ data }) => {
   const [contextMenu, setContextMenu] = useState(initalContextMenu);
   const [allData, setAllData] = useState(data);
+  const [resetResize, setResetResize] = useState(false);
 
   // ===pagination states START===
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [shownData, setShownData] = useState();
-  const [restart, setRestart] = useState(false);
-  const [newest, setNewest] = useState(true);
+  const [shownData, setShownData] = useState(allData);
 
   const handlePagination = useCallback(() => {
     let currentPage = rowsPerPage * page;
@@ -96,6 +92,14 @@ const MobileBookings = ({ data }) => {
   };
 
   //? Table Utilities START
+  const defaultColumn = useMemo(
+    () => ({
+      minWidth: 30,
+      width: 200,
+      maxWidth: 400,
+    }),
+    []
+  );
 
   const tableColumns = useMemo(() => BUCHUNGEN_TABLE_COLUMNS, []);
   const {
@@ -105,26 +109,16 @@ const MobileBookings = ({ data }) => {
     rows,
     prepareRow,
     allColumns,
-  } = useTable({ columns: tableColumns, data: shownData }, useSortBy);
+    resetResizing,
+  } = useTable(
+    { columns: tableColumns, data: shownData, defaultColumn },
+    useSortBy,
+    useBlockLayout,
+    useResizeColumns
+  );
 
   //? Table Utilities END
 
-  const handleSort = () => {
-    const arr = shownData.map((item) => ({
-      ...item,
-      createdDate: new Date(item.createdDate),
-    }));
-
-    if (newest) {
-      let temp = arr.sort((a, b) => b.createdDate - a.createdDate);
-      setNewest(!newest);
-      setShownData(temp);
-    } else {
-      let temp = arr.sort((a, b) => a.createdDate - b.createdDate);
-      setNewest(!newest);
-      setShownData(temp);
-    }
-  };
   // ===Table Filter END===
 
   // === Column Select START ===
@@ -151,13 +145,12 @@ const MobileBookings = ({ data }) => {
     >
       {contextMenu.show && (
         <ContextMenu
+          allColumns={allColumns}
           X={contextMenu.x}
           Y={contextMenu.y}
           contextMenu={contextMenu}
           setContextMenu={setContextMenu}
           tableColumns={tableColumns}
-          selectedColumns={selectedColumns}
-          setSelectedColumns={setSelectedColumns}
         />
       )}
       <TableContainer
@@ -184,9 +177,16 @@ const MobileBookings = ({ data }) => {
             rowsPerPage={rowsPerPage}
             setRowsPerPage={setRowsPerPage}
             handlePagination={handlePagination}
-            setRestart={setRestart}
+            // setRestart={setRestart}
           />
-
+          <IconButton
+            onClick={() => {
+              resetResizing();
+              setResetResize(!resetResize);
+            }}
+          >
+            <UndoIcon />
+          </IconButton>
           <DownloadCSV rawData={shownData} />
         </Box>
         <Table
@@ -196,9 +196,13 @@ const MobileBookings = ({ data }) => {
         >
           <TableHead>
             {headerGroups.map((headerGroup) => (
-              <TableRow {...headerGroup.getHeaderGroupProps()}>
+              <TableRow
+                className={styles.tr}
+                {...headerGroup.getHeaderGroupProps()}
+              >
                 {headerGroup.headers.map((column) => (
                   <TableCell
+                    className={styles.th}
                     {...column.getHeaderProps(column.getSortByToggleProps())}
                     sx={tableStyles.th.cell}
                     align="left"
@@ -224,6 +228,13 @@ const MobileBookings = ({ data }) => {
                         ""
                       )}
                     </Box>
+                    <div
+                      {...column.getResizerProps()}
+                      onClick={() => setResetResize(!resetResize)}
+                      className={`${styles.resizer} ${
+                        column.isResizing ? styles.isResizing : null
+                      }`}
+                    />
                   </TableCell>
                 ))}
               </TableRow>
@@ -294,6 +305,7 @@ const MobileBookings = ({ data }) => {
               prepareRow(row);
               return (
                 <BookingsTableRow
+                  resetResize={resetResize}
                   key={i}
                   selectedColumns={selectedColumns}
                   row={row}

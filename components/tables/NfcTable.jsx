@@ -45,7 +45,7 @@ const NfcTable = ({ data }) => {
   const [allData, setAllData] = useState(data);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [shownData, setShownData] = useState(data);
+  const [shownData, setShownData] = useState(allData);
   const [resetResize, setResetResize] = useState(false);
   const session = useSession();
 
@@ -53,7 +53,7 @@ const NfcTable = ({ data }) => {
     let currentPage = rowsPerPage * page;
     const newArray = allData?.slice(currentPage, currentPage + rowsPerPage);
     return setShownData(newArray);
-  }, [page, rowsPerPage]);
+  }, [page, rowsPerPage, shownData]);
   // ===pagination states END===
 
   // ===Table sort  START===
@@ -103,7 +103,8 @@ const NfcTable = ({ data }) => {
   const [filterVal, setFilterVal] = useState(initialFilterparams);
 
   const handleFilter = () => {
-    searchNfcTag(filterVal).then((res) => setShownData(res));
+    searchNfcTag(filterVal).then((res) => setAllData(res));
+    handlePagination();
   };
   const handleReset = () => {
     setFilterVal(initialFilterparams);
@@ -125,7 +126,7 @@ const NfcTable = ({ data }) => {
   useEffect(() => {
     handlePagination();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, rowsPerPage, data]);
+  }, [page, rowsPerPage, allData]);
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>

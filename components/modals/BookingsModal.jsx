@@ -31,7 +31,7 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
                 size="small"
                 name="date"
                 sx={{ width: "100%" }}
-                value={inputVal.date || ""}
+                value={inputVal.Date || ""}
                 onChange={(e) =>
                   setInputVal({
                     ...inputVal,
@@ -46,7 +46,7 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
                 name="time"
                 sx={{ width: "100%" }}
                 value={
-                  inputVal.time?.slice(0, inputVal.time.indexOf(".")) || ""
+                  inputVal.Time?.slice(0, inputVal.Time.indexOf(".")) || ""
                 }
                 onChange={(e) =>
                   setInputVal({
@@ -66,7 +66,6 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
                   size="small"
                   value={booking.bookingType || ""}
                   sx={{ input: { color: "#888", cursor: "auto" } }}
-                  InputProps={{ readOnly: true }}
                 />
               </Tooltip>
               <Tooltip title={"Gesperrt"} placement="top-start" arrow>
@@ -74,9 +73,8 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
                   variant="outlined"
                   label="Straße"
                   size="small"
-                  value={booking.street || ""}
+                  value={booking.Street || ""}
                   sx={{ input: { color: "#888", cursor: "auto" } }}
-                  InputProps={{ readOnly: true }}
                 />
               </Tooltip>
               <Tooltip title={"Gesperrt"} placement="top-start" arrow>
@@ -84,9 +82,8 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
                   variant="outlined"
                   label="Hausnummer"
                   size="small"
-                  value={booking.streetnumber || ""}
+                  value={booking.Streetnumber || ""}
                   sx={{ input: { color: "#888", cursor: "auto" } }}
-                  InputProps={{ readOnly: true }}
                 />
               </Tooltip>
               <Box sx={{ display: "flex" }}>
@@ -95,9 +92,8 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
                     variant="outlined"
                     label="PLZ"
                     size="small"
-                    value={booking.zip || ""}
+                    value={booking.ZIP || ""}
                     sx={{ input: { color: "#888", cursor: "auto" } }}
-                    InputProps={{ readOnly: true }}
                   />
                 </Tooltip>
                 <Tooltip title={"Gesperrt"} placement="top-start" arrow>
@@ -105,9 +101,8 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
                     variant="outlined"
                     label="Stadt"
                     size="small"
-                    value={booking.city || ""}
+                    value={booking.City || ""}
                     sx={{ input: { color: "#888", cursor: "auto" } }}
-                    InputProps={{ readOnly: true }}
                   />
                 </Tooltip>
               </Box>
@@ -116,9 +111,8 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
                   variant="outlined"
                   label="Land"
                   size="small"
-                  value={booking.country || ""}
+                  value={booking.Country || ""}
                   sx={{ input: { color: "#888", cursor: "auto" } }}
-                  InputProps={{ readOnly: true }}
                 />
               </Tooltip>
             </Box>

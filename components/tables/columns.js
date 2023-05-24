@@ -26,7 +26,7 @@ export const USER_TABLE_COLUMNS = [
     Header: "bild",
     Cell: (row) => (
       <Avatar
-        sx={tableStyles.tr.image}
+        sx={{ ...tableStyles.tr.image, margin: "auto" }}
         src={`data:image/png;base64,${row.original?.image}`}
       />
     ),
@@ -34,10 +34,11 @@ export const USER_TABLE_COLUMNS = [
 ];
 
 //!Waiting for the new Endpoints
-export const ITEM_TABLE_COLUMNS = [
+export const ITEM_TABLE_ORDER_COLUMNS = [
   {
     accessor: "itemType",
     Header: "typ",
+    Cell: "Auftrag",
   },
   {
     accessor: "itemNumber",
@@ -49,12 +50,12 @@ export const ITEM_TABLE_COLUMNS = [
   },
   {
     accessor: "streetnumber",
-    Header: "hausnummer",
+    Header: "Hausnummer",
   },
-  {
-    accessor: "personnelnumber",
-    Header: "personalnummer",
-  },
+  // {
+  //   accessor: "personnelnumber",
+  //   Header: "personalnummer",
+  // },
   {
     accessor: "zip",
     Header: "plz",
@@ -69,24 +70,102 @@ export const ITEM_TABLE_COLUMNS = [
   },
   {
     accessor: "data1",
-    Header: "daten1",
+    Header: "Mandant",
   },
   {
     accessor: "data2",
-    Header: "daten2",
+    Header: "Auftragsart",
   },
   {
     accessor: "data3",
-    Header: "daten3",
+    Header: "Auftragsbetreff",
   },
   {
     accessor: "data4",
-    Header: "daten4",
+    Header: "Kundennummer",
   },
   {
     accessor: "data5",
-    Header: "daten5",
+    Header: "Kundenname",
   },
+];
+export const ITEM_TABLE_METER_COLUMNS = [
+  {
+    accessor: "itemType",
+    Header: "typ",
+    Cell: "Zähler",
+  },
+  {
+    accessor: "itemNumber",
+    Header: "artikelnummer",
+  },
+  {
+    accessor: "street",
+    Header: "straße",
+  },
+  {
+    accessor: "streetnumber",
+    Header: "Hausnummer",
+  },
+  // {
+  //   accessor: "personnelnumber",
+  //   Header: "personalnummer",
+  // },
+  {
+    accessor: "zip",
+    Header: "plz",
+  },
+  {
+    accessor: "city",
+    Header: "stadt",
+  },
+  {
+    accessor: "country",
+    Header: "land",
+  },
+  {
+    accessor: "data1",
+    Header: "Letzte Ablesung am",
+  },
+  {
+    accessor: "data2",
+    Header: "Letzte Ablesung",
+  },
+];
+export const ITEM_TABLE_VEHICLE_COLUMNS = [
+  {
+    accessor: "itemType",
+    Header: "typ",
+    Cell: "KFZ",
+  },
+  {
+    accessor: "itemNumber",
+    Header: "artikelnummer",
+  },
+  {
+    accessor: "data1",
+    Header: "Mandant",
+  },
+  {
+    accessor: "data2",
+    Header: "Standort",
+  },
+  {
+    accessor: "data3",
+    Header: "Kennzeichen",
+  },
+  {
+    accessor: "data4",
+    Header: "Modell",
+  },
+  // {
+  //   accessor: "data5",
+  //   Header: "#",
+  // },
+  // {
+  //   accessor: "data6",
+  //   Header: "#",
+  // },
 ];
 
 export const NFC_TABLE_COLUMNS = [
@@ -176,39 +255,58 @@ export const NFC_TABLE_COLUMNS = [
 
 export const BUCHUNGEN_TABLE_COLUMNS = [
   {
-    accessor: "date",
-    Header: "datum",
+    accessor: "Username",
+    Header: "Benutzername",
   },
   {
-    accessor: "time",
-    Header: "uhrzeit",
-  },
-  {
-    accessor: "bookingType",
+    accessor: "BookingType",
     Header: "buchungstyp",
   },
   {
-    accessor: "street",
+    accessor: "Date",
+    Header: "datum",
+    Cell: ({ value }) => new Date(value).toLocaleDateString("de"),
+  },
+  {
+    accessor: "Time",
+    Header: "uhrzeit",
+    Cell: ({ value }) => value?.slice(0, value?.indexOf(".")),
+  },
+  {
+    accessor: "ItemType",
+    Header: "typ",
+    Cell: ({ value }) => {
+      if (value === "Order") {
+        return "Auftrag";
+      } else if (value === "Meter") {
+        return "Zähler";
+      } else if (value === "Car") {
+        return "KFZ";
+      }
+    },
+  },
+  {
+    accessor: "Street",
     Header: "straße",
   },
   {
-    accessor: "streetnumber",
+    accessor: "Streetnumber",
     Header: "hausnummer",
   },
   {
-    accessor: "zip",
+    accessor: "ZIP",
     Header: "plz",
   },
   {
-    accessor: "city",
+    accessor: "City",
     Header: "stadt",
   },
   {
-    accessor: "country",
+    accessor: "Country",
     Header: "land",
   },
-  {
-    accessor: "createdDate",
-    Header: "erstellt am",
-  },
+  // {
+  //   accessor: "createdDate",
+  //   Header: "erstellt am",
+  // },
 ];

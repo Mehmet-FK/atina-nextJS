@@ -4,8 +4,9 @@ import { TableCell, TableRow } from "@mui/material";
 import React, { memo, useEffect, useState } from "react";
 import BookingsModal from "../modals/BookingsModal";
 import { tableStyles } from "@/styles/table_styles";
+import styles from "./table_row_styles.module.css";
 
-const BookingsTableRow = ({ booking, selectedColumns, row, prepareRow }) => {
+const BookingsTableRow = ({ resetResize, row, prepareRow }) => {
   const [openBookingModal, setOpenBookingModal] = useState(false);
   const handleDblClick = (e) => {
     if (e.detail === 2) {
@@ -15,26 +16,36 @@ const BookingsTableRow = ({ booking, selectedColumns, row, prepareRow }) => {
 
   useEffect(() => {
     prepareRow(row);
-  }, []);
+    console.log(row);
+  }, [resetResize]);
 
   return (
-    <TableRow
-      {...row.getRowProps()}
-      sx={tableStyles.tr.row}
-      onClick={handleDblClick}
-    >
-      {row.cells.map((cell) => {
-        return (
-          <TableCell
-            {...cell.getCellProps()}
-            sx={tableStyles.tr.cell}
-            align="left"
-          >
-            {cell.render("Cell")}
-          </TableCell>
-        );
-      })}
-    </TableRow>
+    <>
+      <BookingsModal
+        openBookingModal={openBookingModal}
+        setOpenBookingModal={setOpenBookingModal}
+        booking={row?.original}
+      />
+      <TableRow
+        {...row.getRowProps()}
+        sx={tableStyles.tr.row}
+        className={styles.tr}
+        onClick={handleDblClick}
+      >
+        {row.cells.map((cell) => {
+          return (
+            <TableCell
+              {...cell.getCellProps()}
+              sx={tableStyles.tr.cell}
+              className={styles.td}
+              align="left"
+            >
+              {cell.render("Cell")}
+            </TableCell>
+          );
+        })}
+      </TableRow>
+    </>
 
     // <TableRow {...row.getRowProps()} sx={tableStyles.tr.row}  onClick={handleDblClick}>
     //   {selectedColumns.includes("datum") && (
