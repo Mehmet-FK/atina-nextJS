@@ -28,6 +28,11 @@ const ItemsTableRow = ({ row, prepareRow, resetResize }) => {
         setOpenDialog={setOpenDialog}
         id={row?.original.id}
       />
+      <ItemsModal
+        setOpenItemsModal={setOpenItemsModal}
+        openItemsModal={openItemsModal}
+        item={row?.original}
+      />
       <TableRow
         className={styles.tr}
         {...row.getRowProps()}
@@ -70,43 +75,6 @@ const ItemsTableRow = ({ row, prepareRow, resetResize }) => {
           </Tooltip>
         </TableCell>
       </TableRow>
-      {/* <>
-        <TableRow
-          key={item.ItemNumber}
-          onClick={handleDblClick}
-          sx={{ ...tableStyles.tr.row, cursor: "pointer" }}
-        >
-          <TableCell sx={tableStyles.tr.cell} align="left" scope="row">
-            <ItemsModal
-              setOpenItemsModal={setOpenItemsModal}
-              openItemsModal={openItemsModal}
-              item={item}
-            />
-
-            {item?.itemType === "Order" && "Auftrag"}
-            {item?.itemType === "Meter" && "Zähler"}
-            {item?.itemType === "Vehicle" && "KFZ"}
-          </TableCell>
-          <TableCell sx={tableStyles.tr.cell} align="left">
-            {item?.itemNumber}
-          </TableCell>
-
-          <TableCell align="left" scope="row">
-            <Tooltip title="Bearbeiten" arrow>
-              <IconButton onClick={() => setOpenItemsModal(true)}>
-                <EditIcon fontSize="small" />
-              </IconButton>
-            </Tooltip>
-          </TableCell>
-          <TableCell align="left" scope="row">
-            <Tooltip title="Bearbeiten" arrow>
-              <IconButton onClick={() => setOpenDialog(true)}>
-                <DeleteForeverIcon fontSize="small" sx={{ color: "#ff0000" }} />
-              </IconButton>
-            </Tooltip>
-          </TableCell>
-        </TableRow>
-      </> */}
     </>
   );
 };

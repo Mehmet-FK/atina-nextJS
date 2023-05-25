@@ -146,6 +146,8 @@ const NfcTable = ({ data }) => {
         sx={{
           ...tableStyles.tableContainer,
           maxWidth: xxl ? "90vw" : { lg: "auto" },
+          maxHeight: "90vh",
+          overflow: "auto",
         }}
       >
         <NfcFilter

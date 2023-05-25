@@ -64,7 +64,7 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
                   variant="outlined"
                   label="Buchungstyp"
                   size="small"
-                  value={booking.bookingType || ""}
+                  value={booking.BookingType || ""}
                   sx={{ input: { color: "#888", cursor: "auto" } }}
                 />
               </Tooltip>

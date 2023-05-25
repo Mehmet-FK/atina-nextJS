@@ -156,6 +156,8 @@ const UsersTable = ({ data }) => {
           maxWidth: xxl ? "90vw" : { lg: "1250px" },
           margin: "auto",
           padding: "0.5rem 10px",
+          maxHeight: "90vh",
+          overflow: "auto",
         }}
       >
         <UsersFilter

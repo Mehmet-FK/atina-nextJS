@@ -161,6 +161,8 @@ const MobileBookings = ({ data }) => {
           margin: "auto",
           padding: "1rem 10px",
           position: "relative",
+          maxHeight: "90vh",
+          overflow: "auto",
         }}
       >
         <BookingsFilter

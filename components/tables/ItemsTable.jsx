@@ -78,7 +78,7 @@ const ItemsTable = ({ data }) => {
   const defaultColumn = useMemo(
     () => ({
       minWidth: 100,
-      width: 200,
+      width: 170,
       maxWidth: 400,
     }),
     []
@@ -149,7 +149,7 @@ const ItemsTable = ({ data }) => {
 
     handlePagination();
     setLoading(false);
-  }, [allData]);
+  }, [allData, page, rowsPerPage]);
 
   useEffect(() => {
     handlePagination();
@@ -186,6 +186,8 @@ const ItemsTable = ({ data }) => {
         sx={{
           ...tableStyles.tableContainer,
           maxWidth: xxl ? "90vw" : { lg: "1250px" },
+          maxHeight: "90vh",
+          overflow: "auto",
         }}
       >
         <ItemsFilter
