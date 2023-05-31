@@ -54,14 +54,16 @@ export const searchBookings = async (params) => {
     nfcTagInfo,
     userID,
     itemID,
+    username,
     dateFrom,
     dateTo,
-    createdFrom,
-    createdTo,
+    timeFrom,
+    timeTo,
   } = params;
 
-  let base = `https://pbsolutions.dev/atina/api/AtinaMobileBookings?CreatedDateFrom=${createdFrom}`;
-
+  let base = `https://pbsolutions.dev/atina/api/AtinaMobileBookings?`;
+  {
+    /*
   if (id) {
     base += `&ID=${id}`;
   }
@@ -95,17 +97,28 @@ export const searchBookings = async (params) => {
   if (itemID) {
     base += `&ItemID=${itemID}`;
   }
-  if (dateFrom) {
-    base += `&DateFrom=${dateFrom}`;
-  }
-  if (dateTo) {
-    base += `&DateTo=${dateTo}`;
-  }
-  if (createdFrom) {
+   if (createdFrom) {
     base += `&CreatedDateFrom=${createdFrom}`;
   }
   if (createdTo) {
     base += `&CreatedDateTo=${createdTo}`;
+  } */
+  }
+
+  if (username) {
+    base += `&username=${username}`;
+  }
+  if (dateFrom) {
+    base += `&dateFrom=${dateFrom.replaceAll("-", "")}`;
+  }
+  if (dateTo) {
+    base += `&dateTo=${dateTo.replaceAll("-", "")}`;
+  }
+  if (timeFrom) {
+    base += `&timeFrom=${timeFrom}`;
+  }
+  if (timeTo) {
+    base += `&timeTo=${timeTo}`;
   }
 
   try {
@@ -122,6 +135,7 @@ export const searchItems = async (params) => {
   let error = null;
 
   const {
+    type,
     id,
     itemType,
     itemID,
@@ -138,49 +152,49 @@ export const searchItems = async (params) => {
     data5,
   } = params;
 
-  let base = `https://pbsolutions.dev/atina/api/AtinaItems/SearchByKeyValue?filters[ItemType]=Order`;
+  let base = `https://pbsolutions.dev/atina/api/AtinaItems/SearchByKeyValue?ItemType=${type}`;
 
   if (id) {
-    base += `&filters[ID]=${id}`;
+    base += `&ID=${id}`;
   }
   if (itemType) {
-    base += `&filters[ItemType]=${itemType}`;
+    base += `&ItemType=${itemType}`;
   }
   if (itemID) {
-    base += `&filters[ItemId]=${itemID}`;
+    base += `&ItemId=${itemID}`;
   }
   if (itemNumber) {
-    base += `&filters[ItemNumber]=${itemNumber}`;
+    base += `&ItemNumber=${itemNumber}`;
   }
   if (street) {
-    base += `&filters[Street]=${street}`;
+    base += `&Street=${street}`;
   }
   if (streetnumber) {
-    base += `&filters[Streetnumber]=${streetnumber}`;
+    base += `&Streetnumber=${streetnumber}`;
   }
   if (zip) {
-    base += `&filters[Zip]=${zip}`;
+    base += `&Zip=${zip}`;
   }
   if (city) {
-    base += `&filters[City]=${city}`;
+    base += `&City=${city}`;
   }
   if (country) {
-    base += `&filters[Country]=${country}`;
+    base += `&Country=${country}`;
   }
   if (data1) {
-    base += `&filters[Data1]=${data1}`;
+    base += `&Data1=${data1}`;
   }
   if (data2) {
-    base += `&filters[Data2]=${data2}`;
+    base += `&Data2=${data2}`;
   }
   if (data3) {
-    base += `&filters[Data3]=${data3}`;
+    base += `&Data3=${data3}`;
   }
   if (data4) {
-    base += `&filters[Data4]=${data4}`;
+    base += `&Data4=${data4}`;
   }
   if (data5) {
-    base += `&filters[Data5]=${data5}`;
+    base += `&Data5=${data5}`;
   }
   console.log(base);
   try {
@@ -192,4 +206,54 @@ export const searchItems = async (params) => {
   }
 
   return { itemArray, error };
+};
+
+export const searchUsers = async (params) => {
+  /*  let bookingsArray = null;
+
+  const {
+    id,
+    bookingType,
+    street,
+    streetnumber,
+    zip,
+    city,
+    country,
+    nfcTagID,
+    nfcTagInfo,
+    userID,
+    itemID,
+    username,
+    dateFrom,
+    dateTo,
+    timeFrom,
+    timeTo,
+  } = params;
+
+  let base = `https://pbsolutions.dev/atina/api/AtinaMobileBookings?`;
+
+  if (username) {
+    base += `&username=${username}`;
+  }
+  if (dateFrom) {
+    base += `&dateFrom=${dateFrom.replaceAll("-", "")}`;
+  }
+  if (dateTo) {
+    base += `&dateTo=${dateTo.replaceAll("-", "")}`;
+  }
+  if (timeFrom) {
+    base += `&timeFrom=${timeFrom}`;
+  }
+  if (timeTo) {
+    base += `&timeTo=${timeTo}`;
+  }
+
+  try {
+    const { data } = await axios(base);
+    bookingsArray = data;
+  } catch (error) {
+    console.log(error);
+  }
+
+  return bookingsArray; */
 };

@@ -117,11 +117,11 @@ const NfcTable = ({ data }) => {
 
   //==== MediaQuery ===
   const xxl = useMediaQuery("(min-width:1400px)");
-  /* useEffect(() => {
+  useEffect(() => {
     if (session.status === "loading") {
       setLoading(true);
     }
-  }, [session]); */
+  }, [session]);
 
   useEffect(() => {
     handlePagination();
@@ -146,7 +146,7 @@ const NfcTable = ({ data }) => {
         sx={{
           ...tableStyles.tableContainer,
           maxWidth: xxl ? "90vw" : { lg: "auto" },
-          maxHeight: "90vh",
+          maxHeight: "82vh",
           overflow: "auto",
         }}
       >

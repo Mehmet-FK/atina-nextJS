@@ -8,9 +8,9 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useMediaQuery } from "@mui/material";
 import Pagination from "../Pagination";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Box } from "@mui/system";
-import useAtinaCalls from "../../hooks/useAtinaCalls";
+
 import UsersTableRow from "../table_rows/UsersTableRow";
 import UsersFilter from "../filters/UsersFilter";
 import ContextMenu from "../ContextMenu";
@@ -21,7 +21,7 @@ import styles from "./table_styles.module.css";
 
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import useSortColumn from "@/hooks/useSortColumn";
+
 import { USER_TABLE_COLUMNS } from "./columns";
 import {
   useBlockLayout,
@@ -40,14 +40,15 @@ const initalContextMenu = {
 
 const UsersTable = ({ data }) => {
   const [contextMenu, setContextMenu] = useState(initalContextMenu);
-  const [restart, setRestart] = useState(false);
   const { handleRightClick } = useContextMenu(contextMenu, setContextMenu);
 
   // ===pagination states START===
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [shownData, setShownData] = useState([]);
+  const [allData, setAllData] = useState(data);
+  const [shownData, setShownData] = useState([...allData]);
   const [resetResize, setResetResize] = useState(false);
+  const [tableWidth, setTableWidth] = useState();
 
   const handlePagination = () => {
     let currentPage = rowsPerPage * page;
@@ -56,22 +57,10 @@ const UsersTable = ({ data }) => {
   };
   // ===pagination states END===
 
-  // ===Table sort  START===
-
-  const columnObj = {
-    firstname: 1,
-    lastname: 1,
-    passwordSalt: 1,
-    username: 1,
-    personnelnumber: 1,
-  };
-
-  const { sortedData, handleSort, columns } = useSortColumn(
-    shownData,
-    columnObj
-  );
-
   //? Table Utilities START
+  const tableRef = useRef(null);
+
+  const tableColumns = useMemo(() => USER_TABLE_COLUMNS, []);
 
   const defaultColumn = useMemo(
     () => ({
@@ -79,10 +68,9 @@ const UsersTable = ({ data }) => {
       width: 200,
       maxWidth: 600,
     }),
-    []
-  );
 
-  const tableColumns = useMemo(() => USER_TABLE_COLUMNS, []);
+    [tableRef, tableWidth]
+  );
 
   const {
     headerGroups,
@@ -93,7 +81,11 @@ const UsersTable = ({ data }) => {
     allColumns,
     resetResizing,
   } = useTable(
-    { columns: tableColumns, data: shownData, defaultColumn },
+    {
+      columns: tableColumns,
+      data: shownData,
+      defaultColumn: tableWidth && defaultColumn,
+    },
     useSortBy,
     useBlockLayout,
     useResizeColumns
@@ -101,14 +93,10 @@ const UsersTable = ({ data }) => {
 
   //? Table Utilities END
 
-  // ===Table sort  END===
-
   // ===Table Filter START===
   const [filterVal, setFilterVal] = useState({});
   const handleFilter = () => {
     //TODO: Search Function
-    /* const filteredData = "";
-    setShownData(filteredData); */
   };
 
   const handleReset = () => {
@@ -117,25 +105,19 @@ const UsersTable = ({ data }) => {
   };
   // ===Table Filter END===
 
-  // === Column Select START ===
-  const [selectedColumns, setSelectedColumns] = useState(tableColumns);
-  // === Column Select END ===
-
   //==== MediaQuery ===
   const xxl = useMediaQuery("(min-width:1400px)");
 
-  // const { getUsersData } = useAtinaCalls();
-
   useEffect(() => {
-    // getUsersData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [restart]);
+    setTableWidth(tableRef.current.offsetWidth);
+  }, [tableRef]);
 
   useEffect(() => {
     handlePagination();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, rowsPerPage, data]);
 
+  //console.log("COLUMN-WIDTH", defaultColumn.width);
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
       {contextMenu.show && (
@@ -169,12 +151,11 @@ const UsersTable = ({ data }) => {
         <Box sx={{ display: "flex", justifyContent: "end" }}>
           <Pagination
             //TODO: set allData state
-            data={data}
+            data={allData}
             page={page}
             setPage={setPage}
             rowsPerPage={rowsPerPage}
             setRowsPerPage={setRowsPerPage}
-            // setRestart={setRestart}
           />
           <IconButton
             onClick={() => {
@@ -188,8 +169,10 @@ const UsersTable = ({ data }) => {
         </Box>
         <Table
           {...getTableProps()}
+          ref={tableRef}
           sx={{ minWidth: 650, position: "relative" }}
           aria-label="simple table"
+          size="small"
         >
           <TableHead>
             {headerGroups.map((headerGroup) => (
@@ -201,7 +184,7 @@ const UsersTable = ({ data }) => {
                   <TableCell
                     className={styles.th}
                     {...column.getHeaderProps(column.getSortByToggleProps())}
-                    sx={tableStyles.th.cell}
+                    sx={{ ...tableStyles.th.cell }}
                     align="left"
                   >
                     <Box

@@ -58,7 +58,7 @@ const UsersFilter = ({
           container
           sx={{ width: "100%", columnGap: "10px", rowGap: "10px" }}
         >
-          <Grid item md={2}>
+          {/*  <Grid item md={2}>
             <TextField
               // onChange={handleChange}
               value={filterVal.timeFrom || ""}
@@ -93,8 +93,8 @@ const UsersFilter = ({
                 },
               }}
             />
-          </Grid>
-          <Grid item md={2}>
+          </Grid> */}
+          {/*  <Grid item md={2}>
             <TextField
               onChange={handleChange}
               value={filterVal.timeTo || ""}
@@ -129,7 +129,7 @@ const UsersFilter = ({
                 },
               }}
             />
-          </Grid>
+          </Grid> */}
           <Grid item md={2}>
             <TextField
               sx={filterStyles.textField}
@@ -168,11 +168,11 @@ const UsersFilter = ({
             <TextField
               sx={filterStyles.textField}
               onChange={handleChange}
-              value={filterVal.personnelNumber || ""}
+              value={filterVal.personnelnumber || ""}
               variant="outlined"
               size="small"
               label="Personalnummer"
-              name="personnelNumber"
+              name="personnelnumber"
             />
           </Grid>
         </Grid>

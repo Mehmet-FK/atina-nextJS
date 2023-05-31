@@ -26,6 +26,7 @@ export const tableStyles = {
       fontSize: "0.7rem",
       cursor: "pointer",
       borderRight: "1px solid #ddd",
+      // width: "100%",
     },
   },
   tr: {
@@ -36,6 +37,7 @@ export const tableStyles = {
     cell: {
       fontSize: "0.7em",
       borderRight: "1px solid #ddd",
+      // width: "100%",
       // padding: " 10px",
     },
     image: {

@@ -122,8 +122,8 @@ const ItemsTable = ({ data }) => {
 
   const handleFilter = () => {
     setLoading(true);
-    searchItems(filterVal).then((res) => {
-      setShownData(res.itemArray);
+    searchItems({ ...filterVal, type }).then((res) => {
+      setAllData(res.itemArray);
       setIsError(res.error ? true : false);
       setLoading(false);
       console.log(res.error);
@@ -186,7 +186,7 @@ const ItemsTable = ({ data }) => {
         sx={{
           ...tableStyles.tableContainer,
           maxWidth: xxl ? "90vw" : { lg: "1250px" },
-          maxHeight: "90vh",
+          maxHeight: "82vh",
           overflow: "auto",
         }}
       >
@@ -307,6 +307,7 @@ const ItemsTable = ({ data }) => {
           {...getTableProps()}
           sx={{ minWidth: 650 }}
           aria-label="simple table"
+          size="small"
         >
           <TableHead>
             {headerGroups.map((headerGroup) => (
@@ -360,15 +361,11 @@ const ItemsTable = ({ data }) => {
                 <TableCell
                   className={styles.th}
                   sx={{ borderRight: "1px solid #eee", minWidth: "70px" }}
-                >
-                  #
-                </TableCell>
+                ></TableCell>
                 <TableCell
                   className={styles.th}
                   sx={{ borderRight: "1px solid #eee", minWidth: "70px" }}
-                >
-                  #
-                </TableCell>
+                ></TableCell>
               </TableRow>
             ))}
           </TableHead>

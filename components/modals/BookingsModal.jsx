@@ -59,67 +59,61 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
             <Box
               sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}
             >
-              <Tooltip title={"Gesperrt"} placement="top-start" arrow>
-                <TextField
-                  variant="outlined"
-                  label="Buchungstyp"
-                  size="small"
-                  value={booking.BookingType || ""}
-                  sx={{ input: { color: "#888", cursor: "auto" } }}
-                />
-              </Tooltip>
-              <Tooltip title={"Gesperrt"} placement="top-start" arrow>
-                <TextField
-                  variant="outlined"
-                  label="Straße"
-                  size="small"
-                  value={booking.Street || ""}
-                  sx={{ input: { color: "#888", cursor: "auto" } }}
-                />
-              </Tooltip>
-              <Tooltip title={"Gesperrt"} placement="top-start" arrow>
-                <TextField
-                  variant="outlined"
-                  label="Hausnummer"
-                  size="small"
-                  value={booking.Streetnumber || ""}
-                  sx={{ input: { color: "#888", cursor: "auto" } }}
-                />
-              </Tooltip>
+              {/* <Tooltip title={"Gesperrt"} placement="top-start" arrow> */}
+              <TextField
+                variant="outlined"
+                label="Buchungstyp"
+                size="small"
+                value={inputVal.BookingType || ""}
+              />
+              {/* </Tooltip> */}
+              {/* <Tooltip title={"Gesperrt"} placement="top-start" arrow> */}
+              <TextField
+                variant="outlined"
+                label="Straße"
+                size="small"
+                value={inputVal.Street || ""}
+              />
+              {/* </Tooltip> */}
+              {/* <Tooltip title={"Gesperrt"} placement="top-start" arrow> */}
+              <TextField
+                variant="outlined"
+                label="Hausnummer"
+                size="small"
+                value={inputVal.Streetnumber || ""}
+              />
+              {/* </Tooltip> */}
               <Box sx={{ display: "flex" }}>
-                <Tooltip title={"Gesperrt"} placement="top-start" arrow>
-                  <TextField
-                    variant="outlined"
-                    label="PLZ"
-                    size="small"
-                    value={booking.ZIP || ""}
-                    sx={{ input: { color: "#888", cursor: "auto" } }}
-                  />
-                </Tooltip>
-                <Tooltip title={"Gesperrt"} placement="top-start" arrow>
-                  <TextField
-                    variant="outlined"
-                    label="Stadt"
-                    size="small"
-                    value={booking.City || ""}
-                    sx={{ input: { color: "#888", cursor: "auto" } }}
-                  />
-                </Tooltip>
-              </Box>
-              <Tooltip title={"Gesperrt"} placement="top-start" arrow>
+                {/* <Tooltip title={"Gesperrt"} placement="top-start" arrow> */}
                 <TextField
                   variant="outlined"
-                  label="Land"
+                  label="PLZ"
                   size="small"
-                  value={booking.Country || ""}
-                  sx={{ input: { color: "#888", cursor: "auto" } }}
+                  value={inputVal.ZIP || ""}
                 />
-              </Tooltip>
+                {/* </Tooltip> */}
+                {/* <Tooltip title={"Gesperrt"} placement="top-start" arrow> */}
+                <TextField
+                  variant="outlined"
+                  label="Stadt"
+                  size="small"
+                  value={inputVal.City || ""}
+                />
+                {/* </Tooltip> */}
+              </Box>
+              {/* <Tooltip title={"Gesperrt"} placement="top-start" arrow> */}
+              <TextField
+                variant="outlined"
+                label="Land"
+                size="small"
+                value={inputVal.Country || ""}
+              />
+              {/* </Tooltip> */}
             </Box>
             <Box sx={{ display: "flex", justifyContent: "space-around" }}>
-              <Button sx={modalStyles.bookingModal.button} variant="contained">
+              {/* <Button sx={modalStyles.bookingModal.button} variant="contained">
                 Speichern
-              </Button>
+              </Button> */}
               <Button
                 sx={modalStyles.bookingModal.button}
                 onClick={handleClose}

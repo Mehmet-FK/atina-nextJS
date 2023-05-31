@@ -74,16 +74,17 @@ const MobileBookings = ({ data }) => {
     nfcTagInfo: null,
     userID: null,
     itemID: null,
+    username: null,
     dateFrom: null,
     dateTo: null,
-    createdFrom: "",
-    createdTo: null,
+    timeFrom: null,
+    timeTo: null,
   };
 
   const [filterVal, setFilterVal] = useState(bookingsFilterParams);
 
   const handleFilter = () => {
-    searchBookings(filterVal).then((res) => setShownData(res));
+    searchBookings(filterVal).then((res) => setAllData(res));
   };
 
   const handleReset = () => {
@@ -161,7 +162,7 @@ const MobileBookings = ({ data }) => {
           margin: "auto",
           padding: "1rem 10px",
           position: "relative",
-          maxHeight: "90vh",
+          maxHeight: "82vh",
           overflow: "auto",
         }}
       >

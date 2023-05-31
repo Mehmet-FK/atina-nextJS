@@ -268,6 +268,8 @@ export const BUCHUNGEN_TABLE_COLUMNS = [
         return "Pause";
       } else if (value === "OUT") {
         return "Aus";
+      } else {
+        return value;
       }
     },
   },
