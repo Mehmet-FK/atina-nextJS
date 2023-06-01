@@ -38,11 +38,12 @@ const Login = () => {
         height: "100vh",
         display: "flex",
         justifyContent: "center",
-        backgroundColor: "#ccc",
+        alignItems: "center",
+        backgroundColor: "#e10000",
         // border: "2px solid blue",
       }}
     >
-      <Box
+      {/*  <Box
         sx={{
           width: "50%",
           height: "100%",
@@ -54,17 +55,13 @@ const Login = () => {
           // backgroundSize: "contain",
         }}
       >
-        <img
-          src="/assets/login1.svg"
-          alt="background image"
-          style={{ width: "500px" }}
-        />
-      </Box>
+      
+      </Box> */}
       <Box
         component="form"
         onSubmit={handleSubmit}
         sx={{
-          backgroundColor: "#e10000",
+          // backgroundColor: "#e10000",
 
           display: "flex",
           flexDirection: "column",
@@ -73,13 +70,17 @@ const Login = () => {
           minWidth: "300px",
           rowGap: "15px",
           padding: "2rem",
-          width: { xs: "100%", md: "100%", lg: "50%" },
-          height: "100%",
+          border: "2px solid #fff",
+          borderRadius: "1rem",
+          // width: { xs: "100%", md: "100%", lg: "100%" },
+          // height: "70%",
         }}
       >
         <Image
           src={"/assets/attensam-logo.svg"}
-          style={{ marginBottom: "3rem" }}
+          style={{
+            marginBottom: "3rem",
+          }}
           width={375}
           height={150}
           alt="logo"

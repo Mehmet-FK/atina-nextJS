@@ -84,6 +84,7 @@ const MobileBookings = ({ data }) => {
   const [filterVal, setFilterVal] = useState(bookingsFilterParams);
 
   const handleFilter = () => {
+    console.log(filterVal);
     searchBookings(filterVal).then((res) => setAllData(res));
   };
 
@@ -96,7 +97,7 @@ const MobileBookings = ({ data }) => {
   const defaultColumn = useMemo(
     () => ({
       minWidth: 30,
-      width: 200,
+      width: 135,
       maxWidth: 400,
     }),
     []
@@ -123,7 +124,7 @@ const MobileBookings = ({ data }) => {
   // ===Table Filter END===
 
   // === Column Select START ===
-  const [selectedColumns, setSelectedColumns] = useState(tableColumns);
+
   // === Column Select END ===
 
   const { handleRightClick } = useContextMenu(contextMenu, setContextMenu);
@@ -135,7 +136,6 @@ const MobileBookings = ({ data }) => {
     handlePagination();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, rowsPerPage, allData]);
-  // console.log(data[0]);
 
   return (
     <Box
@@ -310,7 +310,6 @@ const MobileBookings = ({ data }) => {
                 <BookingsTableRow
                   resetResize={resetResize}
                   key={i}
-                  selectedColumns={selectedColumns}
                   row={row}
                   prepareRow={prepareRow}
                 />

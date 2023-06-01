@@ -65,11 +65,11 @@ const BookingsFilter = ({
             <TextField
               sx={filterStyles.textField}
               onChange={handleChange}
-              value={filterVal.Username || ""}
+              value={filterVal.username || ""}
               variant="outlined"
               size="small"
               label="Benutzername"
-              name="Username"
+              name="username"
             />
           </Grid>
           <Grid item md={2}>

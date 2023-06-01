@@ -28,7 +28,12 @@ const ItemsFilter = memo(
     return (
       <Box
         component={Paper}
-        sx={{ ...filterStyles.container, height: open ? "auto" : "3rem" }}
+        onClick={() => !open && setOpen(true)}
+        sx={{
+          ...filterStyles.container,
+          height: open ? "auto" : "3rem",
+          cursor: open ? "auto" : "pointer",
+        }}
       >
         <Box sx={filterStyles.iconWrapper}>
           <IconButton onClick={() => setOpen(!open)}>

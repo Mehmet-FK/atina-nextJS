@@ -117,12 +117,12 @@ const NfcTable = ({ data }) => {
 
   //==== MediaQuery ===
   const xxl = useMediaQuery("(min-width:1400px)");
-  useEffect(() => {
+  /*  useEffect(() => {
     if (session.status === "loading") {
       setLoading(true);
     }
   }, [session]);
-
+ */
   useEffect(() => {
     handlePagination();
     // eslint-disable-next-line react-hooks/exhaustive-deps

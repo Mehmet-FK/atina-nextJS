@@ -16,7 +16,6 @@ const BookingsTableRow = ({ resetResize, row, prepareRow }) => {
 
   useEffect(() => {
     prepareRow(row);
-    console.log(row);
   }, [resetResize]);
 
   return (

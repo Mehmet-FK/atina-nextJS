@@ -48,7 +48,7 @@ const UsersTable = ({ data }) => {
   const [allData, setAllData] = useState(data);
   const [shownData, setShownData] = useState([...allData]);
   const [resetResize, setResetResize] = useState(false);
-  const [tableWidth, setTableWidth] = useState();
+  const [tableWidth, setTableWidth] = useState(null);
 
   const handlePagination = () => {
     let currentPage = rowsPerPage * page;
@@ -59,17 +59,16 @@ const UsersTable = ({ data }) => {
 
   //? Table Utilities START
   const tableRef = useRef(null);
-
   const tableColumns = useMemo(() => USER_TABLE_COLUMNS, []);
 
   const defaultColumn = useMemo(
     () => ({
       minWidth: 30,
-      width: 200,
+      width: 220,
       maxWidth: 600,
     }),
 
-    [tableRef, tableWidth]
+    []
   );
 
   const {
@@ -84,13 +83,13 @@ const UsersTable = ({ data }) => {
     {
       columns: tableColumns,
       data: shownData,
-      defaultColumn: tableWidth && defaultColumn,
+      defaultColumn,
     },
     useSortBy,
     useBlockLayout,
     useResizeColumns
   );
-
+  // console.log("sdfsd");
   //? Table Utilities END
 
   // ===Table Filter START===
@@ -107,15 +106,15 @@ const UsersTable = ({ data }) => {
 
   //==== MediaQuery ===
   const xxl = useMediaQuery("(min-width:1400px)");
-
   useEffect(() => {
     setTableWidth(tableRef.current.offsetWidth);
-  }, [tableRef]);
+  }, []);
 
   useEffect(() => {
     handlePagination();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, rowsPerPage, data]);
+  console.log(headerGroups[0].headers.at(0));
 
   //console.log("COLUMN-WIDTH", defaultColumn.width);
   return (
@@ -150,7 +149,6 @@ const UsersTable = ({ data }) => {
         />
         <Box sx={{ display: "flex", justifyContent: "end" }}>
           <Pagination
-            //TODO: set allData state
             data={allData}
             page={page}
             setPage={setPage}
@@ -160,7 +158,7 @@ const UsersTable = ({ data }) => {
           <IconButton
             onClick={() => {
               resetResizing();
-              setResetResize(!resetResize);
+              // setResetResize(!resetResize);
             }}
           >
             <UndoIcon />
@@ -168,8 +166,8 @@ const UsersTable = ({ data }) => {
           <DownloadCSV rawData={shownData} />
         </Box>
         <Table
-          {...getTableProps()}
           ref={tableRef}
+          {...getTableProps()}
           sx={{ minWidth: 650, position: "relative" }}
           aria-label="simple table"
           size="small"
@@ -184,7 +182,9 @@ const UsersTable = ({ data }) => {
                   <TableCell
                     className={styles.th}
                     {...column.getHeaderProps(column.getSortByToggleProps())}
-                    sx={{ ...tableStyles.th.cell }}
+                    sx={{
+                      ...tableStyles.th.cell,
+                    }}
                     align="left"
                   >
                     <Box
