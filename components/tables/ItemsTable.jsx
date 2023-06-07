@@ -49,6 +49,7 @@ const initalContextMenu = {
 };
 
 const ItemsTable = ({ data: dataFromServer }) => {
+  const tableRef = useRef(null);
   const { data } = useSession();
   const dispatch = useDispatch();
   const { atinaItems } = useSelector((state) => state.atina);
@@ -62,7 +63,7 @@ const ItemsTable = ({ data: dataFromServer }) => {
   const [contextMenu, setContextMenu] = useState(initalContextMenu);
   const [isAdmin, setIsAdmin] = useState(false);
 
-  // ===pagination states START===
+  //#region ===pagination states START===
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -73,10 +74,9 @@ const ItemsTable = ({ data: dataFromServer }) => {
     return setShownData(newArray);
   }, [page, rowsPerPage, atinaItems, allData]);
 
-  // ===pagination states END===
-  // ===Table sort  START===
+  //#endregion ===pagination states END===
 
-  //? Table Utilities START
+  //#region Table Utilities START
 
   const defaultColumn = useMemo(
     () => ({
@@ -118,9 +118,7 @@ const ItemsTable = ({ data: dataFromServer }) => {
     useBlockLayout,
     useResizeColumns
   );
-  //? Table Utilities END
-
-  // ===Table sort  END===
+  //#endregion Table Utilities END
 
   // ===Table Filter START===
   const [filterVal, setFilterVal] = useState({});
@@ -187,9 +185,11 @@ const ItemsTable = ({ data: dataFromServer }) => {
           allColumns={allColumns}
           setOpenItemsModal={setOpenItemsModal}
           openItemsModal={openItemsModal}
+          tableRef={tableRef}
         />
       )}
       <TableContainer
+        ref={tableRef}
         component={Paper}
         onContextMenu={handleRightClick}
         sx={{

@@ -39,6 +39,7 @@ const initalContextMenu = {
 };
 
 const UsersTable = ({ data }) => {
+  const tableRef = useRef(null);
   const [contextMenu, setContextMenu] = useState(initalContextMenu);
   const { handleRightClick } = useContextMenu(contextMenu, setContextMenu);
 
@@ -58,7 +59,6 @@ const UsersTable = ({ data }) => {
   // ===pagination states END===
 
   //? Table Utilities START
-  const tableRef = useRef(null);
   const tableColumns = useMemo(() => USER_TABLE_COLUMNS, []);
 
   const defaultColumn = useMemo(
@@ -131,11 +131,13 @@ const UsersTable = ({ data }) => {
           setContextMenu={setContextMenu}
           // ref={contextMenuRef}
           tableColumns={tableColumns}
+          tableRef={tableRef}
         />
       )}
       <TableContainer
         component={Paper}
         onContextMenu={handleRightClick}
+        ref={tableRef}
         sx={{
           maxWidth: xxl ? "90vw" : { lg: "1250px" },
           margin: "auto",

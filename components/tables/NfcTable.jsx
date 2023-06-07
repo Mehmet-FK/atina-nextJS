@@ -7,7 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Pagination from "../Pagination";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Box } from "@mui/system";
 import NfcFilter from "../filters/NfcFilter";
 import { useMediaQuery } from "@mui/material";
@@ -40,7 +40,7 @@ const initalContextMenu = {
 
 const NfcTable = ({ data }) => {
   const [contextMenu, setContextMenu] = useState(initalContextMenu);
-  // console.log(data.map((x) => x.item));
+  const tableRef = useRef(null);
 
   // ===pagination states START===
   const [allData, setAllData] = useState(data);
@@ -141,11 +141,13 @@ const NfcTable = ({ data }) => {
           contextMenu={contextMenu}
           setContextMenu={setContextMenu}
           tableColumns={tableColumns}
+          tableRef={tableRef}
         />
       )}
       <TableContainer
         component={Paper}
         onContextMenu={handleRightClick}
+        ref={tableRef}
         sx={{
           ...tableStyles.tableContainer,
           maxWidth: xxl ? "90vw" : { lg: "auto" },
