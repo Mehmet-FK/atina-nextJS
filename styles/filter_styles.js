@@ -33,7 +33,12 @@ export const filterStyles = {
     paddingInline: "1rem",
   },
   grid: {
-    container: { width: "100%", columnGap: "10px", rowGap: "10px" },
+    container: {
+      width: "100%",
+      columnGap: "10px",
+      rowGap: "10px",
+      alignItems: "start",
+    },
   },
   textField: { width: "100%", cursor: "pointer" },
   buttonWrapper: {

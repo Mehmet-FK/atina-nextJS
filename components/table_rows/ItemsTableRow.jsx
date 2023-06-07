@@ -14,6 +14,7 @@ const ItemsTableRow = ({ row, prepareRow, resetResize }) => {
   const handleDblClick = (e) => {
     if (e.detail === 2) {
       setOpenItemsModal(true);
+      console.log(row?.original);
     }
   };
 
@@ -32,6 +33,7 @@ const ItemsTableRow = ({ row, prepareRow, resetResize }) => {
         setOpenItemsModal={setOpenItemsModal}
         openItemsModal={openItemsModal}
         item={row?.original}
+        type={row?.original?.itemType}
       />
       <TableRow
         className={styles.tr}

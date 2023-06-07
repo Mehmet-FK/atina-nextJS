@@ -1,29 +1,69 @@
 "use client";
 
-import Box from "@mui/material/Box";
-import Modal from "@mui/material/Modal";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import { Button, IconButton, TextField, Tooltip } from "@mui/material";
-import { memo, useState } from "react";
-import { modalStyles } from "@/styles/modal_styles";
-import useAtinaCalls from "@/hooks/useAtinaCalls";
-import CloseIcon from "@mui/icons-material/Close";
+import { memo, useEffect, useState } from "react";
+import ItemsModal_Order from "./itemsModals/ItemsModal_Order";
+import ItemsModal_Meter from "./itemsModals/ItemsModal_Meter";
+import ItemsModal_Vehicle from "./itemsModals/ItemsModal_Vehicle";
+import { useSession } from "next-auth/react";
 
-const ItemsModal = ({ setOpenItemsModal, openItemsModal, item }) => {
+//ITEM ORDER
+
+const ItemsModal = ({ setOpenItemsModal, openItemsModal, item, type }) => {
+  const { data } = useSession();
+  const [inputVal, setInputVal] = useState(item ? item : {});
+  const [isAdmin, setIsAdmin] = useState(true);
+
   const handleClose = () => {
     setOpenItemsModal(false);
-    setInputVal({});
+    if (!item) {
+      setInputVal({});
+    }
   };
-  const [inputVal, setInputVal] = useState(item ? item : {});
-
   const handleChange = (e) => {
+    if (!isAdmin) return;
     setInputVal({ ...inputVal, [e.target.name]: e.target.value });
   };
+  useEffect(() => {
+    setIsAdmin(data?.user?.userInfo?.isAdministrator);
+  }, []);
+
+  useEffect(() => {
+    setInputVal(item);
+  }, [type]);
 
   return (
-    <div>
-      {item && (
+    <>
+      {type === "Order" && (
+        <ItemsModal_Order
+          item={item}
+          handleClose={handleClose}
+          openItemsModal={openItemsModal}
+          handleChange={handleChange}
+          inputVal={inputVal}
+          isAdmin={isAdmin}
+        />
+      )}
+      {type === "Meter" && (
+        <ItemsModal_Meter
+          item={item}
+          handleClose={handleClose}
+          openItemsModal={openItemsModal}
+          handleChange={handleChange}
+          inputVal={inputVal}
+          isAdmin={isAdmin}
+        />
+      )}
+      {type === "Vehicle" && (
+        <ItemsModal_Vehicle
+          item={item}
+          handleClose={handleClose}
+          openItemsModal={openItemsModal}
+          handleChange={handleChange}
+          inputVal={inputVal}
+          isAdmin={isAdmin}
+        />
+      )}
+      {/*   {item && (
         <Modal
           open={openItemsModal}
           onClose={handleClose}
@@ -192,7 +232,7 @@ const ItemsModal = ({ setOpenItemsModal, openItemsModal, item }) => {
                   label="Artikel ID"
                   size="small"
                   name="itemID"
-                  value={inputVal.itemID || ""}
+                  value={inputVal?.itemID || ""}
                   onChange={handleChange}
                 />{" "}
                 <TextField
@@ -217,7 +257,7 @@ const ItemsModal = ({ setOpenItemsModal, openItemsModal, item }) => {
                     label="Straße"
                     size="small"
                     name="street"
-                    value={inputVal.street || ""}
+                    value={inputVal?.street || ""}
                     onChange={handleChange}
                   />
                   <TextField
@@ -321,9 +361,9 @@ const ItemsModal = ({ setOpenItemsModal, openItemsModal, item }) => {
             </CardContent>
           </Card>
         </Modal>
-      )}
-    </div>
+      )} */}
+    </>
   );
 };
 
-export default memo(ItemsModal);
+export default ItemsModal;

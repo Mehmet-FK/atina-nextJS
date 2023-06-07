@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import placeholder from "@/public/assets/placeholder.jpg";
-import { memo, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import useAtinaCalls from "../../hooks/useAtinaCalls";
@@ -23,6 +23,7 @@ import CheckBoxIcon from "@mui/icons-material/CheckBox";
 import IndeterminateCheckBoxIcon from "@mui/icons-material/IndeterminateCheckBox";
 import ModalTab from "./ModalTabs";
 import { modalStyles } from "@/styles/modal_styles";
+import { useSession } from "next-auth/react";
 
 const userRoles = [
   { role: "Option 1", hasOwn: false },
@@ -32,9 +33,10 @@ const userRoles = [
   { role: "Option 5", hasOwn: false },
 ];
 
-const ListItem = ({ item }) => {
+const ListItem = ({ item, isAdmin }) => {
   const [hasOwn, setHasOwn] = useState(item.hasOwn);
   const handleClick = () => {
+    if (!isAdmin) return;
     setHasOwn(!hasOwn);
   };
   return (
@@ -70,10 +72,12 @@ const ListItem = ({ item }) => {
 };
 
 const UserModal = ({ setOpenUserModal, openUserModal, user }) => {
+  const { data } = useSession();
   const handleClose = () => setOpenUserModal(false);
   const [visible, setVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [inputVal, setInputVal] = useState(user);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   // To keep the value of which tab is selected
   const [tab, setTab] = useState("Allgemein");
@@ -95,10 +99,17 @@ const UserModal = ({ setOpenUserModal, openUserModal, user }) => {
     };
     reader.readAsDataURL(selectedFile);
   };
+  const handleChange = (e) => {
+    if (!isAdmin) return;
+    setInputVal({ ...inputVal, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = () => {
     putUserData(inputVal);
   };
+  useEffect(() => {
+    setIsAdmin(data?.user?.userInfo?.isAdministrator);
+  }, []);
 
   return (
     <>
@@ -148,20 +159,17 @@ const UserModal = ({ setOpenUserModal, openUserModal, user }) => {
                     name="username"
                     sx={{ width: "100%" }}
                     value={inputVal.username || ""}
-                    onChange={(e) =>
-                      setInputVal({
-                        ...inputVal,
-                        username: e.target.value,
-                      })
-                    }
+                    onChange={handleChange}
                   />{" "}
                   <TextField
                     variant="outlined"
                     label="Kennwort"
                     size="small"
                     type={visible ? "text" : "password"}
-                    name="password"
+                    name="passwordSalt"
                     sx={{ width: "100%" }}
+                    onChange={handleChange}
+                    value={inputVal.passwordSalt || ""}
                     InputProps={{
                       endAdornment: (
                         <InputAdornment position="end">
@@ -180,13 +188,6 @@ const UserModal = ({ setOpenUserModal, openUserModal, user }) => {
                         </InputAdornment>
                       ),
                     }}
-                    value={inputVal.password || ""}
-                    onChange={(e) =>
-                      setInputVal({
-                        ...inputVal,
-                        password: e.target.value,
-                      })
-                    }
                   />{" "}
                 </Box>
                 <Box
@@ -201,9 +202,9 @@ const UserModal = ({ setOpenUserModal, openUserModal, user }) => {
                       variant="outlined"
                       label="Vorname"
                       size="small"
-                      sx={{ input: { color: "#888", cursor: "auto" } }}
-                      value={user?.firstname}
-                      InputProps={{ readOnly: true }}
+                      name="firstname"
+                      value={inputVal?.firstname || ""}
+                      onChange={handleChange}
                     />
                   </Tooltip>
                   <Tooltip title={"Gesperrt"} placement="top-start" arrow>
@@ -211,9 +212,9 @@ const UserModal = ({ setOpenUserModal, openUserModal, user }) => {
                       variant="outlined"
                       label="Nachname"
                       size="small"
-                      sx={{ input: { color: "#888", cursor: "auto" } }}
-                      value={user?.lastname}
-                      InputProps={{ readOnly: true }}
+                      name="lastname"
+                      value={inputVal?.lastname || ""}
+                      onChange={handleChange}
                     />
                   </Tooltip>
                   <Tooltip title={"Gesperrt"} placement="top-start" arrow>
@@ -221,9 +222,9 @@ const UserModal = ({ setOpenUserModal, openUserModal, user }) => {
                       variant="outlined"
                       label="Personalnummer"
                       size="small"
-                      sx={{ input: { color: "#888", cursor: "auto" } }}
-                      value={user?.personnelnumber}
-                      InputProps={{ readOnly: true }}
+                      name="personnelnumber"
+                      value={inputVal?.personnelnumber || ""}
+                      onChange={handleChange}
                     />
                   </Tooltip>
                 </Box>
@@ -233,19 +234,21 @@ const UserModal = ({ setOpenUserModal, openUserModal, user }) => {
                     justifyContent: "space-around",
                   }}
                 >
-                  <Button
-                    onClick={handleSubmit}
-                    sx={modalStyles.userModal.button}
-                    variant="contained"
-                  >
-                    Speichern
-                  </Button>
+                  {isAdmin && (
+                    <Button
+                      onClick={handleSubmit}
+                      sx={modalStyles.userModal.button}
+                      variant="contained"
+                    >
+                      Speichern
+                    </Button>
+                  )}
                   <Button
                     sx={modalStyles.userModal.button}
                     onClick={handleClose}
                     variant="contained"
                   >
-                    Schließen
+                    {isAdmin ? "Abbrechen" : "Schließen"}
                   </Button>
                 </Box>
               </CardContent>
@@ -263,7 +266,7 @@ const UserModal = ({ setOpenUserModal, openUserModal, user }) => {
                 }}
               >
                 {userRoles.map((role, i) => (
-                  <ListItem key={i} item={role} />
+                  <ListItem key={i} isAdmin={isAdmin} item={role} />
                 ))}
               </CardContent>
             </Box>

@@ -30,6 +30,7 @@ import {
 import styles from "./table_styles.module.css";
 import UndoIcon from "@mui/icons-material/Undo";
 import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
 
 const initalContextMenu = {
   show: false,
@@ -79,7 +80,14 @@ const NfcTable = ({ data }) => {
     allColumns,
     resetResizing,
   } = useTable(
-    { columns: tableColumns, data: shownData, defaultColumn },
+    {
+      columns: tableColumns,
+      data: shownData,
+      defaultColumn,
+      isMultiSortEvent: (e) => {
+        if (e.ctrlKey) return true;
+      },
+    },
     useSortBy,
     useBlockLayout,
     useResizeColumns
@@ -117,12 +125,7 @@ const NfcTable = ({ data }) => {
 
   //==== MediaQuery ===
   const xxl = useMediaQuery("(min-width:1400px)");
-  /*  useEffect(() => {
-    if (session.status === "loading") {
-      setLoading(true);
-    }
-  }, [session]);
- */
+
   useEffect(() => {
     handlePagination();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -166,14 +169,16 @@ const NfcTable = ({ data }) => {
             handlePagination={handlePagination}
           />
 
-          <IconButton
-            onClick={() => {
-              resetResizing();
-              setResetResize(!resetResize);
-            }}
-          >
-            <UndoIcon />
-          </IconButton>
+          <Tooltip title="Spaltengröße rückgängig machen" arrow>
+            <IconButton
+              onClick={() => {
+                resetResizing();
+                setResetResize(!resetResize);
+              }}
+            >
+              <UndoIcon />
+            </IconButton>
+          </Tooltip>
           <DownloadCSV rawData={shownData} />
         </Box>
         <Table

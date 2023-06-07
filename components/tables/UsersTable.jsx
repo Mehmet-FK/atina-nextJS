@@ -84,6 +84,9 @@ const UsersTable = ({ data }) => {
       columns: tableColumns,
       data: shownData,
       defaultColumn,
+      isMultiSortEvent: (e) => {
+        if (e.ctrlKey) return true;
+      },
     },
     useSortBy,
     useBlockLayout,
@@ -155,14 +158,16 @@ const UsersTable = ({ data }) => {
             rowsPerPage={rowsPerPage}
             setRowsPerPage={setRowsPerPage}
           />
-          <IconButton
-            onClick={() => {
-              resetResizing();
-              // setResetResize(!resetResize);
-            }}
-          >
-            <UndoIcon />
-          </IconButton>
+          <Tooltip title="Spaltengröße rückgängig machen" arrow>
+            <IconButton
+              onClick={() => {
+                resetResizing();
+                setResetResize(!resetResize);
+              }}
+            >
+              <UndoIcon />
+            </IconButton>
+          </Tooltip>
           <DownloadCSV rawData={shownData} />
         </Box>
         <Table

@@ -8,15 +8,14 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 // import { useSelector } from "react-redux";
 import Pagination from "../Pagination";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Box } from "@mui/system";
 import { useMediaQuery } from "@mui/material";
 import BookingsFilter from "../filters/BookingsFilter";
-import CustomTableRow from "../table_rows/BookingsTableRow";
 import ContextMenu from "../ContextMenu";
 import useContextMenu from "../../hooks/useContextMenu";
 import DownloadCSV from "../DownloadCSV";
-
+import Tooltip from "@mui/material/Tooltip";
 // import useAtinaCalls from "@/hooks/useAtinaCalls";
 import { tableStyles } from "@/styles/table_styles";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
@@ -33,6 +32,9 @@ import BookingsTableRow from "../table_rows/BookingsTableRow";
 import styles from "./table_styles.module.css";
 import UndoIcon from "@mui/icons-material/Undo";
 import IconButton from "@mui/material/IconButton";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import BookingsModal from "../modals/BookingsModal";
+import { useSession } from "next-auth/react";
 
 // import axios from "axios";
 
@@ -42,10 +44,14 @@ const initalContextMenu = {
   y: 0,
 };
 
-const MobileBookings = ({ data }) => {
+const MobileBookings = ({ data: dataFromServer }) => {
+  const tableRef = useRef(null);
+  const { data } = useSession();
+  const [isAdmin, setIsAdmin] = useState(false);
   const [contextMenu, setContextMenu] = useState(initalContextMenu);
-  const [allData, setAllData] = useState(data);
+  const [allData, setAllData] = useState(dataFromServer);
   const [resetResize, setResetResize] = useState(false);
+  const [openBookingModal, setOpenBookingModal] = useState(false);
 
   // ===pagination states START===
   const [page, setPage] = useState(0);
@@ -113,7 +119,14 @@ const MobileBookings = ({ data }) => {
     allColumns,
     resetResizing,
   } = useTable(
-    { columns: tableColumns, data: shownData, defaultColumn },
+    {
+      columns: tableColumns,
+      data: shownData,
+      defaultColumn,
+      isMultiSortEvent: (e) => {
+        if (e.ctrlKey) return true;
+      },
+    },
     useSortBy,
     useBlockLayout,
     useResizeColumns
@@ -123,14 +136,14 @@ const MobileBookings = ({ data }) => {
 
   // ===Table Filter END===
 
-  // === Column Select START ===
-
-  // === Column Select END ===
-
   const { handleRightClick } = useContextMenu(contextMenu, setContextMenu);
 
   //==== MediaQuery ===
   const xxl = useMediaQuery("(min-width:1400px)");
+
+  useEffect(() => {
+    setIsAdmin(data?.user?.userInfo?.isAdministrator);
+  }, []);
 
   useEffect(() => {
     handlePagination();
@@ -138,187 +151,151 @@ const MobileBookings = ({ data }) => {
   }, [page, rowsPerPage, allData]);
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
-      {contextMenu.show && (
-        <ContextMenu
-          allColumns={allColumns}
-          X={contextMenu.x}
-          Y={contextMenu.y}
-          contextMenu={contextMenu}
-          setContextMenu={setContextMenu}
-          tableColumns={tableColumns}
-        />
-      )}
-      <TableContainer
-        component={Paper}
-        onContextMenu={handleRightClick}
+    <>
+      <BookingsModal
+        openBookingModal={openBookingModal}
+        setOpenBookingModal={setOpenBookingModal}
+      />
+
+      <Box
         sx={{
-          maxWidth: xxl ? "90vw" : { lg: "1250px" },
-          margin: "auto",
-          padding: "1rem 10px",
-          position: "relative",
-          maxHeight: "82vh",
-          overflow: "auto",
+          display: "flex",
+          flexDirection: "column",
         }}
       >
-        <BookingsFilter
-          handleReset={handleReset}
-          handleFilter={handleFilter}
-          filterVal={filterVal}
-          setFilterVal={setFilterVal}
-        />
-        <Box sx={{ display: "flex", justifyContent: "end" }}>
-          <Pagination
-            data={allData}
-            page={page}
-            setPage={setPage}
-            rowsPerPage={rowsPerPage}
-            setRowsPerPage={setRowsPerPage}
-            handlePagination={handlePagination}
-            // setRestart={setRestart}
+        {contextMenu.show && (
+          <ContextMenu
+            allColumns={allColumns}
+            X={contextMenu.x}
+            Y={contextMenu.y}
+            contextMenu={contextMenu}
+            setContextMenu={setContextMenu}
+            tableColumns={tableColumns}
+            tableRef={tableRef}
           />
-          <IconButton
-            onClick={() => {
-              resetResizing();
-              setResetResize(!resetResize);
-            }}
-          >
-            <UndoIcon />
-          </IconButton>
-          <DownloadCSV rawData={shownData} />
-        </Box>
-        <Table
-          {...getTableProps()}
-          sx={{ minWidth: 650 }}
-          aria-label="simple table"
+        )}
+        <TableContainer
+          ref={tableRef}
+          component={Paper}
+          onContextMenu={handleRightClick}
+          sx={{
+            maxWidth: xxl ? "90vw" : { lg: "1250px" },
+            margin: "auto",
+            padding: "1rem 10px",
+            position: "relative",
+            maxHeight: "82vh",
+            overflow: "auto",
+          }}
         >
-          <TableHead>
-            {headerGroups.map((headerGroup) => (
-              <TableRow
-                className={styles.tr}
-                {...headerGroup.getHeaderGroupProps()}
+          <BookingsFilter
+            handleReset={handleReset}
+            handleFilter={handleFilter}
+            filterVal={filterVal}
+            setFilterVal={setFilterVal}
+          />
+          <Box sx={{ display: "flex", justifyContent: "end" }}>
+            <Pagination
+              data={allData}
+              page={page}
+              setPage={setPage}
+              rowsPerPage={rowsPerPage}
+              setRowsPerPage={setRowsPerPage}
+              handlePagination={handlePagination}
+              // setRestart={setRestart}
+            />
+            <Tooltip title="Spaltengröße rückgängig machen" arrow>
+              <IconButton
+                onClick={() => {
+                  resetResizing();
+                  setResetResize(!resetResize);
+                }}
               >
-                {headerGroup.headers.map((column) => (
-                  <TableCell
-                    className={styles.th}
-                    {...column.getHeaderProps(column.getSortByToggleProps())}
-                    sx={tableStyles.th.cell}
-                    align="left"
-                  >
-                    <Box
-                      sx={{
-                        width: "100%",
-                        display: "flex",
-                        justifyContent: "space-around",
-                      }}
-                    >
-                      <Box sx={{ color: "#000" }}>
-                        {column.render("Header")}{" "}
-                      </Box>
-
-                      {column.isSorted ? (
-                        column.isSortedDesc ? (
-                          <ArrowDownwardIcon fontSize="small" />
-                        ) : (
-                          <ArrowUpwardIcon fontSize="small" />
-                        )
-                      ) : (
-                        ""
-                      )}
-                    </Box>
-                    <div
-                      {...column.getResizerProps()}
-                      onClick={() => setResetResize(!resetResize)}
-                      className={`${styles.resizer} ${
-                        column.isResizing ? styles.isResizing : null
-                      }`}
-                    />
-                  </TableCell>
-                ))}
-              </TableRow>
-            ))}
-            {/* <TableRow>
-              {selectedColumns.includes("datum") && (
-                <TableCell sx={tableStyles.th.cell} align="left">
-                  datum
-                </TableCell>
-              )}
-              {selectedColumns.includes("uhrzeit") && (
-                <TableCell sx={tableStyles.th.cell} align="left">
-                  uhrzeit
-                </TableCell>
-              )}
-              {selectedColumns.includes("buchungstyp") && (
-                <TableCell sx={tableStyles.th.cell} align="left">
-                  buchungstyp
-                </TableCell>
-              )}
-              {selectedColumns.includes("straße") && (
-                <TableCell sx={tableStyles.th.cell} align="left">
-                  straße
-                </TableCell>
-              )}
-              {selectedColumns.includes("hausnummer") && (
-                <TableCell sx={tableStyles.th.cell} align="left">
-                  hausnummer
-                </TableCell>
-              )}
-              {selectedColumns.includes("plz") && (
-                <TableCell sx={tableStyles.th.cell} align="left">
-                  plz
-                </TableCell>
-              )}
-              {selectedColumns.includes("stadt") && (
-                <TableCell sx={tableStyles.th.cell} align="left">
-                  stadt
-                </TableCell>
-              )}
-              {selectedColumns.includes("land") && (
-                <TableCell sx={tableStyles.th.cell} align="left">
-                  land
-                </TableCell>
-              )}
-              {selectedColumns.includes("erstellt am") && (
-                <TableCell
-                  onClick={handleSort}
-                  sx={{
-                    ...tableStyles.th.cell,
-                    display: "flex",
-                    alignItems: "center",
-                    columnGap: "5px",
-                    cursor: "pointer",
-                    color: "#888",
-                  }}
-                  align="left"
+                <UndoIcon />
+              </IconButton>
+            </Tooltip>
+            <DownloadCSV rawData={shownData} />
+            {isAdmin && (
+              <Tooltip title="Neuen Datensatz anlegen" arrow>
+                <IconButton onClick={() => setOpenBookingModal(true)}>
+                  <AddCircleIcon
+                    sx={{
+                      borderRadius: "10px",
+                      color: "green",
+                    }}
+                  />
+                </IconButton>
+              </Tooltip>
+            )}
+          </Box>
+          <Table
+            {...getTableProps()}
+            sx={{ minWidth: 650 }}
+            aria-label="simple table"
+          >
+            <TableHead>
+              {headerGroups.map((headerGroup) => (
+                <TableRow
+                  className={styles.tr}
+                  {...headerGroup.getHeaderGroupProps()}
                 >
-                  <Box color={"#000"}>erstellt am</Box>
-                  {newest && <ArrowDownwardIcon />}
-                  {!newest && <ArrowUpwardIcon />}
-                </TableCell>
-              )}
-            </TableRow> */}
-          </TableHead>
-          <TableBody {...getTableBodyProps()}>
-            {rows?.map((row, i) => {
-              prepareRow(row);
-              return (
-                <BookingsTableRow
-                  resetResize={resetResize}
-                  key={i}
-                  row={row}
-                  prepareRow={prepareRow}
-                />
-              );
-            })}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </Box>
+                  {headerGroup.headers.map((column) => (
+                    <TableCell
+                      className={styles.th}
+                      {...column.getHeaderProps(column.getSortByToggleProps())}
+                      sx={tableStyles.th.cell}
+                      align="left"
+                    >
+                      {" "}
+                      <Box
+                        sx={{
+                          width: "100%",
+                          display: "flex",
+                          justifyContent: "space-around",
+                        }}
+                      >
+                        <Box sx={{ color: "#000" }}>
+                          {column.render("Header")}{" "}
+                        </Box>
+
+                        {column.isSorted ? (
+                          column.isSortedDesc ? (
+                            <ArrowDownwardIcon fontSize="small" />
+                          ) : (
+                            <ArrowUpwardIcon fontSize="small" />
+                          )
+                        ) : (
+                          ""
+                        )}
+                      </Box>
+                      <div
+                        {...column.getResizerProps()}
+                        onClick={() => setResetResize(!resetResize)}
+                        className={`${styles.resizer} ${
+                          column.isResizing ? styles.isResizing : null
+                        }`}
+                      />
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))}
+            </TableHead>
+            <TableBody {...getTableBodyProps()}>
+              {rows?.map((row, i) => {
+                prepareRow(row);
+                return (
+                  <BookingsTableRow
+                    resetResize={resetResize}
+                    key={i}
+                    row={row}
+                    prepareRow={prepareRow}
+                  />
+                );
+              })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Box>
+    </>
   );
 };
 

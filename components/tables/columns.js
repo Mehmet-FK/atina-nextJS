@@ -184,7 +184,7 @@ export const NFC_TABLE_COLUMNS = [
   },
   {
     accessor: "itemNumber",
-    Header: "artikelnummer",
+    Header: "datensatznummer",
   },
   {
     accessor: "street",

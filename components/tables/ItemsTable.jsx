@@ -8,7 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useDispatch, useSelector } from "react-redux";
 import Pagination from "../Pagination";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Box } from "@mui/system";
 import useAtinaCalls from "../../hooks/useAtinaCalls";
 import { IconButton, Typography, useMediaQuery } from "@mui/material";
@@ -39,6 +39,8 @@ import {
 } from "./columns";
 import styles from "./table_styles.module.css";
 import UndoIcon from "@mui/icons-material/Undo";
+import Tooltip from "@mui/material/Tooltip";
+import { useSession } from "next-auth/react";
 
 const initalContextMenu = {
   show: false,
@@ -46,18 +48,19 @@ const initalContextMenu = {
   y: 0,
 };
 
-const ItemsTable = ({ data }) => {
+const ItemsTable = ({ data: dataFromServer }) => {
+  const { data } = useSession();
   const dispatch = useDispatch();
   const { atinaItems } = useSelector((state) => state.atina);
   const { getAtinaItemsData } = useAtinaCalls();
-  const [allData, setAllData] = useState(data);
+  const [allData, setAllData] = useState(dataFromServer);
   const [isError, setIsError] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [shownData, setShownData] = useState(data ? data : []);
+  const [shownData, setShownData] = useState(allData ? allData : []);
   const [type, setType] = useState("Order");
   const [resetResize, setResetResize] = useState(false);
-
   const [contextMenu, setContextMenu] = useState(initalContextMenu);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   // ===pagination states START===
   const [page, setPage] = useState(0);
@@ -107,12 +110,14 @@ const ItemsTable = ({ data }) => {
       columns: tableColumns,
       data: shownData,
       defaultColumn,
+      isMultiSortEvent: (e) => {
+        if (e.ctrlKey) return true;
+      },
     },
     useSortBy,
     useBlockLayout,
     useResizeColumns
   );
-
   //? Table Utilities END
 
   // ===Table sort  END===
@@ -161,12 +166,16 @@ const ItemsTable = ({ data }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
-  // console.log(allColumns);
+  useEffect(() => {
+    setIsAdmin(data?.user?.userInfo?.isAdministrator);
+  }, []);
+
   return (
     <>
       <ItemsModal
         setOpenItemsModal={setOpenItemsModal}
         openItemsModal={openItemsModal}
+        type={type}
       />
       {contextMenu.show && (
         <ContextMenu
@@ -195,6 +204,7 @@ const ItemsTable = ({ data }) => {
           handleFilter={handleFilter}
           filterVal={filterVal}
           setFilterVal={setFilterVal}
+          type={type}
         />
         <Box sx={tableStyles.helpersWrapper}>
           <Box sx={{ display: "flex", columnGap: "10px" }}>
@@ -282,23 +292,31 @@ const ItemsTable = ({ data }) => {
               handlePagination={handlePagination}
               // setRestart={setRestart}
             />
-            <IconButton
-              onClick={() => {
-                resetResizing();
-                setResetResize(!resetResize);
-              }}
-            >
-              <UndoIcon />
-            </IconButton>
-            <DownloadCSV rawData={shownData} />
-            <IconButton onClick={() => setOpenItemsModal(true)}>
-              <AddCircleIcon
-                sx={{
-                  borderRadius: "10px",
-                  color: "green",
+            <Tooltip title="Spaltengröße rückgängig machen" arrow>
+              <IconButton
+                onClick={() => {
+                  resetResizing();
+                  setResetResize(!resetResize);
                 }}
-              />
-            </IconButton>
+              >
+                <UndoIcon />
+              </IconButton>
+            </Tooltip>
+
+            <DownloadCSV rawData={shownData} />
+
+            {isAdmin && (
+              <Tooltip title="Neuen Datensatz anlegen" arrow>
+                <IconButton onClick={() => setOpenItemsModal(true)}>
+                  <AddCircleIcon
+                    sx={{
+                      borderRadius: "10px",
+                      color: "green",
+                    }}
+                  />
+                </IconButton>
+              </Tooltip>
+            )}
           </Box>
         </Box>
 

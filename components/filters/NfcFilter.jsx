@@ -118,7 +118,7 @@ const NfcFilter = ({ filterVal, setFilterVal, handleFilter, handleReset }) => {
                 }}
               />
             </Grid>
-            <Grid item md={2}>
+            {/* <Grid item md={2}>
               <TextField
                 onChange={handleChange}
                 value={filterVal.id || ""}
@@ -128,8 +128,8 @@ const NfcFilter = ({ filterVal, setFilterVal, handleFilter, handleReset }) => {
                 label="ID"
                 name="id"
               />
-            </Grid>
-            <Grid item md={2}>
+            </Grid> */}
+            {/* <Grid item md={2}>
               <TextField
                 onChange={handleChange}
                 value={filterVal.tagID || ""}
@@ -138,8 +138,8 @@ const NfcFilter = ({ filterVal, setFilterVal, handleFilter, handleReset }) => {
                 size="small"
                 label="Tag ID"
                 name="tagID"
-              />
-            </Grid>
+              /> 
+            </Grid>*/}
             <Grid item md={2}>
               <TextField
                 onChange={handleChange}
@@ -158,11 +158,11 @@ const NfcFilter = ({ filterVal, setFilterVal, handleFilter, handleReset }) => {
                 sx={filterStyles.textField}
                 variant="outlined"
                 size="small"
-                label="Artikeltyp"
+                label="Tag Typ"
                 name="type"
               />
             </Grid>
-            <Grid item md={2}>
+            {/* <Grid item md={2}>
               <TextField
                 onChange={handleChange}
                 value={filterVal.nfcData || ""}
@@ -172,9 +172,9 @@ const NfcFilter = ({ filterVal, setFilterVal, handleFilter, handleReset }) => {
                 label="NFC Datei"
                 name="nfcData"
               />
-            </Grid>
+            </Grid> */}
 
-            <Grid item md={2}>
+            {/*  <Grid item md={2}>
               <TextField
                 onChange={handleChange}
                 value={filterVal.itemID || ""}
@@ -184,129 +184,133 @@ const NfcFilter = ({ filterVal, setFilterVal, handleFilter, handleReset }) => {
                 label="Artikel ID"
                 name="itemID"
               />
-            </Grid>
-            {/* <Grid item md={2}>
-              <TextField
-                onChange={handleChange}
-                sx={filterStyles.textField}
-                value={filterVal.itemNumber || ""}
-                variant="outlined"
-                size="small"
-                label="Artikelnummer"
-                name="itemNumber"
-              />
-            </Grid>
-
-            <Grid item md={2}>
-              <TextField
-                onChange={handleChange}
-                sx={filterStyles.textField}
-                value={filterVal.street || ""}
-                variant="outlined"
-                size="small"
-                label="Straße"
-                name="street"
-              />
-            </Grid>
-            <Grid item md={1}>
-              <TextField
-                onChange={handleChange}
-                sx={filterStyles.textField}
-                value={filterVal.streetnumber || ""}
-                variant="outlined"
-                size="small"
-                label=" Hausnummer"
-                name="streetnumber"
-              />
-            </Grid>
-            <Grid item md={1}>
-              <TextField
-                onChange={handleChange}
-                sx={filterStyles.textField}
-                value={filterVal.zip || ""}
-                variant="outlined"
-                size="small"
-                label=" PLZ"
-                name="zip"
-              />
-            </Grid>
-            <Grid item md={2}>
-              <TextField
-                onChange={handleChange}
-                sx={filterStyles.textField}
-                value={filterVal.city || ""}
-                variant="outlined"
-                size="small"
-                label="Stadt"
-                name="city"
-              />
-            </Grid>
-            <Grid item md={1}>
-              <TextField
-                onChange={handleChange}
-                sx={filterStyles.textField}
-                value={filterVal.country || ""}
-                variant="outlined"
-                size="small"
-                label="Land"
-                name="country"
-              />
-            </Grid>
-            <Grid item md={1}>
-              <TextField
-                onChange={handleChange}
-                sx={filterStyles.textField}
-                value={filterVal.data1 || ""}
-                variant="outlined"
-                size="small"
-                label=" Daten 1"
-                name="data1"
-              />
-            </Grid>
-            <Grid item md={1}>
-              <TextField
-                onChange={handleChange}
-                sx={filterStyles.textField}
-                value={filterVal.data2 || ""}
-                variant="outlined"
-                size="small"
-                label=" Daten 2"
-                name="data2"
-              />
-            </Grid>
-            <Grid item md={1}>
-              <TextField
-                onChange={handleChange}
-                sx={filterStyles.textField}
-                value={filterVal.data3 || ""}
-                variant="outlined"
-                size="small"
-                label=" Daten 3"
-                name="data3"
-              />
-            </Grid>
-            <Grid item md={1}>
-              <TextField
-                onChange={handleChange}
-                sx={filterStyles.textField}
-                value={filterVal.data4 || ""}
-                variant="outlined"
-                size="small"
-                label=" Daten 4"
-                name="data4"
-              />
-            </Grid>
-            <Grid item md={1}>
-              <TextField
-                onChange={handleChange}
-                sx={filterStyles.textField}
-                value={filterVal.data5 || ""}
-                variant="outlined"
-                size="small"
-                label=" Daten 5"
-                name="data5"
-              />
             </Grid> */}
+            <>
+              <Grid item md={2}>
+                <TextField
+                  onChange={handleChange}
+                  sx={filterStyles.textField}
+                  value={filterVal.itemNumber || ""}
+                  variant="outlined"
+                  size="small"
+                  label="Datensatznummer"
+                  name="itemNumber"
+                />
+              </Grid>
+
+              <Grid item md={2}>
+                <TextField
+                  onChange={handleChange}
+                  sx={filterStyles.textField}
+                  value={filterVal.street || ""}
+                  variant="outlined"
+                  size="small"
+                  label="Straße"
+                  name="street"
+                />
+              </Grid>
+              <Grid item md={2}>
+                <TextField
+                  onChange={handleChange}
+                  sx={filterStyles.textField}
+                  value={filterVal.streetnumber || ""}
+                  variant="outlined"
+                  size="small"
+                  label=" Hausnummer"
+                  name="streetnumber"
+                />
+              </Grid>
+              <Grid item md={2}>
+                <TextField
+                  onChange={handleChange}
+                  sx={filterStyles.textField}
+                  value={filterVal.zip || ""}
+                  variant="outlined"
+                  size="small"
+                  label=" PLZ"
+                  name="zip"
+                />
+              </Grid>
+              <Grid item md={2}>
+                <TextField
+                  onChange={handleChange}
+                  sx={filterStyles.textField}
+                  value={filterVal.city || ""}
+                  variant="outlined"
+                  size="small"
+                  label="Stadt"
+                  name="city"
+                />
+              </Grid>
+              <Grid item md={2}>
+                <TextField
+                  onChange={handleChange}
+                  sx={filterStyles.textField}
+                  value={filterVal.country || ""}
+                  variant="outlined"
+                  size="small"
+                  label="Land"
+                  name="country"
+                />
+              </Grid>
+
+              <Grid item md={1} />
+              <Grid item md={2}>
+                <TextField
+                  onChange={handleChange}
+                  sx={filterStyles.textField}
+                  value={filterVal.data1 || ""}
+                  variant="outlined"
+                  size="small"
+                  label=" Daten 1"
+                  name="data1"
+                />
+              </Grid>
+              <Grid item md={2}>
+                <TextField
+                  onChange={handleChange}
+                  sx={filterStyles.textField}
+                  value={filterVal.data2 || ""}
+                  variant="outlined"
+                  size="small"
+                  label=" Daten 2"
+                  name="data2"
+                />
+              </Grid>
+              <Grid item md={2}>
+                <TextField
+                  onChange={handleChange}
+                  sx={filterStyles.textField}
+                  value={filterVal.data3 || ""}
+                  variant="outlined"
+                  size="small"
+                  label=" Daten 3"
+                  name="data3"
+                />
+              </Grid>
+              <Grid item md={2}>
+                <TextField
+                  onChange={handleChange}
+                  sx={filterStyles.textField}
+                  value={filterVal.data4 || ""}
+                  variant="outlined"
+                  size="small"
+                  label=" Daten 4"
+                  name="data4"
+                />
+              </Grid>
+              <Grid item md={2}>
+                <TextField
+                  onChange={handleChange}
+                  sx={filterStyles.textField}
+                  value={filterVal.data5 || ""}
+                  variant="outlined"
+                  size="small"
+                  label=" Daten 5"
+                  name="data5"
+                />
+              </Grid>
+            </>
           </Grid>
           <Box sx={filterStyles.buttonWrapper}>
             <Button

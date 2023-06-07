@@ -4,18 +4,33 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import { Button, TextField, Tooltip } from "@mui/material";
-import { useState } from "react";
+import {
+  Button,
+  TextField,
+  Tooltip,
+  Typography,
+  IconButton,
+} from "@mui/material";
+import { useEffect, useState } from "react";
 import { modalStyles } from "@/styles/modal_styles";
+import { useSession } from "next-auth/react";
+import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
+import CloseIcon from "@mui/icons-material/Close";
 
 const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
+  const { data } = useSession();
+  const [isAdmin, setIsAdmin] = useState(false);
   const handleClose = () => setOpenBookingModal(false);
   const [inputVal, setInputVal] = useState({
     ...booking,
   });
 
+  useEffect(() => {
+    setIsAdmin(data?.user?.userInfo?.isAdministrator);
+  }, []);
+
   return (
-    <div>
+    <>
       <Modal
         open={openBookingModal}
         onClose={handleClose}
@@ -23,6 +38,19 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
         aria-describedby="modal-modal-description"
       >
         <Card sx={modalStyles.bookingModal.cardStyle}>
+          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+            <Box
+              sx={{ display: "flex", columnGap: "10px", alignItems: "center" }}
+            >
+              <LibraryBooksIcon fontSize="large" />
+              <Typography variant="h5">Mobile Buchungen</Typography>
+            </Box>
+            <Box sx={{ textAlign: "right" }}>
+              <IconButton onClick={handleClose}>
+                <CloseIcon />
+              </IconButton>
+            </Box>
+          </Box>
           <CardContent sx={modalStyles.bookingModal.content}>
             <Box sx={modalStyles.bookingModal.inputGroup}>
               <TextField
@@ -31,7 +59,7 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
                 size="small"
                 name="date"
                 sx={{ width: "100%" }}
-                value={inputVal.Date || ""}
+                value={new Date(inputVal.Date).toLocaleDateString("tr") || ""}
                 onChange={(e) =>
                   setInputVal({
                     ...inputVal,
@@ -64,6 +92,7 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
                 variant="outlined"
                 label="Buchungstyp"
                 size="small"
+                sx={{ width: "100%" }}
                 value={inputVal.BookingType || ""}
               />
               {/* </Tooltip> */}
@@ -72,6 +101,7 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
                 variant="outlined"
                 label="Straße"
                 size="small"
+                sx={{ width: "100%" }}
                 value={inputVal.Street || ""}
               />
               {/* </Tooltip> */}
@@ -80,6 +110,7 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
                 variant="outlined"
                 label="Hausnummer"
                 size="small"
+                sx={{ width: "100%" }}
                 value={inputVal.Streetnumber || ""}
               />
               {/* </Tooltip> */}
@@ -89,6 +120,7 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
                   variant="outlined"
                   label="PLZ"
                   size="small"
+                  sx={{ width: "100%" }}
                   value={inputVal.ZIP || ""}
                 />
                 {/* </Tooltip> */}
@@ -97,6 +129,7 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
                   variant="outlined"
                   label="Stadt"
                   size="small"
+                  sx={{ width: "100%" }}
                   value={inputVal.City || ""}
                 />
                 {/* </Tooltip> */}
@@ -106,26 +139,32 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
                 variant="outlined"
                 label="Land"
                 size="small"
+                sx={{ width: "100%" }}
                 value={inputVal.Country || ""}
               />
               {/* </Tooltip> */}
             </Box>
             <Box sx={{ display: "flex", justifyContent: "space-around" }}>
-              {/* <Button sx={modalStyles.bookingModal.button} variant="contained">
-                Speichern
-              </Button> */}
+              {isAdmin && (
+                <Button
+                  sx={modalStyles.bookingModal.button}
+                  variant="contained"
+                >
+                  Speichern
+                </Button>
+              )}
               <Button
                 sx={modalStyles.bookingModal.button}
                 onClick={handleClose}
                 variant="contained"
               >
-                Schließen
+                {isAdmin ? "Abbrechen" : "Schließen"}
               </Button>
             </Box>
           </CardContent>
         </Card>
       </Modal>
-    </div>
+    </>
   );
 };
 

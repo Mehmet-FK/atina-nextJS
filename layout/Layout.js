@@ -29,6 +29,7 @@ import { dashboardStyles } from "@/styles/dashboard_styles";
 import { getSession, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
+import DarkModeSwitch from "@/components/DarkModeSwitch";
 // import useAtinaCalls from "@/app/hooks/useAtinaCalls";
 // import { dashboardStyles } from "@/app/styles/dashboard_styles";
 
@@ -266,6 +267,7 @@ export default function Layout({ children }) {
           </List>
 
           <Divider />
+          <DarkModeSwitch />
         </Drawer>
         <Box component="main" sx={{ flexGrow: 1, p: 1 }}>
           <DrawerHeader />
