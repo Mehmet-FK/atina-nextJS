@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 // import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { Box } from "@mui/system";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import OpenInFullIcon from "@mui/icons-material/OpenInFull";
 import CloseFullscreenIcon from "@mui/icons-material/CloseFullscreen";
 import { filterStyles } from "@/styles/filter_styles";
@@ -24,16 +24,29 @@ const BookingsFilter = ({
   setFilterVal,
   handleFilter,
   handleReset,
-  buchungTypes,
 }) => {
   const [open, setOpen] = useState(false);
+  const [buchungTypes, setBuchungTypes] = useState({});
   const handleChange = (e) => {
     setFilterVal({
       ...filterVal,
       [e.target.name]: e.target.value,
     });
   };
-  // console.log(buchungTypes);
+  console.log(filterVal);
+  useEffect(() => {
+    (async () => {
+      try {
+        fetch(
+          "https://pbsolutions.dev/atina/api/AtinaMasterData/GetBookingTypes"
+        )
+          .then((res) => res.ok && res.json())
+          .then((res) => setBuchungTypes(res));
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
 
   const today = new Date().toISOString().split("T")[0];
   return (
@@ -103,20 +116,22 @@ const BookingsFilter = ({
                 // sx={{ width: "100%" }}
                 labelId="itemType"
                 id="demo-select-small"
-                value={filterVal?.ItemType || ""}
+                value={filterVal?.bookingType || ""}
                 label="Buchungstype"
                 onChange={(e) =>
-                  setFilterVal({ ...filterVal, ItemType: e.target.value })
+                  setFilterVal({ ...filterVal, bookingType: e.target.value })
                 }
               >
                 <MenuItem value={""}>
                   <em>None</em>
                 </MenuItem>
-
-                {/* 
-                <MenuItem value={"Order"}>Auftrag</MenuItem>
-                <MenuItem value={"Meter"}>Zähler</MenuItem>
-                <MenuItem value={"Vehicle"}>KFZ</MenuItem> */}
+                {Object.values(buchungTypes)?.map((item, i) => {
+                  return (
+                    <MenuItem key={i} value={item.ItemType}>
+                      {item.Caption}
+                    </MenuItem>
+                  );
+                })}
               </Select>
             </FormControl>
           </Grid>

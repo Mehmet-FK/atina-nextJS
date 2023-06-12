@@ -53,7 +53,7 @@ const MobileBookings = ({ data: dataFromServer = [], error }) => {
   const [allData, setAllData] = useState(dataFromServer);
   const [resetResize, setResetResize] = useState(false);
   const [openBookingModal, setOpenBookingModal] = useState(false);
-  const [buchungTypes, setBuchungTypes] = useState([""]);
+  const [buchungTypes, setBuchungTypes] = useState({});
 
   // ===pagination states START===
   const [page, setPage] = useState(0);
@@ -157,6 +157,21 @@ const MobileBookings = ({ data: dataFromServer = [], error }) => {
     handlePagination();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, rowsPerPage, allData]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        fetch(
+          "https://pbsolutions.dev/atina/api/AtinaMasterData/GetBookingTypes"
+        )
+          .then((res) => res.ok && res.json())
+          .then((res) => setBuchungTypes(res));
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
+
   return (
     <>
       <BookingsModal

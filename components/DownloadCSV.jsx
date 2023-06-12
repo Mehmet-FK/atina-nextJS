@@ -27,8 +27,8 @@ const DownloadCSV = ({ rawData, fileName }) => {
   };
 
   const convertJsonToCsv = () => {
-    // const h = Object.keys(rawData[0]).join(";").toUpperCase();
-    const h = Object.keys(rawData[0]);
+    const h = Object.keys(rawData[0]).join(";").toUpperCase();
+    // const h = Object.keys(rawData[0]);
     console.log("first", h);
     editData(h);
     const main = rawData.map((item) => Object.values(item).join(";"));
@@ -45,8 +45,8 @@ const DownloadCSV = ({ rawData, fileName }) => {
           onClick={() => rawData && convertJsonToCsv()}
         >
           <a
-            // href={url}
-            // download={`${date + "_" + fileName}.csv`}
+            href={url}
+            download={`${date + "_" + fileName}.csv`}
             style={{
               color: "#888",
               textDecoration: "none",
