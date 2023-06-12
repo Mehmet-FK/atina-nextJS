@@ -33,10 +33,10 @@ export class AtinaCalls {
     try {
       const { data } = await axios(`${this.baseUrl}${url}`);
       res = data;
+      // console.log("DATA", data);
     } catch (err) {
-      console.log(err);
-      error = err;
+      // console.log(err);
     }
-    return { res, error };
+    return res;
   }
 }

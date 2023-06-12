@@ -35,6 +35,7 @@ import IconButton from "@mui/material/IconButton";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import BookingsModal from "../modals/BookingsModal";
 import { useSession } from "next-auth/react";
+import { AtinaCalls } from "@/helpers/apiFunctions";
 
 // import axios from "axios";
 
@@ -44,7 +45,7 @@ const initalContextMenu = {
   y: 0,
 };
 
-const MobileBookings = ({ data: dataFromServer }) => {
+const MobileBookings = ({ data: dataFromServer = [], error }) => {
   const tableRef = useRef(null);
   const { data } = useSession();
   const [isAdmin, setIsAdmin] = useState(false);
@@ -52,6 +53,7 @@ const MobileBookings = ({ data: dataFromServer }) => {
   const [allData, setAllData] = useState(dataFromServer);
   const [resetResize, setResetResize] = useState(false);
   const [openBookingModal, setOpenBookingModal] = useState(false);
+  const [buchungTypes, setBuchungTypes] = useState([""]);
 
   // ===pagination states START===
   const [page, setPage] = useState(0);
@@ -140,6 +142,12 @@ const MobileBookings = ({ data: dataFromServer }) => {
 
   //==== MediaQuery ===
   const xxl = useMediaQuery("(min-width:1400px)");
+  useEffect(() => {
+    const atinaCalls = new AtinaCalls();
+    atinaCalls
+      .fetchData("api/AtinaMasterData/GetBookingTypes")
+      .then((res) => setBuchungTypes(res.res));
+  }, []);
 
   useEffect(() => {
     setIsAdmin(data?.user?.userInfo?.isAdministrator);
@@ -149,7 +157,6 @@ const MobileBookings = ({ data: dataFromServer }) => {
     handlePagination();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, rowsPerPage, allData]);
-
   return (
     <>
       <BookingsModal
@@ -192,6 +199,7 @@ const MobileBookings = ({ data: dataFromServer }) => {
             handleFilter={handleFilter}
             filterVal={filterVal}
             setFilterVal={setFilterVal}
+            buchungTypes={buchungTypes}
           />
           <Box sx={{ display: "flex", justifyContent: "end" }}>
             <Pagination
@@ -213,7 +221,7 @@ const MobileBookings = ({ data: dataFromServer }) => {
                 <UndoIcon />
               </IconButton>
             </Tooltip>
-            <DownloadCSV rawData={shownData} />
+            <DownloadCSV rawData={shownData} fileName={"mobile_buchungen"} />
             {isAdmin && (
               <Tooltip title="Neuen Datensatz anlegen" arrow>
                 <IconButton onClick={() => setOpenBookingModal(true)}>
@@ -245,7 +253,6 @@ const MobileBookings = ({ data: dataFromServer }) => {
                       sx={tableStyles.th.cell}
                       align="left"
                     >
-                      {" "}
                       <Box
                         sx={{
                           width: "100%",

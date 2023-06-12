@@ -14,12 +14,17 @@ import React, { useState } from "react";
 import OpenInFullIcon from "@mui/icons-material/OpenInFull";
 import CloseFullscreenIcon from "@mui/icons-material/CloseFullscreen";
 import { filterStyles } from "@/styles/filter_styles";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 const BookingsFilter = ({
   filterVal,
   setFilterVal,
   handleFilter,
   handleReset,
+  buchungTypes,
 }) => {
   const [open, setOpen] = useState(false);
   const handleChange = (e) => {
@@ -28,10 +33,9 @@ const BookingsFilter = ({
       [e.target.name]: e.target.value,
     });
   };
+  // console.log(buchungTypes);
 
-  // const today = `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDay()}`;
   const today = new Date().toISOString().split("T")[0];
-
   return (
     <Box
       component={Paper}
@@ -74,6 +78,50 @@ const BookingsFilter = ({
           </Grid>
           <Grid item md={2}>
             <TextField
+              sx={filterStyles.textField}
+              onChange={handleChange}
+              value={filterVal?.itemNumber || ""}
+              variant="outlined"
+              size="small"
+              label="Item Nummer"
+              name="itemNumber"
+            />
+          </Grid>
+          <Grid item md={2}>
+            {/* <TextField
+                onChange={handleChange}
+                value={filterVal.ItemType || ""}
+                sx={filterStyles.textField}
+                variant="outlined"
+                size="small"
+                label="Tag Typ"
+                name="ItemType"
+              /> */}
+            <FormControl sx={{ minWidth: 120, width: "100%" }} size="small">
+              <InputLabel id="itemType">Buchungstype</InputLabel>
+              <Select
+                // sx={{ width: "100%" }}
+                labelId="itemType"
+                id="demo-select-small"
+                value={filterVal?.ItemType || ""}
+                label="Buchungstype"
+                onChange={(e) =>
+                  setFilterVal({ ...filterVal, ItemType: e.target.value })
+                }
+              >
+                <MenuItem value={""}>
+                  <em>None</em>
+                </MenuItem>
+
+                {/* 
+                <MenuItem value={"Order"}>Auftrag</MenuItem>
+                <MenuItem value={"Meter"}>Zähler</MenuItem>
+                <MenuItem value={"Vehicle"}>KFZ</MenuItem> */}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item md={2}>
+            <TextField
               onChange={handleChange}
               value={filterVal.dateFrom || ""}
               className={"date-input"}
@@ -106,6 +154,26 @@ const BookingsFilter = ({
                   },
                   "&::-webkit-datetime-edit-text": {
                     color: filterVal.dateFrom ? "inherit" : "#ddd5",
+                  },
+                  "&:focus": {
+                    "&::-webkit-datetime-edit-year-field": {
+                      color: "#000",
+                    },
+                    "&::-webkit-datetime-edit-month-field": {
+                      color: "#000",
+                    },
+                    "&::-webkit-datetime-edit-day-field": {
+                      color: "#000",
+                    },
+                    "&::-webkit-datetime-edit-minute-field": {
+                      color: "#000",
+                    },
+                    "&::-webkit-datetime-edit-hour-field": {
+                      color: "#000",
+                    },
+                    "&::-webkit-datetime-edit-text": {
+                      color: "#000",
+                    },
                   },
                 },
               }}
@@ -145,6 +213,26 @@ const BookingsFilter = ({
                   "&::-webkit-datetime-edit-text": {
                     color: filterVal.dateTo ? "inherit" : "#ddd5",
                   },
+                  "&:focus": {
+                    "&::-webkit-datetime-edit-year-field": {
+                      color: "#000",
+                    },
+                    "&::-webkit-datetime-edit-month-field": {
+                      color: "#000",
+                    },
+                    "&::-webkit-datetime-edit-day-field": {
+                      color: "#000",
+                    },
+                    "&::-webkit-datetime-edit-minute-field": {
+                      color: "#000",
+                    },
+                    "&::-webkit-datetime-edit-hour-field": {
+                      color: "#000",
+                    },
+                    "&::-webkit-datetime-edit-text": {
+                      color: "#000",
+                    },
+                  },
                 },
               }}
             />
@@ -166,22 +254,42 @@ const BookingsFilter = ({
                 sx: {
                   cursor: "pointer",
                   "&::-webkit-datetime-edit-year-field": {
-                    color: filterVal.timeFrom ? "inherit" : "#ddd5",
+                    color: "#ddd5",
                   },
                   "&::-webkit-datetime-edit-month-field": {
-                    color: filterVal.timeFrom ? "inherit" : "#ddd5",
+                    color: "#ddd5",
                   },
                   "&::-webkit-datetime-edit-day-field": {
-                    color: filterVal.timeFrom ? "inherit" : "#ddd5",
+                    color: "#ddd5",
                   },
                   "&::-webkit-datetime-edit-minute-field": {
-                    color: filterVal.timeFrom ? "inherit" : "#ddd5",
+                    color: "#ddd5",
                   },
                   "&::-webkit-datetime-edit-hour-field": {
-                    color: filterVal.timeFrom ? "inherit" : "#ddd5",
+                    color: "#ddd5",
                   },
                   "&::-webkit-datetime-edit-text": {
-                    color: filterVal.timeFrom ? "inherit" : "#ddd5",
+                    color: "#ddd5",
+                  },
+                  "&:focus": {
+                    "&::-webkit-datetime-edit-year-field": {
+                      color: "#000",
+                    },
+                    "&::-webkit-datetime-edit-month-field": {
+                      color: "#000",
+                    },
+                    "&::-webkit-datetime-edit-day-field": {
+                      color: "#000",
+                    },
+                    "&::-webkit-datetime-edit-minute-field": {
+                      color: "#000",
+                    },
+                    "&::-webkit-datetime-edit-hour-field": {
+                      color: "#000",
+                    },
+                    "&::-webkit-datetime-edit-text": {
+                      color: "#000",
+                    },
                   },
                 },
               }}
@@ -205,22 +313,42 @@ const BookingsFilter = ({
                 sx: {
                   cursor: "pointer",
                   "&::-webkit-datetime-edit-year-field": {
-                    color: filterVal.timeTo ? "inherit" : "#ddd5",
+                    color: "#ddd5",
                   },
                   "&::-webkit-datetime-edit-month-field": {
-                    color: filterVal.timeTo ? "inherit" : "#ddd5",
+                    color: "#ddd5",
                   },
                   "&::-webkit-datetime-edit-day-field": {
-                    color: filterVal.timeTo ? "inherit" : "#ddd5",
+                    color: "#ddd5",
                   },
                   "&::-webkit-datetime-edit-minute-field": {
-                    color: filterVal.timeTo ? "inherit" : "#ddd5",
+                    color: "#ddd5",
                   },
                   "&::-webkit-datetime-edit-hour-field": {
-                    color: filterVal.timeTo ? "inherit" : "#ddd5",
+                    color: "#ddd5",
                   },
                   "&::-webkit-datetime-edit-text": {
-                    color: filterVal.timeTo ? "inherit" : "#ddd5",
+                    color: "#ddd5",
+                  },
+                  "&:focus": {
+                    "&::-webkit-datetime-edit-year-field": {
+                      color: "#000",
+                    },
+                    "&::-webkit-datetime-edit-month-field": {
+                      color: "#000",
+                    },
+                    "&::-webkit-datetime-edit-day-field": {
+                      color: "#000",
+                    },
+                    "&::-webkit-datetime-edit-minute-field": {
+                      color: "#000",
+                    },
+                    "&::-webkit-datetime-edit-hour-field": {
+                      color: "#000",
+                    },
+                    "&::-webkit-datetime-edit-text": {
+                      color: "#000",
+                    },
                   },
                 },
               }}

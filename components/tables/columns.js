@@ -249,7 +249,7 @@ export const NFC_TABLE_COLUMNS = [
   {
     accessor: "createdDate",
     Header: "erstellt am",
-    Cell: ({ value }) => new Date(value).toLocaleDateString("de"),
+    Cell: ({ value }) => new Date(value).toLocaleDateString("tr"),
   },
 ];
 
@@ -299,22 +299,27 @@ export const BUCHUNGEN_TABLE_COLUMNS = [
   {
     accessor: "Street",
     Header: "straße",
+    Cell: ({ value }) => (value?.length > 0 ? value : ""),
   },
   {
     accessor: "Streetnumber",
     Header: "hausnummer",
+    Cell: ({ value }) => (value?.length > 0 ? value : ""),
   },
   {
     accessor: "ZIP",
     Header: "plz",
+    Cell: ({ value }) => (value?.length > 0 ? value : ""),
   },
   {
     accessor: "City",
     Header: "stadt",
+    Cell: ({ value }) => (value?.length > 0 ? value : ""),
   },
   {
     accessor: "Country",
     Header: "land",
+    Cell: ({ value }) => (value?.length > 0 ? value : ""),
   },
   // {
   //   accessor: "createdDate",

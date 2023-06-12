@@ -53,7 +53,7 @@ const NfcTagsModal = ({ openNfcModal, setOpenNfcModal, nfcData }) => {
             <Box sx={{ display: "flex" }}>
               <TextField
                 variant="outlined"
-                label="Typ"
+                label="Itemtypes"
                 size="small"
                 name="itemType"
                 sx={{ width: "100%" }}
@@ -65,7 +65,7 @@ const NfcTagsModal = ({ openNfcModal, setOpenNfcModal, nfcData }) => {
               />{" "}
               <TextField
                 variant="outlined"
-                label="Artikelnummer"
+                label="Itemnummer"
                 size="small"
                 name="itemNumber"
                 sx={{ width: "100%" }}
@@ -89,7 +89,7 @@ const NfcTagsModal = ({ openNfcModal, setOpenNfcModal, nfcData }) => {
                   label="Straße"
                   size="small"
                   name="street"
-                  sx={{ width: "100%" }}
+                  sx={{ width: "50%" }}
                   value={inputVal.street || ""}
                   onChange={handleChange}
                   InputProps={{
@@ -101,7 +101,7 @@ const NfcTagsModal = ({ openNfcModal, setOpenNfcModal, nfcData }) => {
                   label="Hausnummer"
                   size="small"
                   name="streetnumber"
-                  sx={{ width: "100%" }}
+                  sx={{ width: "50%" }}
                   value={inputVal?.streetnumber || ""}
                   onChange={handleChange}
                   InputProps={{
@@ -148,60 +148,60 @@ const NfcTagsModal = ({ openNfcModal, setOpenNfcModal, nfcData }) => {
                   readOnly: !isAdmin,
                 }}
               />
-              <Box sx={{ display: "flex" }}>
-                <TextField
-                  variant="outlined"
-                  label="Daten 1"
-                  size="small"
-                  name="data1"
-                  sx={{ width: "100%" }}
-                  value={inputVal?.data1 || ""}
-                  onChange={handleChange}
-                  InputProps={{
-                    readOnly: !isAdmin,
-                  }}
-                />
+              {/* <Box sx={{ display: "flex" }}> */}
+              <TextField
+                variant="outlined"
+                label="Daten 1"
+                size="small"
+                name="data1"
+                sx={{ width: "100%" }}
+                value={inputVal?.data1 || ""}
+                onChange={handleChange}
+                InputProps={{
+                  readOnly: !isAdmin,
+                }}
+              />
 
-                <TextField
-                  variant="outlined"
-                  label="Daten 2"
-                  size="small"
-                  name="data2"
-                  sx={{ width: "100%" }}
-                  value={inputVal?.data2 || ""}
-                  onChange={handleChange}
-                  InputProps={{
-                    readOnly: !isAdmin,
-                  }}
-                />
-              </Box>
-              <Box sx={{ display: "flex" }}>
-                <TextField
-                  variant="outlined"
-                  label="Daten 3"
-                  size="small"
-                  name="data3"
-                  sx={{ width: "100%" }}
-                  value={inputVal?.data3 || ""}
-                  onChange={handleChange}
-                  InputProps={{
-                    readOnly: !isAdmin,
-                  }}
-                />
+              <TextField
+                variant="outlined"
+                label="Daten 2"
+                size="small"
+                name="data2"
+                sx={{ width: "100%" }}
+                value={inputVal?.data2 || ""}
+                onChange={handleChange}
+                InputProps={{
+                  readOnly: !isAdmin,
+                }}
+              />
+              {/* </Box> */}
+              {/* <Box sx={{ display: "flex" }}> */}
+              <TextField
+                variant="outlined"
+                label="Daten 3"
+                size="small"
+                name="data3"
+                sx={{ width: "100%" }}
+                value={inputVal?.data3 || ""}
+                onChange={handleChange}
+                InputProps={{
+                  readOnly: !isAdmin,
+                }}
+              />
 
-                <TextField
-                  variant="outlined"
-                  label="Daten 4"
-                  size="small"
-                  name="data4"
-                  sx={{ width: "100%" }}
-                  value={inputVal?.data4 || ""}
-                  onChange={handleChange}
-                  InputProps={{
-                    readOnly: !isAdmin,
-                  }}
-                />
-              </Box>
+              <TextField
+                variant="outlined"
+                label="Daten 4"
+                size="small"
+                name="data4"
+                sx={{ width: "100%" }}
+                value={inputVal?.data4 || ""}
+                onChange={handleChange}
+                InputProps={{
+                  readOnly: !isAdmin,
+                }}
+              />
+              {/* </Box> */}
               <TextField
                 variant="outlined"
                 label="Daten 5"

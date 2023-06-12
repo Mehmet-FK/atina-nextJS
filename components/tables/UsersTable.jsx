@@ -47,7 +47,7 @@ const UsersTable = ({ data }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [allData, setAllData] = useState(data);
-  const [shownData, setShownData] = useState([...allData]);
+  const [shownData, setShownData] = useState(allData);
   const [resetResize, setResetResize] = useState(false);
   const [tableWidth, setTableWidth] = useState(null);
 
@@ -117,7 +117,6 @@ const UsersTable = ({ data }) => {
     handlePagination();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, rowsPerPage, data]);
-  console.log(headerGroups[0].headers.at(0));
 
   //console.log("COLUMN-WIDTH", defaultColumn.width);
   return (
@@ -170,7 +169,7 @@ const UsersTable = ({ data }) => {
               <UndoIcon />
             </IconButton>
           </Tooltip>
-          <DownloadCSV rawData={shownData} />
+          <DownloadCSV rawData={shownData} fileName={"benutzer"} />
         </Box>
         <Table
           ref={tableRef}

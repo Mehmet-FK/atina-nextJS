@@ -41,6 +41,7 @@ import styles from "./table_styles.module.css";
 import UndoIcon from "@mui/icons-material/Undo";
 import Tooltip from "@mui/material/Tooltip";
 import { useSession } from "next-auth/react";
+import ErrorModal from "../modals/ErrorModal";
 
 const initalContextMenu = {
   show: false,
@@ -48,16 +49,18 @@ const initalContextMenu = {
   y: 0,
 };
 
-const ItemsTable = ({ data: dataFromServer }) => {
+const ItemsTable = ({ atinaItems }) => {
   const tableRef = useRef(null);
   const { data } = useSession();
-  const dispatch = useDispatch();
-  const { atinaItems } = useSelector((state) => state.atina);
+
+  // const { atinaItems } = useSelector((state) => state.atina);
+  const { error } = useSelector((state) => state.atina);
   const { getAtinaItemsData } = useAtinaCalls();
-  const [allData, setAllData] = useState(dataFromServer);
-  const [isError, setIsError] = useState(false);
+
+  const [allData, setAllData] = useState(atinaItems);
+  const [isError, setIsError] = useState(error ? error : false);
   const [loading, setLoading] = useState(false);
-  const [shownData, setShownData] = useState(allData ? allData : []);
+  const [shownData, setShownData] = useState(allData);
   const [type, setType] = useState("Order");
   const [resetResize, setResetResize] = useState(false);
   const [contextMenu, setContextMenu] = useState(initalContextMenu);
@@ -66,13 +69,12 @@ const ItemsTable = ({ data: dataFromServer }) => {
   //#region ===pagination states START===
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-
   const [openItemsModal, setOpenItemsModal] = useState(false);
   const handlePagination = useCallback(() => {
     let currentPage = rowsPerPage * page;
     const newArray = allData?.slice(currentPage, currentPage + rowsPerPage);
     return setShownData(newArray);
-  }, [page, rowsPerPage, atinaItems, allData]);
+  }, [page, rowsPerPage, allData]);
 
   //#endregion ===pagination states END===
 
@@ -87,6 +89,10 @@ const ItemsTable = ({ data: dataFromServer }) => {
     []
   );
 
+  console.log(atinaItems);
+  console.log(allData);
+  console.log(shownData);
+
   const tableColumns = useMemo(() => {
     if (type === "Order") {
       return ITEM_TABLE_ORDER_COLUMNS;
@@ -96,7 +102,7 @@ const ItemsTable = ({ data: dataFromServer }) => {
       return ITEM_TABLE_VEHICLE_COLUMNS;
     }
   }, [type]);
-  // console.log(type);
+
   const {
     headerGroups,
     getTableProps,
@@ -132,10 +138,9 @@ const ItemsTable = ({ data: dataFromServer }) => {
       console.log(res.error);
     });
   };
-  // console.log(shownData);
+
   const handleReset = () => {
     setFilterVal({});
-    // handlePagination();
   };
   // ===Table Filter END===
 
@@ -143,12 +148,9 @@ const ItemsTable = ({ data: dataFromServer }) => {
   const xxl = useMediaQuery("(min-width:1500px)");
 
   const { handleRightClick } = useContextMenu(contextMenu, setContextMenu);
-  useEffect(() => {
-    dispatch(getSuccess({ data, url: "items" }));
-  }, []);
 
   useEffect(() => {
-    // setShownData(allData);
+    setShownData(allData);
 
     handlePagination();
     setLoading(false);
@@ -157,12 +159,8 @@ const ItemsTable = ({ data: dataFromServer }) => {
   useEffect(() => {
     handlePagination();
     setType("Order");
-    getAtinaItemsData("Order").then((response) => {
-      setAllData(response.res);
-      // setLoading(false);
-    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
+  }, []);
 
   useEffect(() => {
     setIsAdmin(data?.user?.userInfo?.isAdministrator);
@@ -170,6 +168,7 @@ const ItemsTable = ({ data: dataFromServer }) => {
 
   return (
     <>
+      <ErrorModal error={isError} />
       <ItemsModal
         setOpenItemsModal={setOpenItemsModal}
         openItemsModal={openItemsModal}
@@ -213,8 +212,9 @@ const ItemsTable = ({ data: dataFromServer }) => {
                 setLoading(true);
                 setType("Order");
                 getAtinaItemsData("Order").then((response) => {
-                  setAllData(response.res);
-                  // setLoading(false);
+                  response.error
+                    ? setIsError(response.error)
+                    : setAllData(response.res);
                 });
               }}
               sx={{
@@ -237,8 +237,9 @@ const ItemsTable = ({ data: dataFromServer }) => {
                 setLoading(true);
                 setType("Meter");
                 getAtinaItemsData("Meter").then((response) => {
-                  setAllData(response.res);
-                  // setLoading(false);
+                  response.error
+                    ? setIsError(response.error)
+                    : setAllData(response.res);
                 });
               }}
               sx={{
@@ -261,7 +262,10 @@ const ItemsTable = ({ data: dataFromServer }) => {
                 setLoading(true);
                 setType("Vehicle");
                 getAtinaItemsData("Vehicle").then((response) => {
-                  setAllData(response.res);
+                  response.error
+                    ? setIsError(response.error)
+                    : setAllData(response.res);
+
                   // setLoading(false);
                 });
               }}
@@ -303,7 +307,7 @@ const ItemsTable = ({ data: dataFromServer }) => {
               </IconButton>
             </Tooltip>
 
-            <DownloadCSV rawData={shownData} />
+            <DownloadCSV rawData={shownData} fileName={"items"} />
 
             {isAdmin && (
               <Tooltip title="Neuen Datensatz anlegen" arrow>

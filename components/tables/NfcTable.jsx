@@ -102,7 +102,7 @@ const NfcTable = ({ data }) => {
     id: null,
     tagID: null,
     desc: null,
-    type: null,
+    ItemType: "",
     nfcData: null,
     itemID: null,
     createdTo: null,
@@ -181,7 +181,7 @@ const NfcTable = ({ data }) => {
               <UndoIcon />
             </IconButton>
           </Tooltip>
-          <DownloadCSV rawData={shownData} />
+          <DownloadCSV rawData={shownData} fileName={"nfc_tags"} />
         </Box>
         <Table
           {...getTableProps()}

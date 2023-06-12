@@ -62,7 +62,9 @@ const useAtinaCalls = () => {
   const getMobileBookingsData = () => getAtinaData("api/AtinaMobileBookings");
   const getNfcTagsData = () => getAtinaData("AtinaNfcTags");
   const getAtinaItemsData = (type) =>
-    getAtinaData(`api/AtinaItems/SearchByKeyValue?filters[ItemType]=${type}`);
+    getAtinaData(
+      `api/AtinaItems/SearchByKeyValue?ItemType=${type}&onlyWithTagId=false`
+    );
   //PUT
   const putUserData = (info) => putAtinaData("AtinaUsers", info);
 

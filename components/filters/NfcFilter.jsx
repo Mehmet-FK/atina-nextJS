@@ -13,6 +13,10 @@ import React, { useState } from "react";
 import OpenInFullIcon from "@mui/icons-material/OpenInFull";
 import CloseFullscreenIcon from "@mui/icons-material/CloseFullscreen";
 import { filterStyles } from "@/styles/filter_styles";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 const NfcFilter = ({ filterVal, setFilterVal, handleFilter, handleReset }) => {
   const [open, setOpen] = useState(false);
@@ -23,8 +27,7 @@ const NfcFilter = ({ filterVal, setFilterVal, handleFilter, handleReset }) => {
       [e.target.name]: e.target.value,
     });
   };
-  const xxl = useMediaQuery("(min-width:1350px)");
-  // console.log(filterVal.createdFrom);
+  console.log(filterVal);
   return (
     <Box
       component={Paper}
@@ -60,6 +63,7 @@ const NfcFilter = ({ filterVal, setFilterVal, handleFilter, handleReset }) => {
                 onChange={handleChange}
                 inputProps={{
                   sx: {
+                    cursor: "pointer",
                     "&::-webkit-datetime-edit-year-field": {
                       color: filterVal.createdFrom ? "inherit" : "#ddd5",
                     },
@@ -77,6 +81,26 @@ const NfcFilter = ({ filterVal, setFilterVal, handleFilter, handleReset }) => {
                     },
                     "&::-webkit-datetime-edit-text": {
                       color: filterVal.createdFrom ? "inherit" : "#ddd5",
+                    },
+                    "&:focus": {
+                      "&::-webkit-datetime-edit-year-field": {
+                        color: "#000",
+                      },
+                      "&::-webkit-datetime-edit-month-field": {
+                        color: "#000",
+                      },
+                      "&::-webkit-datetime-edit-day-field": {
+                        color: "#000",
+                      },
+                      "&::-webkit-datetime-edit-minute-field": {
+                        color: "#000",
+                      },
+                      "&::-webkit-datetime-edit-hour-field": {
+                        color: "#000",
+                      },
+                      "&::-webkit-datetime-edit-text": {
+                        color: "#000",
+                      },
                     },
                   },
                 }}
@@ -113,6 +137,26 @@ const NfcFilter = ({ filterVal, setFilterVal, handleFilter, handleReset }) => {
                     },
                     "&::-webkit-datetime-edit-text": {
                       color: filterVal.createdTo ? "inherit" : "#ddd5",
+                    },
+                    "&:focus": {
+                      "&::-webkit-datetime-edit-year-field": {
+                        color: "#000",
+                      },
+                      "&::-webkit-datetime-edit-month-field": {
+                        color: "#000",
+                      },
+                      "&::-webkit-datetime-edit-day-field": {
+                        color: "#000",
+                      },
+                      "&::-webkit-datetime-edit-minute-field": {
+                        color: "#000",
+                      },
+                      "&::-webkit-datetime-edit-hour-field": {
+                        color: "#000",
+                      },
+                      "&::-webkit-datetime-edit-text": {
+                        color: "#000",
+                      },
                     },
                   },
                 }}
@@ -152,15 +196,35 @@ const NfcFilter = ({ filterVal, setFilterVal, handleFilter, handleReset }) => {
               />
             </Grid>
             <Grid item md={2}>
-              <TextField
+              {/* <TextField
                 onChange={handleChange}
-                value={filterVal.type || ""}
+                value={filterVal.ItemType || ""}
                 sx={filterStyles.textField}
                 variant="outlined"
                 size="small"
                 label="Tag Typ"
-                name="type"
-              />
+                name="ItemType"
+              /> */}
+              <FormControl sx={{ minWidth: 120, width: "100%" }} size="small">
+                <InputLabel id="itemType">Tag Type</InputLabel>
+                <Select
+                  // sx={{ width: "100%" }}
+                  labelId="itemType"
+                  id="demo-select-small"
+                  value={filterVal?.ItemType || ""}
+                  label="Tag Type"
+                  onChange={(e) =>
+                    setFilterVal({ ...filterVal, ItemType: e.target.value })
+                  }
+                >
+                  <MenuItem value={""}>
+                    <em>None</em>
+                  </MenuItem>
+                  <MenuItem value={"Order"}>Auftrag</MenuItem>
+                  <MenuItem value={"Meter"}>Zähler</MenuItem>
+                  <MenuItem value={"Vehicle"}>KFZ</MenuItem>
+                </Select>
+              </FormControl>
             </Grid>
             {/* <Grid item md={2}>
               <TextField

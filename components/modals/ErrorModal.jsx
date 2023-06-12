@@ -14,7 +14,7 @@ import { modalStyles } from "@/styles/modal_styles";
 const ErrorModal = ({ error }) => {
   // const { error, errorMsg } = useSelector((state) => state.atina);
 
-  let errorMsg = "";
+  // let errorMsg = "";
   const [open, setOpen] = React.useState(error ? true : false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -47,7 +47,7 @@ const ErrorModal = ({ error }) => {
                 Fehlermeldung
               </Typography>
               <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-                {error}
+                {error?.message}
               </Typography>
             </Box>
             <img

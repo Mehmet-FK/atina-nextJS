@@ -29,6 +29,7 @@ const Pagination = ({ data, page, setPage, rowsPerPage, setRowsPerPage }) => {
         rowsPerPage={rowsPerPage}
         onRowsPerPageChange={handleChangeRowsPerPage}
         labelRowsPerPage={"Anzahl Zeilen"}
+        rowsPerPageOptions={[10, 25, 50, 100, 250]}
       />
       {/* setRestart((prev) => !prev) */}
       <Tooltip title="Aktualisieren" arrow>

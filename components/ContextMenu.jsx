@@ -58,8 +58,9 @@ const ContextMenu = ({
       border: "1px solid #000",
       borderRadius: "5px",
       width: "200px",
+      minWidth: "180px",
       maxHeight: "350px",
-      minHeight: open.columns ? "150px" : "40px",
+      minHeight: open.columns ? "150px" : "70px",
       boxShadow:
         "rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px",
     },
@@ -155,7 +156,7 @@ const ContextMenu = ({
 
   //#region Draggable Context Menu
 
-  useEffect(() => {
+  /*  useEffect(() => {
     if (!contextMenuRef) return;
     const menu = contextMenuRef.current;
     const table = tableRef.current;
@@ -187,20 +188,25 @@ const ContextMenu = ({
     };
 
     return cleanup;
-  }, []);
+  }, []); */
   //#endregion
 
   return (
     <Box sx={styles.contextMenu} component={Paper} ref={contextMenuRef}>
       <Button
-        sx={{ width: "100%" }}
+        sx={{ width: "100%", background: "#00000020" }}
         size="small"
         onClick={() => setOpen({ ...open, columns: !open.columns })}
       >
         Spalten Verwalten
       </Button>
       {setOpenItemsModal !== undefined && (
-        <Button onClick={() => setOpenItemsModal(true)}>neu einfügen</Button>
+        <Button
+          sx={{ width: "100%", background: "#00000020" }}
+          onClick={() => setOpenItemsModal(true)}
+        >
+          neu einfügen
+        </Button>
       )}
 
       {open.columns && <ColumnMenu allColumns={allColumns} styles={styles} />}

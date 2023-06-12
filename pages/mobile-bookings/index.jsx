@@ -22,6 +22,8 @@ const MobileBookings = ({ data, error }) => {
 export default MobileBookings;
 
 export const getServerSideProps = async (context) => {
+  let data = null;
+  let error = null;
   const session = await getSession(context);
   if (!session) {
     return {
@@ -34,9 +36,18 @@ export const getServerSideProps = async (context) => {
 
   const atinaCalls = new AtinaCalls();
 
-  const x = await atinaCalls.fetchData("api/AtinaMobileBookings");
+  await atinaCalls
+    .fetchData("api/AtinaMobileBookings")
+    .then((res) => (data = res))
+    .catch((err) => (error = err));
 
-  return {
-    props: { data: x.res, error: x.error },
-  };
+  if (data.length) {
+    return {
+      props: { data, error },
+    };
+  } else {
+    return {
+      props: { error },
+    };
+  }
 };
