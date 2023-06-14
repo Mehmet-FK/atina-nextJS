@@ -201,7 +201,7 @@ const NfcTable = ({ data }) => {
               >
                 {headerGroup.headers.map((column) => (
                   <TableCell
-                    {...column.getHeaderProps(column.getSortByToggleProps())}
+                    {...column.getHeaderProps()}
                     className={styles.th}
                     sx={{
                       ...tableStyles.th.cell,
@@ -209,6 +209,7 @@ const NfcTable = ({ data }) => {
                     align="left"
                   >
                     <Box
+                      {...column.getSortByToggleProps()}
                       sx={{
                         width: "100%",
                         display: "flex",

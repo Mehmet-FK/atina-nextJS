@@ -187,13 +187,14 @@ const UsersTable = ({ data }) => {
                 {headerGroup.headers.map((column) => (
                   <TableCell
                     className={styles.th}
-                    {...column.getHeaderProps(column.getSortByToggleProps())}
+                    {...column.getHeaderProps()}
                     sx={{
                       ...tableStyles.th.cell,
                     }}
                     align="left"
                   >
                     <Box
+                      {...column.getSortByToggleProps()}
                       sx={{
                         width: "100%",
                         display: "flex",
