@@ -8,6 +8,8 @@ import styles from "./table_row_styles.module.css";
 
 const BookingsTableRow = ({ resetResize, row, prepareRow, cellWidth }) => {
   const [openBookingModal, setOpenBookingModal] = useState(false);
+  const [buchungTypes, setBuchungTypes] = useState({});
+
   const handleDblClick = (e) => {
     if (e.detail === 2) {
       setOpenBookingModal(true);
@@ -17,6 +19,20 @@ const BookingsTableRow = ({ resetResize, row, prepareRow, cellWidth }) => {
   useEffect(() => {
     prepareRow(row);
   }, [resetResize]);
+  useEffect(() => {
+    (async () => {
+      try {
+        fetch(
+          "https://pbsolutions.dev/atina/api/AtinaMasterData/GetBookingTypes"
+        )
+          .then((res) => res.ok && res.json())
+          .then((res) => setBuchungTypes(res));
+        console.log(buchungTypes);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
 
   return (
     <>
@@ -32,6 +48,7 @@ const BookingsTableRow = ({ resetResize, row, prepareRow, cellWidth }) => {
         onClick={handleDblClick}
       >
         {row.cells.map((cell) => {
+          console.log(cell);
           return (
             <TableCell
               {...cell.getCellProps()}
@@ -39,7 +56,8 @@ const BookingsTableRow = ({ resetResize, row, prepareRow, cellWidth }) => {
               className={styles.td}
               align="left"
             >
-              {cell.render("Cell")}
+              {/* {cell.render("Cell")} */}
+              {cell.value.toString()}
             </TableCell>
           );
         })}

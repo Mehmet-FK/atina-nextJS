@@ -261,17 +261,18 @@ export const BUCHUNGEN_TABLE_COLUMNS = [
   {
     accessor: "BookingType",
     Header: "buchungstyp",
-    Cell: ({ value }) => {
-      if (value === "IN") {
-        return "Ein";
-      } else if (value === "BREAK") {
-        return "Pause";
-      } else if (value === "OUT") {
-        return "Aus";
-      } else {
-        return value;
-      }
-    },
+    Cell: ({ value }) => (typeof value === typeof " " ? value : ""),
+    // Cell: ({ value }) => {
+    //   if (value === "IN") {
+    //     return "Ein";
+    //   } else if (value === "BREAK") {
+    //     return "Pause";
+    //   } else if (value === "OUT") {
+    //     return "Aus";
+    //   } else {
+    //     return value;
+    //   }
+    // },
   },
   {
     accessor: "Date",
