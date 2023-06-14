@@ -50,6 +50,7 @@ const BookingsFilter = ({
     })();
   }, []);
   const today = new Date().toISOString().split("T")[0];
+  console.log(filterVal.dateFrom);
   return (
     <Box
       component={Paper}

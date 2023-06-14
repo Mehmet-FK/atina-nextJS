@@ -16,6 +16,9 @@ import { modalStyles } from "@/styles/modal_styles";
 import { useSession } from "next-auth/react";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import CloseIcon from "@mui/icons-material/Close";
+import { DateField, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs from "dayjs";
 
 const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
   const { data } = useSession();
@@ -34,7 +37,7 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
   useEffect(() => {
     setIsAdmin(data?.user?.userInfo?.isAdministrator);
   }, []);
-
+  console.log(inputVal);
   return (
     <>
       <Modal
@@ -64,7 +67,23 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
                 flexDirection: "row",
               }}
             >
-              <TextField
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DateField
+                  label="Datum (bis)"
+                  size="small"
+                  format="DD.MM.YYYY"
+                  name="Date"
+                  sx={{ width: "100%" }}
+                  onChange={(newVal) =>
+                    setInputVal({
+                      ...inputVal,
+                      Date: `${newVal.$d}`,
+                    })
+                  }
+                  value={dayjs(inputVal.Date)}
+                />
+              </LocalizationProvider>
+              {/* <TextField
                 value={inputVal.Date || ""}
                 sx={{ width: "100%" }}
                 className={"date-input"}
@@ -79,7 +98,7 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
                   })
                 }
                 // sx={filterStyles.textField}
-              />
+              />*/}
               <TextField
                 variant="outlined"
                 label="Uhrzeit"
