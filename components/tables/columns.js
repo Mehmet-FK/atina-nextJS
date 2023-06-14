@@ -291,7 +291,7 @@ export const BUCHUNGEN_TABLE_COLUMNS = [
         return "Auftrag";
       } else if (value === "Meter") {
         return "Zähler";
-      } else if (value === "Car") {
+      } else if (value === "Vehicle") {
         return "KFZ";
       }
     },

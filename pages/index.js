@@ -1,10 +1,47 @@
 import Head from "next/head";
 import { Inter } from "next/font/google";
 import { getSession, signIn, signOut } from "next-auth/react";
+import { useEffect, useRef, useState } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const [cellWidth, setCellWidth] = useState("10px");
+  const elRef = useRef(null);
+  const borderRef = useRef(null);
+
+  // useEffect(() => {
+  //   if (!elRef) return;
+  //   let el = elRef.current;
+  //   let border = borderRef.current;
+  //   const styles = window.getComputedStyle(el);
+  //   let width = parseInt(styles.width, 10);
+  //   let x = 0;
+
+  //   const onMouseMoveResize = (event) => {
+  //     const dx = event.clientX - x;
+  //     x = event.clientX;
+  //     width = width + dx;
+  //     el.style.width = `${width}px`;
+  //     setCellWidth(`${width}px`);
+  //   };
+  //   const onMouseUpResize = (event) => {
+  //     document.removeEventListener("mousemove", onMouseMoveResize);
+  //   };
+
+  //   const onMouseDownResize = (event) => {
+  //     x = event.clientX;
+  //     el.style.left = styles.left;
+  //     el.style.right = null;
+  //     document.addEventListener("mousemove", onMouseMoveResize);
+  //     document.addEventListener("mouseup", onMouseUpResize);
+  //   };
+  //   border.addEventListener("mousedown", onMouseDownResize);
+  //   return () => {
+  //     border.removeEventListener("mousedown", onMouseDownResize);
+  //   };
+  // }, []);
+  console.log(cellWidth);
   return (
     <>
       <Head>
@@ -13,6 +50,130 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
+      {/* <div
+        style={{
+          position: "relative",
+          display: "grid",
+          justifyContent: "center",
+          placeItems: "center",
+          width: "100%",
+          height: "70vh",
+          background: "yellow",
+        }}
+      >
+        <div
+          ref={elRef}
+          style={{
+            position: "absolute",
+            border: "2px solid red",
+            width: "100px",
+            height: "100px",
+            margin: "5rem",
+          }}
+        >
+          <div
+            ref={borderRef}
+            style={{
+              position: "absolute",
+              height: "100%",
+              width: "10px",
+              backgroundColor: "lightblue",
+              right: 0,
+            }}
+          ></div>
+        </div>
+      </div>
+      <div
+        style={{
+          width: cellWidth,
+          height: "10px",
+          background: "blue",
+          marginRight: "10px",
+        }}
+      >
+        abc
+      </div>
+      <div
+        style={{
+          width: cellWidth,
+          height: "10px",
+          background: "blue",
+          marginRight: "10px",
+        }}
+      >
+        abc
+      </div>
+      <div
+        style={{
+          width: cellWidth,
+          height: "10px",
+          background: "blue",
+          marginRight: "10px",
+        }}
+      >
+        abc
+      </div>
+      <div
+        style={{
+          width: cellWidth,
+          height: "10px",
+          background: "blue",
+          marginRight: "10px",
+        }}
+      >
+        abc
+      </div>
+      <div
+        style={{
+          width: cellWidth,
+          height: "10px",
+          background: "blue",
+          marginRight: "10px",
+        }}
+      >
+        abc
+      </div>
+      <div
+        style={{
+          width: cellWidth,
+          height: "10px",
+          background: "blue",
+          marginRight: "10px",
+        }}
+      >
+        abc
+      </div>
+      <div
+        style={{
+          width: cellWidth,
+          height: "10px",
+          background: "blue",
+          marginRight: "10px",
+        }}
+      >
+        abc
+      </div>
+      <div
+        style={{
+          width: cellWidth,
+          height: "10px",
+          background: "blue",
+          marginRight: "10px",
+        }}
+      >
+        abc
+      </div>
+      <div
+        style={{
+          width: cellWidth,
+          height: "10px",
+          background: "blue",
+          marginRight: "10px",
+        }}
+      >
+        abc
+      </div> */}
     </>
   );
 }

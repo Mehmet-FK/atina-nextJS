@@ -3,6 +3,9 @@
     margin: 0;
     padding: 0;
 }
+body{
+  overflow-y:hidden ;
+}
 .lds-ring {
     display: inline-block;
     position: relative;

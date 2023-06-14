@@ -4,14 +4,15 @@ import React, { useState } from "react";
 import DownloadForOfflineIcon from "@mui/icons-material/DownloadForOffline";
 import { IconButton, Tooltip } from "@mui/material";
 import { useRouter } from "next/router";
+import {
+  bookingsTableCSV,
+  itemsTableCSV,
+  nfcTableCSV,
+  userTableCSV,
+} from "@/helpers/DownloadCsvFunctions";
 
-const DownloadCSV = ({ rawData, fileName }) => {
-  const year = new Date().getFullYear().toString();
-  const month = (new Date().getMonth() + 1).toString();
-  const day = new Date().getDay().toString();
-  const date = `${year}${month.length === 1 ? "0" + month : month}${
-    day.length === 1 ? "0" + day : day
-  }`;
+const DownloadCSV = ({ rawData, fileName, type }) => {
+  const date = new Date().toJSON().slice(0, 10).replaceAll("-", "");
   const [url, setUrl] = useState("");
 
   const editData = (arr) => {
@@ -27,12 +28,42 @@ const DownloadCSV = ({ rawData, fileName }) => {
   };
 
   const convertJsonToCsv = () => {
-    const h = Object.keys(rawData[0]).join(";").toUpperCase();
-    // const h = Object.keys(rawData[0]);
-    console.log("first", h);
-    editData(h);
-    const main = rawData.map((item) => Object.values(item).join(";"));
-    const csv = [h, ...main].join("\n");
+    let headers;
+    let main;
+    let res;
+    // const h = Object.keys(rawData[0]).join(";").toUpperCase();
+    // // const h = Object.keys(rawData[0]);
+    // editData(h);
+    // const main = rawData.map((item) => Object.values(item).join(";"));
+
+    switch (fileName) {
+      case "benutzer":
+        res = userTableCSV(rawData);
+        headers = res.h;
+        main = res.m;
+        break;
+      case "mobile_buchungen":
+        res = bookingsTableCSV(rawData);
+        headers = res.h;
+        main = res.m;
+        break;
+      case "nfc_tags":
+        res = nfcTableCSV(rawData);
+        headers = res.h;
+        main = res.m;
+        break;
+      case "items":
+        res = itemsTableCSV(rawData, type);
+
+        headers = res.h;
+        main = res.m;
+        break;
+
+      default:
+        return;
+    }
+    const csv = [headers, ...main].join("\n");
+    console.table(csv);
     const blob = new Blob([csv], { type: "application/csv" });
     const url = URL.createObjectURL(blob);
     setUrl(url);
@@ -43,6 +74,7 @@ const DownloadCSV = ({ rawData, fileName }) => {
         <Tooltip
           sx={{ display: "flex", alignItems: "center" }}
           onClick={() => rawData && convertJsonToCsv()}
+          // onClick={() => userTableCSV(rawData)}
         >
           <a
             href={url}

@@ -31,7 +31,7 @@ export const tableStyles = {
   },
   tr: {
     row: {
-      "&:last-child td, &:last-child th": { border: 0 },
+      // "&:last-child td, &:last-child th": { border: 0 },
       "&:hover": { backgroundColor: "#ddd" },
     },
     cell: {

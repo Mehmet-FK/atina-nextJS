@@ -6,7 +6,7 @@ import BookingsModal from "../modals/BookingsModal";
 import { tableStyles } from "@/styles/table_styles";
 import styles from "./table_row_styles.module.css";
 
-const BookingsTableRow = ({ resetResize, row, prepareRow }) => {
+const BookingsTableRow = ({ resetResize, row, prepareRow, cellWidth }) => {
   const [openBookingModal, setOpenBookingModal] = useState(false);
   const handleDblClick = (e) => {
     if (e.detail === 2) {
@@ -35,7 +35,7 @@ const BookingsTableRow = ({ resetResize, row, prepareRow }) => {
           return (
             <TableCell
               {...cell.getCellProps()}
-              sx={tableStyles.tr.cell}
+              sx={{ ...tableStyles.tr.cell, width: cellWidth }}
               className={styles.td}
               align="left"
             >

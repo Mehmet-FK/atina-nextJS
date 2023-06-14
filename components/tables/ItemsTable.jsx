@@ -89,10 +89,6 @@ const ItemsTable = ({ atinaItems }) => {
     []
   );
 
-  console.log(atinaItems);
-  console.log(allData);
-  console.log(shownData);
-
   const tableColumns = useMemo(() => {
     if (type === "Order") {
       return ITEM_TABLE_ORDER_COLUMNS;
@@ -307,7 +303,7 @@ const ItemsTable = ({ atinaItems }) => {
               </IconButton>
             </Tooltip>
 
-            <DownloadCSV rawData={shownData} fileName={"items"} />
+            <DownloadCSV rawData={shownData} fileName={"items"} type={type} />
 
             {isAdmin && (
               <Tooltip title="Neuen Datensatz anlegen" arrow>

@@ -154,7 +154,7 @@ export default function Layout({ children }) {
   ];
 
   return (
-    <Paper elevation={0}>
+    <Paper elevation={0} sx={{ overflow: "hidden" }}>
       <Box sx={{ display: "flex" }}>
         {/* <ErrorModal />
         <Loading />

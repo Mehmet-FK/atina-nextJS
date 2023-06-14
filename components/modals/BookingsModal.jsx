@@ -52,7 +52,12 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
             </Box>
           </Box>
           <CardContent sx={modalStyles.bookingModal.content}>
-            <Box sx={modalStyles.bookingModal.inputGroup}>
+            <Box
+              sx={{
+                ...modalStyles.bookingModal.inputGroup,
+                flexDirection: "row",
+              }}
+            >
               <TextField
                 variant="outlined"
                 label="Datum"

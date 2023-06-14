@@ -1,5 +1,6 @@
 import ErrorModal from "@/components/modals/ErrorModal";
 import MobileBookingsTable from "@/components/tables/MobileBookingsTable";
+// import MobileBookingsTable from "@/components/tables/ResizeBookingsTable";
 import { AtinaCalls } from "@/helpers/apiFunctions";
 import axios from "axios";
 import { getSession } from "next-auth/react";
@@ -14,6 +15,7 @@ const MobileBookings = ({ data, error }) => {
       </Head>
       <h1 style={{ marginBottom: "1rem" }}>Mobile Buchungen</h1>
 
+      {/* {!error && <MobileBookingsTable data={data} />} */}
       {!error && <MobileBookingsTable data={data} />}
     </div>
   );
@@ -38,10 +40,9 @@ export const getServerSideProps = async (context) => {
 
   await atinaCalls
     .fetchData("api/AtinaMobileBookings")
-    .then((res) => (data = res))
-    .catch((err) => (error = err));
+    .then((res) => (data = res));
 
-  if (data.length) {
+  if (data) {
     return {
       props: { data, error },
     };

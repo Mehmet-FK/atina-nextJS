@@ -33,7 +33,6 @@ const BookingsFilter = ({
       [e.target.name]: e.target.value,
     });
   };
-  console.log(filterVal);
   useEffect(() => {
     (async () => {
       try {
@@ -47,7 +46,7 @@ const BookingsFilter = ({
       }
     })();
   }, []);
-
+  console.log(filterVal);
   const today = new Date().toISOString().split("T")[0];
   return (
     <Box
@@ -89,6 +88,18 @@ const BookingsFilter = ({
               name="username"
             />
           </Grid>
+
+          {/* <Grid item md={2}>
+            <TextField
+              sx={filterStyles.textField}
+              onChange={handleChange}
+              value={filterVal.personelNumber || ""}
+              variant="outlined"
+              size="small"
+              label="Personelnummer"
+              name="personelNumber"
+            />
+          </Grid> */}
           <Grid item md={2}>
             <TextField
               sx={filterStyles.textField}
@@ -96,28 +107,19 @@ const BookingsFilter = ({
               value={filterVal?.itemNumber || ""}
               variant="outlined"
               size="small"
-              label="Item Nummer"
+              label="Datensatznummer"
               name="itemNumber"
             />
           </Grid>
           <Grid item md={2}>
-            {/* <TextField
-                onChange={handleChange}
-                value={filterVal.ItemType || ""}
-                sx={filterStyles.textField}
-                variant="outlined"
-                size="small"
-                label="Tag Typ"
-                name="ItemType"
-              /> */}
             <FormControl sx={{ minWidth: 120, width: "100%" }} size="small">
-              <InputLabel id="itemType">Buchungstype</InputLabel>
+              <InputLabel id="bookingType">Buchungstyp</InputLabel>
               <Select
                 // sx={{ width: "100%" }}
-                labelId="itemType"
+                labelId="bookingType"
                 id="demo-select-small"
                 value={filterVal?.bookingType || ""}
-                label="Buchungstype"
+                label="Buchungstyp"
                 onChange={(e) =>
                   setFilterVal({ ...filterVal, bookingType: e.target.value })
                 }
@@ -125,16 +127,39 @@ const BookingsFilter = ({
                 <MenuItem value={""}>
                   <em>None</em>
                 </MenuItem>
-                {Object.values(buchungTypes)?.map((item, i) => {
+                {Object.entries(buchungTypes)?.map((item, i) => {
                   return (
-                    <MenuItem key={i} value={item.ItemType}>
-                      {item.Caption}
+                    <MenuItem key={i} value={item[0]}>
+                      {item[1]?.Caption}
                     </MenuItem>
                   );
                 })}
               </Select>
             </FormControl>
           </Grid>
+          <Grid item md={2}>
+            <FormControl sx={{ minWidth: 120, width: "100%" }} size="small">
+              <InputLabel id="itemType">Itemtyp</InputLabel>
+              <Select
+                // sx={{ width: "100%" }}
+                labelId="itemType"
+                id="demo-select-small"
+                value={filterVal?.itemType || ""}
+                label="Itemtyp"
+                onChange={(e) =>
+                  setFilterVal({ ...filterVal, itemType: e.target.value })
+                }
+              >
+                <MenuItem value={""}>
+                  <em>None</em>
+                </MenuItem>
+                <MenuItem value={"Order"}>Auftrag</MenuItem>
+                <MenuItem value={"Meter"}>Zähler</MenuItem>
+                <MenuItem value={"Vehicle"}>KFZ</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item md={2} />
           <Grid item md={2}>
             <TextField
               onChange={handleChange}
@@ -149,7 +174,7 @@ const BookingsFilter = ({
               sx={filterStyles.textField}
               inputProps={{
                 max: today,
-                min: filterVal.dateFrom,
+
                 sx: {
                   cursor: "pointer",
                   "&::-webkit-datetime-edit-year-field": {
@@ -269,22 +294,22 @@ const BookingsFilter = ({
                 sx: {
                   cursor: "pointer",
                   "&::-webkit-datetime-edit-year-field": {
-                    color: "#ddd5",
+                    color: filterVal.timeFrom ? "inherit" : "#ddd5",
                   },
                   "&::-webkit-datetime-edit-month-field": {
-                    color: "#ddd5",
+                    color: filterVal.timeFrom ? "inherit" : "#ddd5",
                   },
                   "&::-webkit-datetime-edit-day-field": {
-                    color: "#ddd5",
+                    color: filterVal.timeFrom ? "inherit" : "#ddd5",
                   },
                   "&::-webkit-datetime-edit-minute-field": {
-                    color: "#ddd5",
+                    color: filterVal.timeFrom ? "inherit" : "#ddd5",
                   },
                   "&::-webkit-datetime-edit-hour-field": {
-                    color: "#ddd5",
+                    color: filterVal.timeFrom ? "inherit" : "#ddd5",
                   },
                   "&::-webkit-datetime-edit-text": {
-                    color: "#ddd5",
+                    color: filterVal.timeFrom ? "inherit" : "#ddd5",
                   },
                   "&:focus": {
                     "&::-webkit-datetime-edit-year-field": {
@@ -328,22 +353,22 @@ const BookingsFilter = ({
                 sx: {
                   cursor: "pointer",
                   "&::-webkit-datetime-edit-year-field": {
-                    color: "#ddd5",
+                    color: filterVal.timeTo ? "inherit" : "#ddd5",
                   },
                   "&::-webkit-datetime-edit-month-field": {
-                    color: "#ddd5",
+                    color: filterVal.timeTo ? "inherit" : "#ddd5",
                   },
                   "&::-webkit-datetime-edit-day-field": {
-                    color: "#ddd5",
+                    color: filterVal.timeTo ? "inherit" : "#ddd5",
                   },
                   "&::-webkit-datetime-edit-minute-field": {
-                    color: "#ddd5",
+                    color: filterVal.timeTo ? "inherit" : "#ddd5",
                   },
                   "&::-webkit-datetime-edit-hour-field": {
-                    color: "#ddd5",
+                    color: filterVal.timeTo ? "inherit" : "#ddd5",
                   },
                   "&::-webkit-datetime-edit-text": {
-                    color: "#ddd5",
+                    color: filterVal.timeTo ? "inherit" : "#ddd5",
                   },
                   "&:focus": {
                     "&::-webkit-datetime-edit-year-field": {
@@ -367,6 +392,118 @@ const BookingsFilter = ({
                   },
                 },
               }}
+            />
+          </Grid>
+
+          <Grid item md={2} />
+          <Grid item md={2}>
+            <TextField
+              sx={filterStyles.textField}
+              onChange={handleChange}
+              value={filterVal?.street || ""}
+              variant="outlined"
+              size="small"
+              label="Straße"
+              name="street"
+            />
+          </Grid>
+          <Grid item md={2}>
+            <TextField
+              sx={filterStyles.textField}
+              onChange={handleChange}
+              value={filterVal?.streetNumber || ""}
+              variant="outlined"
+              size="small"
+              label="Hausnummer"
+              name="streetNumber"
+            />
+          </Grid>
+          <Grid item md={2}>
+            <TextField
+              sx={filterStyles.textField}
+              onChange={handleChange}
+              value={filterVal?.zip || ""}
+              variant="outlined"
+              size="small"
+              label="PLZ"
+              name="zip"
+            />
+          </Grid>
+          <Grid item md={2}>
+            <TextField
+              sx={filterStyles.textField}
+              onChange={handleChange}
+              value={filterVal?.city || ""}
+              variant="outlined"
+              size="small"
+              label="Stadt"
+              name="city"
+            />
+          </Grid>
+          <Grid item md={2}>
+            <TextField
+              sx={filterStyles.textField}
+              onChange={handleChange}
+              value={filterVal?.country || ""}
+              variant="outlined"
+              size="small"
+              label="Land"
+              name="country"
+            />
+          </Grid>
+          <Grid item md={2}>
+            <TextField
+              sx={filterStyles.textField}
+              onChange={handleChange}
+              value={filterVal?.data1 || ""}
+              variant="outlined"
+              size="small"
+              label="Daten 1"
+              name="data1"
+            />
+          </Grid>
+          <Grid item md={2}>
+            <TextField
+              sx={filterStyles.textField}
+              onChange={handleChange}
+              value={filterVal?.data2 || ""}
+              variant="outlined"
+              size="small"
+              label="Daten 2"
+              name="data2"
+            />
+          </Grid>
+          <Grid item md={2}>
+            <TextField
+              sx={filterStyles.textField}
+              onChange={handleChange}
+              value={filterVal?.data3 || ""}
+              variant="outlined"
+              size="small"
+              label="Daten 3"
+              name="data3"
+            />
+          </Grid>
+          <Grid item md={2}>
+            <TextField
+              sx={filterStyles.textField}
+              onChange={handleChange}
+              value={filterVal?.data4 || ""}
+              variant="outlined"
+              size="small"
+              label="Daten 4"
+              name="data4"
+            />
+          </Grid>
+          <Grid item md={2}>
+            <TextField
+              sx={filterStyles.textField}
+              onChange={handleChange}
+              value={filterVal?.data5 || ""}
+              variant="outlined"
+              size="small"
+              label="Daten 5"
+              name="data5"
             />
           </Grid>
         </Grid>

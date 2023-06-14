@@ -36,7 +36,7 @@ export const filterStyles = {
     container: {
       width: "100%",
       columnGap: "10px",
-      rowGap: "10px",
+      rowGap: "5px",
       alignItems: "start",
     },
   },
