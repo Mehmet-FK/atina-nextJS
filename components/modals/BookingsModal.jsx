@@ -19,10 +19,15 @@ import CloseIcon from "@mui/icons-material/Close";
 import { DateField, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
   const { data } = useSession();
   const [isAdmin, setIsAdmin] = useState(false);
+  const [buchungTypes, setBuchungTypes] = useState({});
   const handleClose = () => setOpenBookingModal(false);
   const [inputVal, setInputVal] = useState({
     ...booking,
@@ -33,11 +38,23 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
 
     setInputVal({ ...inputVal, [e.target.name]: e.target.value });
   };
+  useEffect(() => {
+    (async () => {
+      try {
+        fetch(
+          "https://pbsolutions.dev/atina/api/AtinaMasterData/GetBookingTypes"
+        )
+          .then((res) => res.ok && res.json())
+          .then((res) => setBuchungTypes(res));
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
 
   useEffect(() => {
     setIsAdmin(data?.user?.userInfo?.isAdministrator);
   }, []);
-  console.log(inputVal);
   return (
     <>
       <Modal
@@ -119,18 +136,32 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
             <Box
               sx={{ display: "flex", flexDirection: "column", rowGap: "15px" }}
             >
-              {/* <Tooltip title={"Gesperrt"} placement="top-start" arrow> */}
-              <TextField
-                variant="outlined"
-                label="Buchungstyp"
-                size="small"
-                sx={{ width: "100%" }}
-                onChange={handleChange}
-                name="BookingType"
-                value={inputVal.BookingType || ""}
-              />
-              {/* </Tooltip> */}
-              {/* <Tooltip title={"Gesperrt"} placement="top-start" arrow> */}
+              <FormControl sx={{ minWidth: 120, width: "100%" }} size="small">
+                <InputLabel id="bookingType">Buchungstyp</InputLabel>
+                <Select
+                  // sx={{ width: "100%" }}
+                  readOnly={!isAdmin}
+                  labelId="bookingType"
+                  id="demo-select-small"
+                  value={inputVal?.BookingType || ""}
+                  label="Buchungstyp"
+                  onChange={(e) =>
+                    setInputVal({ ...inputVal, BookingType: e.target.value })
+                  }
+                >
+                  <MenuItem value={""}>
+                    <em>None</em>
+                  </MenuItem>
+                  {Object.entries(buchungTypes)?.map((item, i) => {
+                    return (
+                      <MenuItem key={i} value={item[0]}>
+                        {item[1]?.Caption}
+                      </MenuItem>
+                    );
+                  })}
+                </Select>
+              </FormControl>
+
               <TextField
                 variant="outlined"
                 label="Straße"
@@ -140,7 +171,7 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
                 onChange={handleChange}
                 value={inputVal.Street || ""}
               />
-              {/* </Tooltip> */}
+
               {/* <Tooltip title={"Gesperrt"} placement="top-start" arrow> */}
               <TextField
                 variant="outlined"
