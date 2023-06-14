@@ -39,7 +39,7 @@ const Login = () => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#e10000",
+        backgroundColor: "#ccc",
         // border: "2px solid blue",
       }}
     >
@@ -61,8 +61,8 @@ const Login = () => {
         component="form"
         onSubmit={handleSubmit}
         sx={{
-          // backgroundColor: "#e10000",
-
+          backgroundColor: "#e10000",
+          boxShadow: " -11px 13px 45px 0px rgba(0,0,0,0.4)",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
