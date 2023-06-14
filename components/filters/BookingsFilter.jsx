@@ -18,7 +18,9 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-
+import { DateField, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+// import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 const BookingsFilter = ({
   filterVal,
   setFilterVal,
@@ -33,6 +35,7 @@ const BookingsFilter = ({
       [e.target.name]: e.target.value,
     });
   };
+
   useEffect(() => {
     (async () => {
       try {
@@ -46,7 +49,6 @@ const BookingsFilter = ({
       }
     })();
   }, []);
-  console.log(filterVal);
   const today = new Date().toISOString().split("T")[0];
   return (
     <Box
@@ -161,6 +163,23 @@ const BookingsFilter = ({
           </Grid>
           <Grid item md={2} />
           <Grid item md={2}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DateField
+                label="Datum (von)"
+                size="small"
+                format="DD.MM.YYYY"
+                name="dateFrom"
+                onChange={(newVal) =>
+                  setFilterVal({
+                    ...filterVal,
+                    dateFrom: new Date(newVal.$d),
+                  })
+                }
+                value={filterVal.dateFrom}
+              />
+            </LocalizationProvider>
+          </Grid>
+          {/* <Grid item md={2}>
             <TextField
               onChange={handleChange}
               value={filterVal.dateFrom || ""}
@@ -218,9 +237,24 @@ const BookingsFilter = ({
                 },
               }}
             />
-          </Grid>
+          </Grid> */}
           <Grid item md={2}>
-            <TextField
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DateField
+                label="Datum (bis)"
+                size="small"
+                format="DD.MM.YYYY"
+                name="dateTo"
+                onChange={(newVal) =>
+                  setFilterVal({
+                    ...filterVal,
+                    dateTo: new Date(newVal.$d),
+                  })
+                }
+                value={filterVal.dateTo}
+              />
+            </LocalizationProvider>
+            {/* <TextField
               onChange={handleChange}
               value={filterVal.dateTo || ""}
               className={"date-input"}
@@ -275,7 +309,7 @@ const BookingsFilter = ({
                   },
                 },
               }}
-            />
+            /> */}
           </Grid>
           <Grid item md={2}>
             <TextField
@@ -411,11 +445,11 @@ const BookingsFilter = ({
             <TextField
               sx={filterStyles.textField}
               onChange={handleChange}
-              value={filterVal?.streetNumber || ""}
+              value={filterVal?.streetnumber || ""}
               variant="outlined"
               size="small"
               label="Hausnummer"
-              name="streetNumber"
+              name="streetnumber"
             />
           </Grid>
           <Grid item md={2}>

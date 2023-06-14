@@ -302,8 +302,9 @@ const ItemsTable = ({ atinaItems }) => {
                 <UndoIcon />
               </IconButton>
             </Tooltip>
-
+            {/* <Tooltip title="CSV Datei Herunterladen" arrow> */}
             <DownloadCSV rawData={shownData} fileName={"items"} type={type} />
+            {/* </Tooltip> */}
 
             {isAdmin && (
               <Tooltip title="Neuen Datensatz anlegen" arrow>

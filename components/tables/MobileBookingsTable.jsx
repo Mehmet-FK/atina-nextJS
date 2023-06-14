@@ -92,8 +92,8 @@ const MobileBookings = ({ data: dataFromServer = [], error }) => {
   const [filterVal, setFilterVal] = useState(bookingsFilterParams);
 
   const handleFilter = () => {
-    console.log(filterVal);
     searchBookings(filterVal).then((res) => setAllData(res));
+    // console.log(allData);
   };
 
   const handleReset = () => {

@@ -27,7 +27,6 @@ const NfcFilter = ({ filterVal, setFilterVal, handleFilter, handleReset }) => {
       [e.target.name]: e.target.value,
     });
   };
-  console.log(filterVal);
   return (
     <Box
       component={Paper}
@@ -206,13 +205,13 @@ const NfcFilter = ({ filterVal, setFilterVal, handleFilter, handleReset }) => {
                 name="ItemType"
               /> */}
               <FormControl sx={{ minWidth: 120, width: "100%" }} size="small">
-                <InputLabel id="itemType">Tag Type</InputLabel>
+                <InputLabel id="itemType">Tag Typ</InputLabel>
                 <Select
                   // sx={{ width: "100%" }}
                   labelId="itemType"
                   id="demo-select-small"
                   value={filterVal?.ItemType || ""}
-                  label="Tag Type"
+                  label="Tag Typ"
                   onChange={(e) =>
                     setFilterVal({ ...filterVal, ItemType: e.target.value })
                   }

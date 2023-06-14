@@ -25,6 +25,12 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
     ...booking,
   });
 
+  const handleChange = (e) => {
+    if (!isAdmin) return;
+
+    setInputVal({ ...inputVal, [e.target.name]: e.target.value });
+  };
+
   useEffect(() => {
     setIsAdmin(data?.user?.userInfo?.isAdministrator);
   }, []);
@@ -59,24 +65,26 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
               }}
             >
               <TextField
-                variant="outlined"
-                label="Datum"
-                size="small"
-                name="date"
+                value={inputVal.Date || ""}
                 sx={{ width: "100%" }}
-                value={new Date(inputVal.Date).toLocaleDateString("tr") || ""}
+                className={"date-input"}
+                variant="outlined"
+                size="small"
+                label="Datum"
+                name="Date"
                 onChange={(e) =>
                   setInputVal({
                     ...inputVal,
-                    date: e.target.value,
+                    Date: e.target.value,
                   })
                 }
-              />{" "}
+                // sx={filterStyles.textField}
+              />
               <TextField
                 variant="outlined"
                 label="Uhrzeit"
                 size="small"
-                name="time"
+                name="Time"
                 sx={{ width: "100%" }}
                 value={
                   inputVal.Time?.slice(0, inputVal.Time.indexOf(".")) || ""
@@ -84,7 +92,7 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
                 onChange={(e) =>
                   setInputVal({
                     ...inputVal,
-                    time: e.target.value,
+                    Time: e.target.value,
                   })
                 }
               />{" "}
@@ -98,6 +106,8 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
                 label="Buchungstyp"
                 size="small"
                 sx={{ width: "100%" }}
+                onChange={handleChange}
+                name="BookingType"
                 value={inputVal.BookingType || ""}
               />
               {/* </Tooltip> */}
@@ -107,6 +117,8 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
                 label="Straße"
                 size="small"
                 sx={{ width: "100%" }}
+                name="Street"
+                onChange={handleChange}
                 value={inputVal.Street || ""}
               />
               {/* </Tooltip> */}
@@ -116,6 +128,8 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
                 label="Hausnummer"
                 size="small"
                 sx={{ width: "100%" }}
+                name="Streetnumber"
+                onChange={handleChange}
                 value={inputVal.Streetnumber || ""}
               />
               {/* </Tooltip> */}
@@ -126,6 +140,8 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
                   label="PLZ"
                   size="small"
                   sx={{ width: "100%" }}
+                  name="ZIP"
+                  onChange={handleChange}
                   value={inputVal.ZIP || ""}
                 />
                 {/* </Tooltip> */}
@@ -135,6 +151,8 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
                   label="Stadt"
                   size="small"
                   sx={{ width: "100%" }}
+                  name="City"
+                  onChange={handleChange}
                   value={inputVal.City || ""}
                 />
                 {/* </Tooltip> */}
@@ -144,7 +162,9 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
                 variant="outlined"
                 label="Land"
                 size="small"
+                name="Country"
                 sx={{ width: "100%" }}
+                onChange={handleChange}
                 value={inputVal.Country || ""}
               />
               {/* </Tooltip> */}

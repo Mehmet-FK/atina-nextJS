@@ -111,7 +111,11 @@ const NfcTable = ({ data }) => {
   const [filterVal, setFilterVal] = useState(initialFilterparams);
 
   const handleFilter = () => {
-    searchNfcTag(filterVal).then((res) => setAllData(res));
+    console.log(filterVal);
+    searchNfcTag(filterVal).then((res) => {
+      let editedRes = res.map((x) => x.item);
+      setAllData(editedRes);
+    });
     handlePagination();
   };
   const handleReset = () => {

@@ -3,8 +3,7 @@ import axios from "axios";
 export const searchNfcTag = async (params) => {
   let nfcArray = null;
 
-  const { createdFrom, createdTo, id, tagID, desc, type, nfcData, itemID } =
-    params;
+  const { createdFrom, createdTo, id, tagID, desc, ItemType, itemID } = params;
 
   let base = `https://pbsolutions.dev/atina/AtinaNfcTags?CreatedDateFrom=${createdFrom}`;
 
@@ -20,12 +19,10 @@ export const searchNfcTag = async (params) => {
   if (desc) {
     base += `&Description=${desc}`;
   }
-  if (type) {
-    base += `&ItemType=${type}`;
+  if (ItemType) {
+    base += `&ItemType=${ItemType}`;
   }
-  if (nfcData) {
-    base += `&NFCData=${nfcData}`;
-  }
+
   if (itemID) {
     base += `&ItemID=${itemID}`;
   }
@@ -36,7 +33,7 @@ export const searchNfcTag = async (params) => {
   } catch (error) {
     console.log(error);
   }
-
+  console.log(nfcArray);
   return nfcArray;
 };
 export const searchBookings = async (params) => {
@@ -103,10 +100,18 @@ export const searchBookings = async (params) => {
   //   base += `&userName=${personelNumber}`;
   // }
   if (dateFrom) {
-    base += `&dateFrom=${dateFrom.replaceAll("-", "")}`;
+    const editedDate = new Date(dateFrom)
+      .toLocaleDateString("sv")
+      .replaceAll("-", "");
+
+    base += `&dateFrom=${editedDate}`;
   }
   if (dateTo) {
-    base += `&dateTo=${dateTo.replaceAll("-", "")}`;
+    const editedDate = new Date(dateTo)
+      .toLocaleDateString("sv")
+      .replaceAll("-", "");
+
+    base += `&dateTo=${editedDate}`;
   }
   if (timeFrom) {
     base += `&timeFrom=${timeFrom}`;
