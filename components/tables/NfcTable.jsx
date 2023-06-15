@@ -43,25 +43,24 @@ const NfcTable = ({ data }) => {
   const tableRef = useRef(null);
   const { NFC_TABLE_COLUMNS } = useColumns();
 
-  // ===pagination states START===
+  //* ===pagination states START===
+  //#region
   const [allData, setAllData] = useState(data);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [shownData, setShownData] = useState(allData);
   const [resetResize, setResetResize] = useState(false);
-  const session = useSession();
 
   const handlePagination = useCallback(() => {
     let currentPage = rowsPerPage * page;
     const newArray = allData?.slice(currentPage, currentPage + rowsPerPage);
     return setShownData(newArray);
-  }, [page, rowsPerPage, shownData]);
+  }, [page, rowsPerPage, shownData, allData]);
+  //#endregion
   // ===pagination states END===
 
-  // ===Table sort  START===
-
-  //? Table Utilities START
-
+  //* Table Utilities START
+  //#region
   const defaultColumn = useMemo(
     () => ({
       minWidth: 30,
@@ -93,10 +92,8 @@ const NfcTable = ({ data }) => {
     useBlockLayout,
     useResizeColumns
   );
-
-  //? Table Utilities END
-
-  // ===Table sort  END===
+  //#endregion
+  // Table Utilities END
 
   // ===Table Filter START===
   const initialFilterparams = {
@@ -112,7 +109,6 @@ const NfcTable = ({ data }) => {
   const [filterVal, setFilterVal] = useState(initialFilterparams);
 
   const handleFilter = () => {
-    console.log(filterVal);
     searchNfcTag(filterVal).then((res) => {
       let editedRes = res.map((x) => x.item);
       setAllData(editedRes);

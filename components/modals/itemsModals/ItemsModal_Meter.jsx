@@ -77,7 +77,7 @@ const ItemsModal_Meter = ({
                 <Grid item md={12}>
                   <TextField
                     variant="outlined"
-                    label="Artikelnummer"
+                    label="Datensatznummer"
                     size="small"
                     name="itemNumber"
                     sx={{ width: "100%" }}

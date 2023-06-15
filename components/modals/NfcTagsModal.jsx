@@ -15,12 +15,14 @@ const NfcTagsModal = ({ openNfcModal, setOpenNfcModal, nfcData }) => {
   const { data } = useSession();
   const [isAdmin, setIsAdmin] = useState(false);
   const handleClose = () => setOpenNfcModal(false);
-  const [inputVal, setInputVal] = useState({
-    ...nfcData,
-  });
+  const [inputVal, setInputVal] = useState(nfcData);
 
   useEffect(() => {
     setIsAdmin(data?.user?.userInfo?.isAdministrator);
+  }, [data]);
+
+  useEffect(() => {
+    setInputVal(nfcData);
   }, []);
 
   const handleChange = (e) => {
@@ -53,11 +55,17 @@ const NfcTagsModal = ({ openNfcModal, setOpenNfcModal, nfcData }) => {
             <Box sx={{ display: "flex" }}>
               <TextField
                 variant="outlined"
-                label="Itemtypes"
+                label="Typ"
                 size="small"
                 name="itemType"
                 sx={{ width: "100%" }}
-                value={inputVal.itemType || ""}
+                value={
+                  inputVal.itemType === "Order"
+                    ? "Auftrag"
+                    : inputVal?.itemType === "Meter"
+                    ? "Zähler"
+                    : "KFZ" || ""
+                }
                 onChange={handleChange}
                 InputProps={{
                   readOnly: !isAdmin,
@@ -80,7 +88,7 @@ const NfcTagsModal = ({ openNfcModal, setOpenNfcModal, nfcData }) => {
               sx={{
                 display: "flex",
                 flexDirection: "column",
-                rowGap: "15px",
+                rowGap: "8px",
               }}
             >
               <Box sx={{ display: "flex" }}>

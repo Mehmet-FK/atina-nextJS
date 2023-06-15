@@ -33,6 +33,7 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
   const handleClose = () => setOpenBookingModal(false);
   const [inputVal, setInputVal] = useState({
     ...booking,
+    Time: booking?.Time?.slice(0, booking?.Time.indexOf(".")),
   });
 
   const handleChange = (e) => {
@@ -75,7 +76,7 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
             >
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DateField
-                  label="Datum (bis)"
+                  label="Datum"
                   size="small"
                   format="DD.MM.YYYY"
                   name="Date"
@@ -111,9 +112,7 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
                 size="small"
                 name="Time"
                 sx={{ width: "100%" }}
-                value={
-                  inputVal.Time?.slice(0, inputVal.Time.indexOf(".")) || ""
-                }
+                value={inputVal.Time || ""}
                 onChange={(e) =>
                   setInputVal({
                     ...inputVal,
@@ -128,7 +127,6 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
               <FormControl sx={{ minWidth: 120, width: "100%" }} size="small">
                 <InputLabel id="bookingType">Buchungstyp</InputLabel>
                 <Select
-                  // sx={{ width: "100%" }}
                   readOnly={!isAdmin}
                   labelId="bookingType"
                   id="demo-select-small"
@@ -171,7 +169,6 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
                 value={inputVal.Street || ""}
               />
 
-              {/* <Tooltip title={"Gesperrt"} placement="top-start" arrow> */}
               <TextField
                 variant="outlined"
                 label="Hausnummer"
@@ -181,9 +178,8 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
                 onChange={handleChange}
                 value={inputVal.Streetnumber || ""}
               />
-              {/* </Tooltip> */}
+
               <Box sx={{ display: "flex" }}>
-                {/* <Tooltip title={"Gesperrt"} placement="top-start" arrow> */}
                 <TextField
                   variant="outlined"
                   label="PLZ"
@@ -193,8 +189,7 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
                   onChange={handleChange}
                   value={inputVal.ZIP || ""}
                 />
-                {/* </Tooltip> */}
-                {/* <Tooltip title={"Gesperrt"} placement="top-start" arrow> */}
+
                 <TextField
                   variant="outlined"
                   label="Stadt"
@@ -204,9 +199,8 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
                   onChange={handleChange}
                   value={inputVal.City || ""}
                 />
-                {/* </Tooltip> */}
               </Box>
-              {/* <Tooltip title={"Gesperrt"} placement="top-start" arrow> */}
+
               <TextField
                 variant="outlined"
                 label="Land"
@@ -216,7 +210,6 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
                 onChange={handleChange}
                 value={inputVal.Country || ""}
               />
-              {/* </Tooltip> */}
             </Box>
             <Box sx={{ display: "flex", justifyContent: "space-around" }}>
               {isAdmin && (

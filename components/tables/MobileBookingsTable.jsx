@@ -53,7 +53,7 @@ const MobileBookings = ({ data: dataFromServer = [], error }) => {
   const { bookingTypes } = useSelector((state) => state.atina);
   const { BUCHUNGEN_TABLE_COLUMNS } = useColumns();
   const tableRef = useRef(null);
-  console.log(dataFromServer[0]);
+
   //checks if the user is admin
   const { data } = useSession();
 
@@ -63,7 +63,8 @@ const MobileBookings = ({ data: dataFromServer = [], error }) => {
   const [resetResize, setResetResize] = useState(false);
   const [openBookingModal, setOpenBookingModal] = useState(false);
 
-  // ===pagination states START===
+  //* ===pagination states START===
+  //#region
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [shownData, setShownData] = useState(allData);
@@ -74,9 +75,10 @@ const MobileBookings = ({ data: dataFromServer = [], error }) => {
 
     return setShownData(newArray);
   }, [page, rowsPerPage, allData]);
+  //#endregion
   // ===pagination states END===
 
-  //? ===Table Filter START===
+  //* ===Table Filter START===
   //#region
   const bookingsFilterParams = {
     id: null,
@@ -109,8 +111,9 @@ const MobileBookings = ({ data: dataFromServer = [], error }) => {
     handlePagination();
   };
   //#endregion
-  //? ===Table Filter START===
-  //? Table Utilities START
+  // ===Table Filter START===
+
+  //* Table Utilities START
   //#region
   const defaultColumn = useMemo(
     () => ({
@@ -144,7 +147,7 @@ const MobileBookings = ({ data: dataFromServer = [], error }) => {
     useResizeColumns
   );
   //#endregion
-  //? Table Utilities END
+  // Table Utilities END
 
   const { handleRightClick } = useContextMenu(contextMenu, setContextMenu);
 
@@ -196,7 +199,7 @@ const MobileBookings = ({ data: dataFromServer = [], error }) => {
             margin: "auto",
             padding: "1rem 10px",
             position: "relative",
-            maxHeight: "82vh",
+            maxHeight: "83vh",
             overflow: "auto",
           }}
         >
@@ -214,7 +217,6 @@ const MobileBookings = ({ data: dataFromServer = [], error }) => {
               rowsPerPage={rowsPerPage}
               setRowsPerPage={setRowsPerPage}
               handlePagination={handlePagination}
-              // setRestart={setRestart}
             />
             <Tooltip title="Spaltengröße rückgängig machen" arrow>
               <IconButton

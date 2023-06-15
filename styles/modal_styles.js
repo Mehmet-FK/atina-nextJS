@@ -12,7 +12,7 @@ export const modalStyles = {
       p: 2,
       overflow: "auto",
     },
-    content: { display: "flex", flexDirection: "column", rowGap: "15px" },
+    content: { display: "flex", flexDirection: "column", rowGap: "8px" },
     imgStyle: {
       backgroundPosition: "center",
       backgroundSize: "cover",

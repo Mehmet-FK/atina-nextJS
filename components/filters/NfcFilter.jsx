@@ -183,7 +183,7 @@ const NfcFilter = ({ filterVal, setFilterVal, handleFilter, handleReset }) => {
                 name="tagID"
               /> 
             </Grid>*/}
-            <Grid item md={2}>
+            {/* <Grid item md={2}>
               <TextField
                 onChange={handleChange}
                 value={filterVal.desc || ""}
@@ -193,7 +193,7 @@ const NfcFilter = ({ filterVal, setFilterVal, handleFilter, handleReset }) => {
                 label="Beschreibung"
                 name="desc"
               />
-            </Grid>
+            </Grid> */}
             <Grid item md={2}>
               {/* <TextField
                 onChange={handleChange}
@@ -205,13 +205,13 @@ const NfcFilter = ({ filterVal, setFilterVal, handleFilter, handleReset }) => {
                 name="ItemType"
               /> */}
               <FormControl sx={{ minWidth: 120, width: "100%" }} size="small">
-                <InputLabel id="itemType">Tag Typ</InputLabel>
+                <InputLabel id="itemType">Typ</InputLabel>
                 <Select
                   // sx={{ width: "100%" }}
                   labelId="itemType"
                   id="demo-select-small"
                   value={filterVal?.ItemType || ""}
-                  label="Tag Typ"
+                  label="Typ"
                   onChange={(e) =>
                     setFilterVal({ ...filterVal, ItemType: e.target.value })
                   }
@@ -260,6 +260,7 @@ const NfcFilter = ({ filterVal, setFilterVal, handleFilter, handleReset }) => {
                   name="itemNumber"
                 />
               </Grid>
+              <Grid item md={2} />
 
               <Grid item md={2}>
                 <TextField

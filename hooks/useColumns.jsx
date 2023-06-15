@@ -189,7 +189,7 @@ const useColumns = () => {
           return "Auftrag";
         } else if (value === "Meter") {
           return "Zähler";
-        } else if (value === "Car") {
+        } else if (value === "Vehicle") {
           return "KFZ";
         }
       },
@@ -278,7 +278,6 @@ const useColumns = () => {
     {
       accessor: "Itemnumber",
       Header: "Datensatznummer",
-      // Cell: ({ value }) => bookingTypes[value]?.Caption,
     },
     {
       accessor: "Date",
@@ -328,10 +327,26 @@ const useColumns = () => {
       Header: "land",
       Cell: ({ value }) => (value?.length > 0 ? value : ""),
     },
-    // {
-    //   accessor: "createdDate",
-    //   Header: "erstellt am",
-    // },
+    {
+      accessor: "data1",
+      Header: "Daten 1",
+    },
+    {
+      accessor: "data2",
+      Header: "Daten 2",
+    },
+    {
+      accessor: "data3",
+      Header: "Daten 3",
+    },
+    {
+      accessor: "data4",
+      Header: "Daten 4",
+    },
+    {
+      accessor: "data5",
+      Header: "Daten 5",
+    },
   ];
 
   return {

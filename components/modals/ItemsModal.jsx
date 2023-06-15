@@ -25,10 +25,10 @@ const ItemsModal = ({ setOpenItemsModal, openItemsModal, item, type }) => {
   };
   useEffect(() => {
     setIsAdmin(data?.user?.userInfo?.isAdministrator);
-  }, []);
+  }, [data]);
 
   useEffect(() => {
-    setInputVal();
+    setInputVal(item);
   }, [type]);
 
   return (

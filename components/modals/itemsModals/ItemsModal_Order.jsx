@@ -60,7 +60,7 @@ const ItemsModal_Order = ({
                 <Grid item md={4}>
                   <TextField
                     variant="outlined"
-                    label="Artikelnummer"
+                    label="Datensatznummer"
                     size="small"
                     name="itemNumber"
                     sx={{ width: "100%" }}
@@ -75,7 +75,7 @@ const ItemsModal_Order = ({
                     size="small"
                     name="street"
                     sx={{ width: "100%" }}
-                    value={inputVal.street || ""}
+                    value={inputVal?.street || ""}
                     onChange={handleChange}
                   />
                 </Grid>
@@ -121,6 +121,7 @@ const ItemsModal_Order = ({
                     name="country"
                     sx={{ width: "100%" }}
                     value={inputVal?.country || ""}
+                    onChange={handleChange}
                   />
                 </Grid>
                 <Grid item md={6}>
@@ -131,6 +132,7 @@ const ItemsModal_Order = ({
                     name="data1"
                     sx={{ width: "100%" }}
                     value={inputVal?.data1 || ""}
+                    onChange={handleChange}
                   />
                 </Grid>
                 <Grid item md={6}>
@@ -141,6 +143,7 @@ const ItemsModal_Order = ({
                     name="data2"
                     sx={{ width: "100%" }}
                     value={inputVal?.data2 || ""}
+                    onChange={handleChange}
                   />
                 </Grid>
                 <Grid item md={6}>
@@ -151,6 +154,7 @@ const ItemsModal_Order = ({
                     name="data3"
                     sx={{ width: "100%" }}
                     value={inputVal?.data3 || ""}
+                    onChange={handleChange}
                   />
                 </Grid>
                 <Grid item md={6}>
@@ -161,6 +165,7 @@ const ItemsModal_Order = ({
                     name="data4"
                     sx={{ width: "100%" }}
                     value={inputVal?.data4 || ""}
+                    onChange={handleChange}
                   />
                 </Grid>
                 <Grid item md={12}>
@@ -171,6 +176,7 @@ const ItemsModal_Order = ({
                     name="data5"
                     sx={{ width: "100%" }}
                     value={inputVal?.data5 || ""}
+                    onChange={handleChange}
                   />
                 </Grid>
               </Grid>

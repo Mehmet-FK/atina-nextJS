@@ -33,7 +33,7 @@ export const searchNfcTag = async (params) => {
   } catch (error) {
     console.log(error);
   }
-  console.log(nfcArray);
+
   return nfcArray;
 };
 export const searchBookings = async (params) => {
@@ -44,6 +44,7 @@ export const searchBookings = async (params) => {
     bookingType,
     street,
     streetnumber,
+    itemNumber,
     zip,
     city,
     country,
@@ -62,12 +63,11 @@ export const searchBookings = async (params) => {
 
   let base = `https://pbsolutions.dev/atina/api/AtinaMobileBookings?`;
 
-  /*
-  if (id) {
-    base += `&ID=${id}`;
-  }*/
   if (bookingType) {
     base += `&bookingType=${bookingType}`;
+  }
+  if (itemNumber) {
+    base += `&itemnumber=${itemNumber}`;
   }
   if (street) {
     base += `&street=${street}`;
@@ -85,20 +85,10 @@ export const searchBookings = async (params) => {
     base += `&country=${country}`;
   }
 
-  /*  if (createdFrom) {
-    base += `&CreatedDateFrom=${createdFrom}`;
-  }
-  if (createdTo) {
-    base += `&CreatedDateTo=${createdTo}`;
-  
-  } */
-
   if (username) {
     base += `&userName=${username}`;
   }
-  // if (personelNumber) {
-  //   base += `&userName=${personelNumber}`;
-  // }
+
   if (dateFrom) {
     const editedDate = new Date(dateFrom)
       .toLocaleDateString("sv")
