@@ -34,7 +34,7 @@ import {
   useSortBy,
   useTable,
 } from "react-table";
-import { BUCHUNGEN_TABLE_COLUMNS } from "./columns";
+import { BUCHUNGEN_TABLE_COLUMNS } from "../../hooks/useColumns";
 import BookingsTableRow from "../table_rows/BookingsTableRow";
 import styles from "./table_styles.module.css";
 import UndoIcon from "@mui/icons-material/Undo";

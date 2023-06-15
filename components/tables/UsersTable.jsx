@@ -10,7 +10,6 @@ import { useMediaQuery } from "@mui/material";
 import Pagination from "../Pagination";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Box } from "@mui/system";
-
 import UsersTableRow from "../table_rows/UsersTableRow";
 import UsersFilter from "../filters/UsersFilter";
 import ContextMenu from "../ContextMenu";
@@ -18,11 +17,8 @@ import useContextMenu from "../../hooks/useContextMenu";
 import DownloadCSV from "../DownloadCSV";
 import { tableStyles } from "@/styles/table_styles";
 import styles from "./table_styles.module.css";
-
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-
-import { USER_TABLE_COLUMNS } from "./columns";
 import {
   useBlockLayout,
   useResizeColumns,
@@ -32,6 +28,7 @@ import {
 import Tooltip from "@mui/material/Tooltip";
 import UndoIcon from "@mui/icons-material/Undo";
 import IconButton from "@mui/material/IconButton";
+import useColumns from "@/hooks/useColumns";
 const initalContextMenu = {
   show: false,
   x: 0,
@@ -40,6 +37,7 @@ const initalContextMenu = {
 
 const UsersTable = ({ data }) => {
   const tableRef = useRef(null);
+  const { USER_TABLE_COLUMNS } = useColumns();
   const [contextMenu, setContextMenu] = useState(initalContextMenu);
   const { handleRightClick } = useContextMenu(contextMenu, setContextMenu);
 

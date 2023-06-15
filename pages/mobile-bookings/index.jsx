@@ -2,11 +2,19 @@ import ErrorModal from "@/components/modals/ErrorModal";
 import MobileBookingsTable from "@/components/tables/MobileBookingsTable";
 // import MobileBookingsTable from "@/components/tables/ResizeBookingsTable";
 import { AtinaCalls } from "@/helpers/apiFunctions";
+import useAtinaCalls from "@/hooks/useAtinaCalls";
 import axios from "axios";
 import { getSession } from "next-auth/react";
 import Head from "next/head";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const MobileBookings = ({ data, error }) => {
+  const { getBookingTypes } = useAtinaCalls();
+  useEffect(() => {
+    getBookingTypes();
+  }, []);
+
   return (
     <div>
       <ErrorModal error={error} />

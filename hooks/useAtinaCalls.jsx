@@ -59,6 +59,8 @@ const useAtinaCalls = () => {
   };
   //GET
   const getUsersData = () => getAtinaData("AtinaUsers");
+  const getBookingTypes = () =>
+    getAtinaData("api/AtinaMasterData/GetBookingTypes");
   const getMobileBookingsData = () => getAtinaData("api/AtinaMobileBookings");
   const getNfcTagsData = () => getAtinaData("AtinaNfcTags");
   const getAtinaItemsData = (type) =>
@@ -70,7 +72,6 @@ const useAtinaCalls = () => {
 
   // DELETE
   const deleteAtinaItems = (id) => deleteAtinaData("api/AtinaItems/Delete", id);
-
   return {
     getUsersData,
     getMobileBookingsData,
@@ -78,6 +79,7 @@ const useAtinaCalls = () => {
     getAtinaItemsData,
     putUserData,
     deleteAtinaItems,
+    getBookingTypes,
   };
 };
 

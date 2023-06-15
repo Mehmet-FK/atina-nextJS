@@ -20,7 +20,6 @@ import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { searchNfcTag } from "@/helpers/searchFunctions";
 import { getSession, useSession } from "next-auth/react";
-import { NFC_TABLE_COLUMNS } from "./columns";
 import {
   useBlockLayout,
   useResizeColumns,
@@ -31,6 +30,7 @@ import styles from "./table_styles.module.css";
 import UndoIcon from "@mui/icons-material/Undo";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
+import useColumns from "@/hooks/useColumns";
 
 const initalContextMenu = {
   show: false,
@@ -41,6 +41,7 @@ const initalContextMenu = {
 const NfcTable = ({ data }) => {
   const [contextMenu, setContextMenu] = useState(initalContextMenu);
   const tableRef = useRef(null);
+  const { NFC_TABLE_COLUMNS } = useColumns();
 
   // ===pagination states START===
   const [allData, setAllData] = useState(data);

@@ -41,7 +41,7 @@ export default function Home() {
   //     border.removeEventListener("mousedown", onMouseDownResize);
   //   };
   // }, []);
-  console.log(cellWidth);
+
   return (
     <>
       <Head>

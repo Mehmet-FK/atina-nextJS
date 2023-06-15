@@ -72,6 +72,8 @@ const DownloadCSV = ({ rawData, fileName, type }) => {
     <>
       {rawData && (
         <Tooltip
+          title="CSV Datei Herunterladen"
+          arrow
           sx={{ display: "flex", alignItems: "center" }}
           onClick={() => rawData && convertJsonToCsv()}
           // onClick={() => userTableCSV(rawData)}

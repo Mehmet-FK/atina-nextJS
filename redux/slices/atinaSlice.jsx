@@ -7,11 +7,12 @@ const atinaSlice = createSlice({
   initialState: {
     atinaUsers: [],
     mobileBookings: [],
+    bookingTypes: [],
     nfcTags: [],
     atinaItems: [],
     loading: false,
     error: false,
-    errorMsg: "asda",
+    errorMsg: "",
   },
   reducers: {
     fetchStart: (state) => {
@@ -28,6 +29,8 @@ const atinaSlice = createSlice({
         state.atinaUsers = data;
       } else if (url.toLowerCase().includes("items")) {
         state.atinaItems = data;
+      } else if (url.toLowerCase().includes("bookingtypes")) {
+        state.bookingTypes = data;
       }
     },
     fetchFail: (state, { payload: { message } }) => {

@@ -27,7 +27,7 @@ import {
   useSortBy,
   useTable,
 } from "react-table";
-import { BUCHUNGEN_TABLE_COLUMNS } from "./columns";
+// import { BUCHUNGEN_TABLE_COLUMNS } from "./columns";
 import BookingsTableRow from "../table_rows/BookingsTableRow";
 import styles from "./table_styles.module.css";
 import UndoIcon from "@mui/icons-material/Undo";
@@ -36,6 +36,9 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import BookingsModal from "../modals/BookingsModal";
 import { useSession } from "next-auth/react";
 import { AtinaCalls } from "@/helpers/apiFunctions";
+import useAtinaCalls from "@/hooks/useAtinaCalls";
+import { useSelector } from "react-redux";
+import useColumns from "@/hooks/useColumns";
 
 // import axios from "axios";
 
@@ -46,8 +49,14 @@ const initalContextMenu = {
 };
 
 const MobileBookings = ({ data: dataFromServer = [], error }) => {
+  const { getBookingTypes } = useAtinaCalls();
+  const { bookingTypes } = useSelector((state) => state.atina);
+  const { BUCHUNGEN_TABLE_COLUMNS } = useColumns();
   const tableRef = useRef(null);
+
+  //checks if the user is admin
   const { data } = useSession();
+
   const [isAdmin, setIsAdmin] = useState(false);
   const [contextMenu, setContextMenu] = useState(initalContextMenu);
   const [allData, setAllData] = useState(dataFromServer);
@@ -68,8 +77,8 @@ const MobileBookings = ({ data: dataFromServer = [], error }) => {
   }, [page, rowsPerPage, allData]);
   // ===pagination states END===
 
-  // ===Table Filter START===
-
+  //? ===Table Filter START===
+  //#region
   const bookingsFilterParams = {
     id: null,
     bookingType: null,
@@ -100,8 +109,10 @@ const MobileBookings = ({ data: dataFromServer = [], error }) => {
     setFilterVal(bookingsFilterParams);
     handlePagination();
   };
-
+  //#endregion
+  //? ===Table Filter START===
   //? Table Utilities START
+  //#region
   const defaultColumn = useMemo(
     () => ({
       minWidth: 30,
@@ -111,7 +122,7 @@ const MobileBookings = ({ data: dataFromServer = [], error }) => {
     []
   );
 
-  const tableColumns = useMemo(() => BUCHUNGEN_TABLE_COLUMNS, []);
+  const tableColumns = useMemo(() => BUCHUNGEN_TABLE_COLUMNS, [bookingTypes]);
   const {
     headerGroups,
     getTableProps,
@@ -133,25 +144,17 @@ const MobileBookings = ({ data: dataFromServer = [], error }) => {
     useBlockLayout,
     useResizeColumns
   );
-
+  //#endregion
   //? Table Utilities END
-
-  // ===Table Filter END===
 
   const { handleRightClick } = useContextMenu(contextMenu, setContextMenu);
 
   //==== MediaQuery ===
   const xxl = useMediaQuery("(min-width:1400px)");
-  useEffect(() => {
-    const atinaCalls = new AtinaCalls();
-    atinaCalls
-      .fetchData("api/AtinaMasterData/GetBookingTypes")
-      .then((res) => setBuchungTypes(res.res));
-  }, []);
 
   useEffect(() => {
     setIsAdmin(data?.user?.userInfo?.isAdministrator);
-  }, []);
+  }, [data]);
 
   useEffect(() => {
     handlePagination();
@@ -159,19 +162,8 @@ const MobileBookings = ({ data: dataFromServer = [], error }) => {
   }, [page, rowsPerPage, allData]);
 
   useEffect(() => {
-    (async () => {
-      try {
-        fetch(
-          "https://pbsolutions.dev/atina/api/AtinaMasterData/GetBookingTypes"
-        )
-          .then((res) => res.ok && res.json())
-          .then((res) => setBuchungTypes(res));
-      } catch (error) {
-        console.log(error);
-      }
-    })();
+    getBookingTypes();
   }, []);
-
   return (
     <>
       <BookingsModal
@@ -214,7 +206,6 @@ const MobileBookings = ({ data: dataFromServer = [], error }) => {
             handleFilter={handleFilter}
             filterVal={filterVal}
             setFilterVal={setFilterVal}
-            buchungTypes={buchungTypes}
           />
           <Box sx={{ display: "flex", justifyContent: "end" }}>
             <Pagination
@@ -236,6 +227,7 @@ const MobileBookings = ({ data: dataFromServer = [], error }) => {
                 <UndoIcon />
               </IconButton>
             </Tooltip>
+
             <DownloadCSV rawData={shownData} fileName={"mobile_buchungen"} />
             {isAdmin && (
               <Tooltip title="Neuen Datensatz anlegen" arrow>

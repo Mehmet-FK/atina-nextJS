@@ -23,11 +23,13 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { useSelector } from "react-redux";
 
 const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
   const { data } = useSession();
   const [isAdmin, setIsAdmin] = useState(false);
-  const [buchungTypes, setBuchungTypes] = useState({});
+  const { bookingTypes } = useSelector((state) => state.atina);
+  //  const [bookingTypes, setBookingTypes] = useState();
   const handleClose = () => setOpenBookingModal(false);
   const [inputVal, setInputVal] = useState({
     ...booking,
@@ -38,23 +40,10 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
 
     setInputVal({ ...inputVal, [e.target.name]: e.target.value });
   };
-  useEffect(() => {
-    (async () => {
-      try {
-        fetch(
-          "https://pbsolutions.dev/atina/api/AtinaMasterData/GetBookingTypes"
-        )
-          .then((res) => res.ok && res.json())
-          .then((res) => setBuchungTypes(res));
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  }, []);
 
   useEffect(() => {
     setIsAdmin(data?.user?.userInfo?.isAdministrator);
-  }, []);
+  }, [data]);
   return (
     <>
       <Modal
@@ -152,13 +141,14 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
                   <MenuItem value={""}>
                     <em>None</em>
                   </MenuItem>
-                  {Object.entries(buchungTypes)?.map((item, i) => {
-                    return (
-                      <MenuItem key={i} value={item[0]}>
-                        {item[1]?.Caption}
-                      </MenuItem>
-                    );
-                  })}
+                  {bookingTypes &&
+                    Object.entries(bookingTypes)?.map((item, i) => {
+                      return (
+                        <MenuItem key={i} value={item[0]}>
+                          {item[1]?.Caption}
+                        </MenuItem>
+                      );
+                    })}
                 </Select>
               </FormControl>
 

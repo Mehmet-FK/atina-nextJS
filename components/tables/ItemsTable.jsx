@@ -6,7 +6,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Pagination from "../Pagination";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Box } from "@mui/system";
@@ -19,24 +19,18 @@ import { tableStyles } from "@/styles/table_styles";
 import ItemsTableRow from "../table_rows/ItemsTableRow";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import useSortColumn from "@/hooks/useSortColumn";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import ItemsModal from "../modals/ItemsModal";
 import LoadingIcon from "../LoadingIcon";
 import ItemsFilter from "../filters/ItemsFilter";
 import { searchItems } from "@/helpers/searchFunctions";
-import { getSuccess } from "@/redux/slices/atinaSlice";
 import {
   useBlockLayout,
   useResizeColumns,
   useSortBy,
   useTable,
 } from "react-table";
-import {
-  ITEM_TABLE_METER_COLUMNS,
-  ITEM_TABLE_ORDER_COLUMNS,
-  ITEM_TABLE_VEHICLE_COLUMNS,
-} from "./columns";
+import useColumns from "../../hooks/useColumns";
 import styles from "./table_styles.module.css";
 import UndoIcon from "@mui/icons-material/Undo";
 import Tooltip from "@mui/material/Tooltip";
@@ -52,6 +46,11 @@ const initalContextMenu = {
 const ItemsTable = ({ atinaItems }) => {
   const tableRef = useRef(null);
   const { data } = useSession();
+  const {
+    ITEM_TABLE_ORDER_COLUMNS,
+    ITEM_TABLE_METER_COLUMNS,
+    ITEM_TABLE_VEHICLE_COLUMNS,
+  } = useColumns();
 
   // const { atinaItems } = useSelector((state) => state.atina);
   const { error } = useSelector((state) => state.atina);
@@ -160,7 +159,7 @@ const ItemsTable = ({ atinaItems }) => {
 
   useEffect(() => {
     setIsAdmin(data?.user?.userInfo?.isAdministrator);
-  }, []);
+  }, [data]);
 
   return (
     <>
