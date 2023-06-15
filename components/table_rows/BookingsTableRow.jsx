@@ -13,6 +13,7 @@ const BookingsTableRow = ({ resetResize, row, prepareRow, cellWidth }) => {
   const handleDblClick = (e) => {
     if (e.detail === 2) {
       setOpenBookingModal(true);
+      console.log(row);
     }
   };
 

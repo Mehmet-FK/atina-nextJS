@@ -276,6 +276,11 @@ const useColumns = () => {
       Cell: ({ value }) => bookingTypes[value]?.Caption,
     },
     {
+      accessor: "Itemnumber",
+      Header: "Datensatznummer",
+      // Cell: ({ value }) => bookingTypes[value]?.Caption,
+    },
+    {
       accessor: "Date",
       Header: "datum",
       Cell: ({ value }) => new Date(value).toLocaleDateString("de"),

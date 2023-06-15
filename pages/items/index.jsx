@@ -17,7 +17,6 @@ const AtinaItems = ({ atinaItems }) => {
   // const { atinaItems } = useSelector((state) => state.atina);
   const { error } = useSelector((state) => state.atina);
   const { loading } = useSelector((state) => state.atina);
-  console.log(loading);
   // console.log("INDEX.JS", atinaItems);
   return (
     <div>

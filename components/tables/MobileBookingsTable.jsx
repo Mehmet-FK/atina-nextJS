@@ -53,7 +53,7 @@ const MobileBookings = ({ data: dataFromServer = [], error }) => {
   const { bookingTypes } = useSelector((state) => state.atina);
   const { BUCHUNGEN_TABLE_COLUMNS } = useColumns();
   const tableRef = useRef(null);
-
+  console.log(dataFromServer[0]);
   //checks if the user is admin
   const { data } = useSession();
 

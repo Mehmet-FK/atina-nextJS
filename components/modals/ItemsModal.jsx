@@ -28,7 +28,7 @@ const ItemsModal = ({ setOpenItemsModal, openItemsModal, item, type }) => {
   }, []);
 
   useEffect(() => {
-    setInputVal(item);
+    setInputVal();
   }, [type]);
 
   return (

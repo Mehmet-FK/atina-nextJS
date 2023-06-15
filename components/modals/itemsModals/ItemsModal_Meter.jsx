@@ -142,7 +142,7 @@ const ItemsModal_Meter = ({
                   />
                 </Grid>
                 <Grid item md={6}>
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DateField
                       label="Letzte Ablesung am"
                       size="small"
@@ -157,8 +157,8 @@ const ItemsModal_Meter = ({
                       }
                       value={dayjs(inputVal?.data1)}
                     />
-                  </LocalizationProvider>
-                  {/* <TextField
+                  </LocalizationProvider> */}
+                  <TextField
                     variant="outlined"
                     label="Letzte Ablesung am"
                     size="small"
@@ -166,7 +166,7 @@ const ItemsModal_Meter = ({
                     sx={{ width: "100%" }}
                     value={inputVal?.data1 || ""}
                     onChange={handleChange}
-                  /> */}
+                  />
                 </Grid>
                 <Grid item md={6}>
                   <TextField
