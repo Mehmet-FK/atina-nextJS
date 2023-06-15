@@ -8,17 +8,20 @@ import Loading from "@/components/Loading";
 import { useState } from "react";
 import { ThemeProvider, createTheme } from "@mui/material";
 import { blueGrey } from "@mui/material/colors";
+import CssBaseline from "@mui/material/CssBaseline";
 
 export default function App({ Component, pageProps }) {
   const [loading, setLoading] = useState(false);
-
+  const [mode, setMode] = useState("light");
   const router = useRouter();
   Router.events.on("routeChangeStart", () => setLoading(true));
   Router.events.on("routeChangeComplete", () => setLoading(false));
-
+  const toggleTheme = () => {
+    setMode(mode === "dark" ? "light" : "dark");
+  };
   const theme = createTheme({
     palette: {
-      mode: `${"light"}`,
+      mode: mode,
       primary: {
         main: blueGrey[600],
       },
@@ -32,11 +35,12 @@ export default function App({ Component, pageProps }) {
         <SessionProvider>
           {router.pathname.includes("login") && <Component {...pageProps} />}
           {!router.pathname.includes("login") && (
-            <Layout>
+            <Layout toggleTheme={toggleTheme}>
               <Component {...pageProps} />
             </Layout>
           )}
         </SessionProvider>
+        <CssBaseline />
       </ThemeProvider>
     </Provider>
   );

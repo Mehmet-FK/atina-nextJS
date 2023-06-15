@@ -61,12 +61,11 @@ const UsersTable = ({ data }) => {
 
   const defaultColumn = useMemo(
     () => ({
-      minWidth: 30,
-      width: 220,
+      minWidth: 100,
+      width: 225,
       maxWidth: 600,
     }),
-
-    []
+    [tableRef, tableWidth]
   );
 
   const {
@@ -107,16 +106,13 @@ const UsersTable = ({ data }) => {
 
   //==== MediaQuery ===
   const xxl = useMediaQuery("(min-width:1400px)");
-  useEffect(() => {
-    setTableWidth(tableRef.current.offsetWidth);
-  }, []);
 
   useEffect(() => {
     handlePagination();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, rowsPerPage, data]);
 
-  //console.log("COLUMN-WIDTH", defaultColumn.width);
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
       {contextMenu.show && (
@@ -136,10 +132,11 @@ const UsersTable = ({ data }) => {
         onContextMenu={handleRightClick}
         ref={tableRef}
         sx={{
-          maxWidth: xxl ? "90vw" : { lg: "1250px" },
+          maxWidth: xxl && "90vw",
+          // : { lg: "1250px" }
           margin: "auto",
           padding: "0.5rem 10px",
-          maxHeight: "90vh",
+          maxHeight: "83vh",
           overflow: "auto",
         }}
       >
@@ -184,7 +181,7 @@ const UsersTable = ({ data }) => {
               >
                 {headerGroup.headers.map((column) => (
                   <TableCell
-                    className={styles.th}
+                    // className={styles.th}
                     {...column.getHeaderProps()}
                     sx={{
                       ...tableStyles.th.cell,
@@ -199,7 +196,7 @@ const UsersTable = ({ data }) => {
                         justifyContent: "space-around",
                       }}
                     >
-                      <Box sx={{ color: "#000" }}>
+                      <Box sx={{ color: "text.color" }}>
                         {column.render("Header")}{" "}
                       </Box>
 

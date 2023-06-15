@@ -181,11 +181,17 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
   },
 }));
 
-export default function DarkModeSwitch() {
+export default function DarkModeSwitch({ toggleTheme }) {
   return (
     <FormGroup>
       <FormControlLabel
-        control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked />}
+        control={
+          <MaterialUISwitch
+            onClick={toggleTheme}
+            sx={{ m: 1 }}
+            // defaultChecked
+          />
+        }
       />
     </FormGroup>
   );

@@ -100,14 +100,11 @@ const Drawer = styled(MuiDrawer, {
   }),
 }));
 
-export default function Layout({ children }) {
+export default function Layout({ children, toggleTheme }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [session, setSession] = React.useState({});
 
-  const { darkMode } = useSelector((state) => state.settings);
-
-  // const { getUsersData } = useAtinaCalls();
   const router = useRouter();
 
   const handleDrawerOpen = () => {
@@ -234,7 +231,8 @@ export default function Layout({ children }) {
                 disablePadding
                 sx={{
                   display: "block",
-                  backgroundColor: router.pathname === "/" + item.nav && "#eee",
+                  backgroundColor:
+                    router.pathname === "/" + item.nav && "#bbbb",
                 }}
               >
                 <Tooltip title={item.text} placement="right" arrow>
@@ -267,7 +265,7 @@ export default function Layout({ children }) {
           </List>
 
           <Divider />
-          <DarkModeSwitch />
+          <DarkModeSwitch toggleTheme={toggleTheme} />
         </Drawer>
         <Box component="main" sx={{ flexGrow: 1, p: 1 }}>
           <DrawerHeader />

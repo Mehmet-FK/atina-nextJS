@@ -109,7 +109,7 @@ const UserModal = ({ setOpenUserModal, openUserModal, user }) => {
   };
   useEffect(() => {
     setIsAdmin(data?.user?.userInfo?.isAdministrator);
-  }, []);
+  }, [data]);
 
   return (
     <>
@@ -123,7 +123,7 @@ const UserModal = ({ setOpenUserModal, openUserModal, user }) => {
           <ModalTab setTab={setTab} />
           {/* if tab is "Allgemein" this part will be shown */}
           {tab === "Allgemein" && (
-            <Box sx={{ p: 0 }}>
+            <Box sx={{ p: 1 }}>
               <label htmlFor="imgInput">
                 <Box
                   sx={{
@@ -197,36 +197,36 @@ const UserModal = ({ setOpenUserModal, openUserModal, user }) => {
                     rowGap: "13px",
                   }}
                 >
-                  <Tooltip title={"Gesperrt"} placement="top-start" arrow>
-                    <TextField
-                      variant="outlined"
-                      label="Vorname"
-                      size="small"
-                      name="firstname"
-                      value={inputVal?.firstname || ""}
-                      onChange={handleChange}
-                    />
-                  </Tooltip>
-                  <Tooltip title={"Gesperrt"} placement="top-start" arrow>
-                    <TextField
-                      variant="outlined"
-                      label="Nachname"
-                      size="small"
-                      name="lastname"
-                      value={inputVal?.lastname || ""}
-                      onChange={handleChange}
-                    />
-                  </Tooltip>
-                  <Tooltip title={"Gesperrt"} placement="top-start" arrow>
-                    <TextField
-                      variant="outlined"
-                      label="Personalnummer"
-                      size="small"
-                      name="personnelnumber"
-                      value={inputVal?.personnelnumber || ""}
-                      onChange={handleChange}
-                    />
-                  </Tooltip>
+                  {/* <Tooltip title={"Gesperrt"} placement="top-start" arrow> */}
+                  <TextField
+                    variant="outlined"
+                    label="Vorname"
+                    size="small"
+                    name="firstname"
+                    value={inputVal?.firstname || ""}
+                    onChange={handleChange}
+                  />
+                  {/* </Tooltip> */}
+                  {/* <Tooltip title={"Gesperrt"} placement="top-start" arrow> */}
+                  <TextField
+                    variant="outlined"
+                    label="Nachname"
+                    size="small"
+                    name="lastname"
+                    value={inputVal?.lastname || ""}
+                    onChange={handleChange}
+                  />
+                  {/* </Tooltip> */}
+                  {/* <Tooltip title={"Gesperrt"} placement="top-start" arrow> */}
+                  <TextField
+                    variant="outlined"
+                    label="Personalnummer"
+                    size="small"
+                    name="personnelnumber"
+                    value={inputVal?.personnelnumber || ""}
+                    onChange={handleChange}
+                  />
+                  {/* </Tooltip> */}
                 </Box>
                 <Box
                   sx={{
