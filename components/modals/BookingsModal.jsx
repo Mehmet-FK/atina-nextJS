@@ -154,6 +154,15 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
 
               <TextField
                 variant="outlined"
+                label="Datensatznummer"
+                size="small"
+                sx={{ width: "100%" }}
+                name="Itemnumber"
+                onChange={handleChange}
+                value={inputVal.Itemnumber || ""}
+              />
+              <TextField
+                variant="outlined"
                 label="Straße"
                 size="small"
                 sx={{ width: "100%" }}
