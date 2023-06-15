@@ -166,6 +166,7 @@ const BookingsFilter = ({
           <Grid item md={2}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DateField
+                sx={{ width: "100%" }}
                 label="Datum (von)"
                 size="small"
                 format="DD.MM.YYYY"
@@ -242,6 +243,7 @@ const BookingsFilter = ({
           <Grid item md={2}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DateField
+                sx={{ width: "100%" }}
                 label="Datum (bis)"
                 size="small"
                 format="DD.MM.YYYY"

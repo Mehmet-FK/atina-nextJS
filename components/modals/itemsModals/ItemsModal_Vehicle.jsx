@@ -53,7 +53,7 @@ const ItemsModal_Vehicle = ({
         <CardContent sx={modalStyles.bookingModal.content}>
           {item && (
             <Grid container sx={{ justifyContent: "space-between", rowGap: 2 }}>
-              <Grid item md={6}>
+              {/* <Grid item md={6}>
                 <TextField
                   variant="outlined"
                   label="Itemtype"
@@ -63,7 +63,7 @@ const ItemsModal_Vehicle = ({
                   value={"KFZ"}
                   // onChange={handleChange}
                 />{" "}
-              </Grid>
+              </Grid> */}
               <Grid item md={6}>
                 <TextField
                   variant="outlined"
@@ -84,6 +84,7 @@ const ItemsModal_Vehicle = ({
                   name="data1"
                   sx={{ width: "100%" }}
                   value={inputVal?.data1 || ""}
+                  onChange={handleChange}
                 />
               </Grid>
               <Grid item md={6}>
@@ -94,6 +95,7 @@ const ItemsModal_Vehicle = ({
                   name="data2"
                   sx={{ width: "100%" }}
                   value={inputVal?.data2 || ""}
+                  onChange={handleChange}
                 />
               </Grid>
               <Grid item md={6}>
@@ -104,6 +106,7 @@ const ItemsModal_Vehicle = ({
                   name="data3"
                   sx={{ width: "100%" }}
                   value={inputVal?.data3 || ""}
+                  onChange={handleChange}
                 />
               </Grid>
               <Grid item md={6}>
@@ -114,6 +117,7 @@ const ItemsModal_Vehicle = ({
                   name="data4"
                   sx={{ width: "100%" }}
                   value={inputVal?.data4 || ""}
+                  onChange={handleChange}
                 />
               </Grid>
             </Grid>

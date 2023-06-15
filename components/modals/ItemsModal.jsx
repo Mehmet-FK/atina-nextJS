@@ -41,6 +41,7 @@ const ItemsModal = ({ setOpenItemsModal, openItemsModal, item, type }) => {
           handleChange={handleChange}
           inputVal={inputVal}
           isAdmin={isAdmin}
+          setInputVal={setInputVal}
         />
       )}
       {type === "Meter" && (
@@ -51,6 +52,7 @@ const ItemsModal = ({ setOpenItemsModal, openItemsModal, item, type }) => {
           handleChange={handleChange}
           inputVal={inputVal}
           isAdmin={isAdmin}
+          setInputVal={setInputVal}
         />
       )}
       {type === "Vehicle" && (
@@ -61,6 +63,7 @@ const ItemsModal = ({ setOpenItemsModal, openItemsModal, item, type }) => {
           handleChange={handleChange}
           inputVal={inputVal}
           isAdmin={isAdmin}
+          setInputVal={setInputVal}
         />
       )}
       {/*   {item && (

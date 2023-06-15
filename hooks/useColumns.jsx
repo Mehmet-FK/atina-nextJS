@@ -13,7 +13,7 @@ const useColumns = () => {
   }, []);
 
   const { bookingTypes } = useSelector((state) => state.atina);
-  console.log(bookingTypes);
+
   const USER_TABLE_COLUMNS = [
     {
       accessor: "firstname",
@@ -54,7 +54,7 @@ const useColumns = () => {
     },
     {
       accessor: "itemNumber",
-      Header: "artikelnummer",
+      Header: "Datensatznummer",
     },
     {
       accessor: "street",
@@ -109,7 +109,7 @@ const useColumns = () => {
     },
     {
       accessor: "itemNumber",
-      Header: "artikelnummer",
+      Header: "Datensatznummer",
     },
     {
       accessor: "street",
@@ -152,7 +152,7 @@ const useColumns = () => {
     },
     {
       accessor: "itemNumber",
-      Header: "artikelnummer",
+      Header: "Datensatznummer",
     },
     {
       accessor: "data1",

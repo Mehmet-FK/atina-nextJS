@@ -16,6 +16,9 @@ import useAtinaCalls from "@/hooks/useAtinaCalls";
 import CloseIcon from "@mui/icons-material/Close";
 import TapAndPlayIcon from "@mui/icons-material/TapAndPlay";
 import React from "react";
+import { DateField, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import dayjs from "dayjs";
 
 const ItemsModal_Meter = ({
   item,
@@ -24,7 +27,10 @@ const ItemsModal_Meter = ({
   handleChange,
   inputVal,
   isAdmin,
+  setInputVal,
 }) => {
+  console.log(dayjs(inputVal?.data1));
+  console.log(inputVal?.data1);
   return (
     <>
       <Modal
@@ -57,7 +63,7 @@ const ItemsModal_Meter = ({
                 container
                 sx={{ justifyContent: "space-between", rowGap: 2 }}
               >
-                <Grid item md={6}>
+                {/* <Grid item md={6}>
                   <TextField
                     variant="outlined"
                     label="Itemtype"
@@ -67,8 +73,8 @@ const ItemsModal_Meter = ({
                     value={"Zähler"}
                     // onChange={handleChange}
                   />{" "}
-                </Grid>
-                <Grid item md={6}>
+                </Grid> */}
+                <Grid item md={12}>
                   <TextField
                     variant="outlined"
                     label="Artikelnummer"
@@ -132,17 +138,35 @@ const ItemsModal_Meter = ({
                     name="country"
                     sx={{ width: "100%" }}
                     value={inputVal?.country || ""}
+                    onChange={handleChange}
                   />
                 </Grid>
                 <Grid item md={6}>
-                  <TextField
+                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DateField
+                      label="Letzte Ablesung am"
+                      size="small"
+                      format="DD.MM.YYYY"
+                      name="data1"
+                      sx={{ width: "100%" }}
+                      onChange={(newVal) =>
+                        setInputVal({
+                          ...inputVal,
+                          data1: `${newVal.$d}`,
+                        })
+                      }
+                      value={dayjs(inputVal?.data1)}
+                    />
+                  </LocalizationProvider>
+                  {/* <TextField
                     variant="outlined"
                     label="Letzte Ablesung am"
                     size="small"
                     name="data1"
                     sx={{ width: "100%" }}
                     value={inputVal?.data1 || ""}
-                  />
+                    onChange={handleChange}
+                  /> */}
                 </Grid>
                 <Grid item md={6}>
                   <TextField
@@ -152,6 +176,7 @@ const ItemsModal_Meter = ({
                     name="data2"
                     sx={{ width: "100%" }}
                     value={inputVal?.data2 || ""}
+                    onChange={handleChange}
                   />
                 </Grid>
                 {/*  <Grid item md={6}>

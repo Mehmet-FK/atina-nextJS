@@ -62,7 +62,6 @@ const MobileBookings = ({ data: dataFromServer = [], error }) => {
   const [allData, setAllData] = useState(dataFromServer);
   const [resetResize, setResetResize] = useState(false);
   const [openBookingModal, setOpenBookingModal] = useState(false);
-  const [buchungTypes, setBuchungTypes] = useState({});
 
   // ===pagination states START===
   const [page, setPage] = useState(0);
