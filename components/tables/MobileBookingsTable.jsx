@@ -6,8 +6,6 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-// import { useSelector } from "react-redux";
-import Pagination from "../Pagination";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Box } from "@mui/system";
 import { useMediaQuery } from "@mui/material";
@@ -16,18 +14,17 @@ import ContextMenu from "../ContextMenu";
 import useContextMenu from "../../hooks/useContextMenu";
 import DownloadCSV from "../DownloadCSV";
 import Tooltip from "@mui/material/Tooltip";
-// import useAtinaCalls from "@/hooks/useAtinaCalls";
 import { tableStyles } from "@/styles/table_styles";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { searchBookings } from "@/helpers/searchFunctions";
 import {
   useBlockLayout,
+  usePagination,
   useResizeColumns,
   useSortBy,
   useTable,
 } from "react-table";
-// import { BUCHUNGEN_TABLE_COLUMNS } from "./columns";
 import BookingsTableRow from "../table_rows/BookingsTableRow";
 import styles from "./table_styles.module.css";
 import UndoIcon from "@mui/icons-material/Undo";
@@ -39,6 +36,7 @@ import { AtinaCalls } from "@/helpers/apiFunctions";
 import useAtinaCalls from "@/hooks/useAtinaCalls";
 import { useSelector } from "react-redux";
 import useColumns from "@/hooks/useColumns";
+import Pagination from "../Pagination";
 
 // import axios from "axios";
 
@@ -62,21 +60,6 @@ const MobileBookings = ({ data: dataFromServer = [], error }) => {
   const [allData, setAllData] = useState(dataFromServer);
   const [resetResize, setResetResize] = useState(false);
   const [openBookingModal, setOpenBookingModal] = useState(false);
-
-  //* ===pagination states START===
-  //#region
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [shownData, setShownData] = useState(allData);
-
-  const handlePagination = useCallback(() => {
-    let currentPage = rowsPerPage * page;
-    const newArray = allData?.slice(currentPage, currentPage + rowsPerPage);
-
-    return setShownData(newArray);
-  }, [page, rowsPerPage, allData]);
-  //#endregion
-  // ===pagination states END===
 
   //* ===Table Filter START===
   //#region
@@ -103,17 +86,15 @@ const MobileBookings = ({ data: dataFromServer = [], error }) => {
 
   const handleFilter = () => {
     searchBookings(filterVal).then((res) => setAllData(res));
-    // console.log(allData);
   };
 
   const handleReset = () => {
     setFilterVal(bookingsFilterParams);
-    handlePagination();
   };
   //#endregion
   // ===Table Filter START===
 
-  //* Table Utilities START
+  //? Table Utilities START
   //#region
   const defaultColumn = useMemo(
     () => ({
@@ -129,25 +110,34 @@ const MobileBookings = ({ data: dataFromServer = [], error }) => {
     headerGroups,
     getTableProps,
     getTableBodyProps,
-    rows,
+    page,
+    canPreviousPage,
+    canNextPage,
+    setPageSize,
+    gotoPage,
+    pageOptions,
+    nextPage,
+    previousPage,
     prepareRow,
     allColumns,
     resetResizing,
+    state,
   } = useTable(
     {
       columns: tableColumns,
-      data: shownData,
+      data: allData,
       defaultColumn,
       isMultiSortEvent: (e) => {
         if (e.ctrlKey) return true;
       },
     },
     useSortBy,
+    usePagination,
     useBlockLayout,
     useResizeColumns
   );
   //#endregion
-  // Table Utilities END
+  //? Table Utilities END
 
   const { handleRightClick } = useContextMenu(contextMenu, setContextMenu);
 
@@ -157,11 +147,6 @@ const MobileBookings = ({ data: dataFromServer = [], error }) => {
   useEffect(() => {
     setIsAdmin(data?.user?.userInfo?.isAdministrator);
   }, [data]);
-
-  useEffect(() => {
-    handlePagination();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, rowsPerPage, allData]);
 
   useEffect(() => {
     getBookingTypes();
@@ -212,12 +197,16 @@ const MobileBookings = ({ data: dataFromServer = [], error }) => {
           <Box sx={{ display: "flex", justifyContent: "end" }}>
             <Pagination
               data={allData}
-              page={page}
-              setPage={setPage}
-              rowsPerPage={rowsPerPage}
-              setRowsPerPage={setRowsPerPage}
-              handlePagination={handlePagination}
+              nextPage={nextPage}
+              previousPage={previousPage}
+              canPreviousPage={canPreviousPage}
+              canNextPage={canNextPage}
+              pageOptions={pageOptions}
+              state={state}
+              setPageSize={setPageSize}
+              gotoPage={gotoPage}
             />
+
             <Tooltip title="Spaltengröße rückgängig machen" arrow>
               <IconButton
                 onClick={() => {
@@ -229,7 +218,7 @@ const MobileBookings = ({ data: dataFromServer = [], error }) => {
               </IconButton>
             </Tooltip>
 
-            <DownloadCSV rawData={shownData} fileName={"mobile_buchungen"} />
+            <DownloadCSV rawData={allData} fileName={"mobile_buchungen"} />
             {isAdmin && (
               <Tooltip title="Neuen Datensatz anlegen" arrow>
                 <IconButton onClick={() => setOpenBookingModal(true)}>
@@ -296,7 +285,7 @@ const MobileBookings = ({ data: dataFromServer = [], error }) => {
               ))}
             </TableHead>
             <TableBody {...getTableBodyProps()}>
-              {rows?.map((row, i) => {
+              {page?.map((row, i) => {
                 prepareRow(row);
                 return (
                   <BookingsTableRow

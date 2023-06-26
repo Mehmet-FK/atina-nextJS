@@ -23,7 +23,7 @@ const NfcTagsModal = ({ openNfcModal, setOpenNfcModal, nfcData }) => {
 
   useEffect(() => {
     setInputVal(nfcData);
-  }, []);
+  }, [nfcData]);
 
   const handleChange = (e) => {
     setInputVal({ ...inputVal, [e.target.name]: e.target.value });

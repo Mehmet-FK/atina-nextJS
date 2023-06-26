@@ -26,6 +26,7 @@ import ItemsFilter from "../filters/ItemsFilter";
 import { searchItems } from "@/helpers/searchFunctions";
 import {
   useBlockLayout,
+  usePagination,
   useResizeColumns,
   useSortBy,
   useTable,
@@ -52,7 +53,6 @@ const ItemsTable = ({ atinaItems }) => {
     ITEM_TABLE_VEHICLE_COLUMNS,
   } = useColumns();
 
-  // const { atinaItems } = useSelector((state) => state.atina);
   const { error } = useSelector((state) => state.atina);
   const { getAtinaItemsData } = useAtinaCalls();
 
@@ -66,14 +66,8 @@ const ItemsTable = ({ atinaItems }) => {
   const [isAdmin, setIsAdmin] = useState(false);
 
   //#region ===pagination states START===
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+
   const [openItemsModal, setOpenItemsModal] = useState(false);
-  const handlePagination = useCallback(() => {
-    let currentPage = rowsPerPage * page;
-    const newArray = allData?.slice(currentPage, currentPage + rowsPerPage);
-    return setShownData(newArray);
-  }, [page, rowsPerPage, allData]);
 
   //#endregion ===pagination states END===
 
@@ -102,20 +96,29 @@ const ItemsTable = ({ atinaItems }) => {
     headerGroups,
     getTableProps,
     getTableBodyProps,
-    rows,
+    page,
+    canPreviousPage,
+    canNextPage,
+    setPageSize,
+    gotoPage,
+    pageOptions,
+    nextPage,
+    previousPage,
     prepareRow,
     allColumns,
     resetResizing,
+    state,
   } = useTable(
     {
       columns: tableColumns,
-      data: shownData,
+      data: allData,
       defaultColumn,
       isMultiSortEvent: (e) => {
         if (e.ctrlKey) return true;
       },
     },
     useSortBy,
+    usePagination,
     useBlockLayout,
     useResizeColumns
   );
@@ -147,12 +150,10 @@ const ItemsTable = ({ atinaItems }) => {
   useEffect(() => {
     setShownData(allData);
 
-    handlePagination();
     setLoading(false);
-  }, [allData, page, rowsPerPage]);
+  }, [allData]);
 
   useEffect(() => {
-    handlePagination();
     setType("Order");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -284,13 +285,16 @@ const ItemsTable = ({ atinaItems }) => {
           <Box sx={{ display: "flex" }}>
             <Pagination
               data={allData}
-              page={page}
-              setPage={setPage}
-              rowsPerPage={rowsPerPage}
-              setRowsPerPage={setRowsPerPage}
-              handlePagination={handlePagination}
-              // setRestart={setRestart}
+              nextPage={nextPage}
+              previousPage={previousPage}
+              canPreviousPage={canPreviousPage}
+              canNextPage={canNextPage}
+              pageOptions={pageOptions}
+              state={state}
+              setPageSize={setPageSize}
+              gotoPage={gotoPage}
             />
+
             <Tooltip title="Spaltengröße rückgängig machen" arrow>
               <IconButton
                 onClick={() => {
@@ -301,9 +305,8 @@ const ItemsTable = ({ atinaItems }) => {
                 <UndoIcon />
               </IconButton>
             </Tooltip>
-            {/* <Tooltip title="CSV Datei Herunterladen" arrow> */}
+
             <DownloadCSV rawData={shownData} fileName={"items"} type={type} />
-            {/* </Tooltip> */}
 
             {isAdmin && (
               <Tooltip title="Neuen Datensatz anlegen" arrow>
@@ -389,7 +392,7 @@ const ItemsTable = ({ atinaItems }) => {
             ))}
           </TableHead>
           <TableBody {...getTableBodyProps()}>
-            {rows?.map((row, i) => {
+            {page?.map((row, i) => {
               prepareRow(row);
               return (
                 <ItemsTableRow

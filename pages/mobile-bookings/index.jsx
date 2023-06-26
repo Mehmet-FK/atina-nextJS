@@ -21,8 +21,9 @@ const MobileBookings = ({ data, error }) => {
       <Head>
         <title>Mobile Buchungen</title>
       </Head>
-      <h1 style={{ marginBottom: "1rem" }}>Mobile Buchungen</h1>
-
+      <h2 style={{ marginBottom: "0.3rem", fontSize: "1.7rem" }}>
+        Mobile Buchungen
+      </h2>
       {/* {!error && <MobileBookingsTable data={data} />} */}
       {!error && <MobileBookingsTable data={data} />}
     </div>

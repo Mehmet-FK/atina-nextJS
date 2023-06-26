@@ -45,6 +45,12 @@ const BookingsModal = ({ setOpenBookingModal, openBookingModal, booking }) => {
   useEffect(() => {
     setIsAdmin(data?.user?.userInfo?.isAdministrator);
   }, [data]);
+  useEffect(() => {
+    setInputVal({
+      ...booking,
+      Time: booking?.Time?.slice(0, booking?.Time.indexOf(".")),
+    });
+  }, [booking]);
   return (
     <>
       <Modal

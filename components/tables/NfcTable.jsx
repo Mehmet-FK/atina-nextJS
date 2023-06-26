@@ -22,6 +22,7 @@ import { searchNfcTag } from "@/helpers/searchFunctions";
 import { getSession, useSession } from "next-auth/react";
 import {
   useBlockLayout,
+  usePagination,
   useResizeColumns,
   useSortBy,
   useTable,
@@ -43,21 +44,9 @@ const NfcTable = ({ data }) => {
   const tableRef = useRef(null);
   const { NFC_TABLE_COLUMNS } = useColumns();
 
-  //* ===pagination states START===
-  //#region
   const [allData, setAllData] = useState(data);
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
-  const [shownData, setShownData] = useState(allData);
-  const [resetResize, setResetResize] = useState(false);
 
-  const handlePagination = useCallback(() => {
-    let currentPage = rowsPerPage * page;
-    const newArray = allData?.slice(currentPage, currentPage + rowsPerPage);
-    return setShownData(newArray);
-  }, [page, rowsPerPage, shownData, allData]);
-  //#endregion
-  // ===pagination states END===
+  const [resetResize, setResetResize] = useState(false);
 
   //* Table Utilities START
   //#region
@@ -75,14 +64,22 @@ const NfcTable = ({ data }) => {
     headerGroups,
     getTableProps,
     getTableBodyProps,
-    rows,
+    page,
+    canPreviousPage,
+    canNextPage,
+    setPageSize,
+    gotoPage,
+    pageOptions,
+    nextPage,
+    previousPage,
     prepareRow,
     allColumns,
     resetResizing,
+    state,
   } = useTable(
     {
       columns: tableColumns,
-      data: shownData,
+      data: allData,
       defaultColumn,
       isMultiSortEvent: (e) => {
         if (e.ctrlKey) return true;
@@ -90,7 +87,8 @@ const NfcTable = ({ data }) => {
     },
     useSortBy,
     useBlockLayout,
-    useResizeColumns
+    useResizeColumns,
+    usePagination
   );
   //#endregion
   // Table Utilities END
@@ -113,11 +111,9 @@ const NfcTable = ({ data }) => {
       let editedRes = res.map((x) => x.item);
       setAllData(editedRes);
     });
-    handlePagination();
   };
   const handleReset = () => {
     setFilterVal(initialFilterparams);
-    handlePagination();
   };
 
   // ===Table Filter END===
@@ -126,11 +122,6 @@ const NfcTable = ({ data }) => {
 
   //==== MediaQuery ===
   const xxl = useMediaQuery("(min-width:1400px)");
-
-  useEffect(() => {
-    handlePagination();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, rowsPerPage, allData]);
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -152,7 +143,7 @@ const NfcTable = ({ data }) => {
         sx={{
           ...tableStyles.tableContainer,
           maxWidth: xxl ? "90vw" : { lg: "auto" },
-          maxHeight: "82vh",
+          maxHeight: "80vh",
           overflow: "auto",
         }}
       >
@@ -165,11 +156,14 @@ const NfcTable = ({ data }) => {
         <Box sx={{ display: "flex", justifyContent: "end" }}>
           <Pagination
             data={allData}
-            page={page}
-            setPage={setPage}
-            rowsPerPage={rowsPerPage}
-            setRowsPerPage={setRowsPerPage}
-            handlePagination={handlePagination}
+            nextPage={nextPage}
+            previousPage={previousPage}
+            canPreviousPage={canPreviousPage}
+            canNextPage={canNextPage}
+            pageOptions={pageOptions}
+            state={state}
+            setPageSize={setPageSize}
+            gotoPage={gotoPage}
           />
 
           <Tooltip title="Spaltengröße rückgängig machen" arrow>
@@ -182,7 +176,7 @@ const NfcTable = ({ data }) => {
               <UndoIcon />
             </IconButton>
           </Tooltip>
-          <DownloadCSV rawData={shownData} fileName={"nfc_tags"} />
+          <DownloadCSV rawData={allData} fileName={"nfc_tags"} />
         </Box>
         <Table
           {...getTableProps()}
@@ -240,15 +234,13 @@ const NfcTable = ({ data }) => {
             ))}
           </TableHead>
           <TableBody {...getTableBodyProps()}>
-            {rows?.map((row, i) => {
+            {page?.map((row, i) => {
               prepareRow(row);
 
               return (
                 <NfcTableRow
                   resetResize={resetResize}
                   key={i}
-                  // item={tag}
-                  // tag={tag}
                   row={row}
                   prepareRow={prepareRow}
                 />

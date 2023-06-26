@@ -1,6 +1,6 @@
 "use client";
 
-import { Avatar, TableCell, TableRow } from "@mui/material";
+import { TableCell, TableRow } from "@mui/material";
 import React, { memo, useEffect, useState } from "react";
 import UserModal from "../modals/UserModal";
 import { tableStyles } from "@/styles/table_styles";
@@ -10,12 +10,12 @@ const UsersTableRow = ({ row, prepareRow, resetResize }) => {
   const handleDblClick = (e) => {
     if (e.detail === 2) {
       setOpenUserModal(true);
-      console.log(row.original);
+      console.log(row);
     }
   };
   useEffect(() => {
     prepareRow(row);
-  }, [resetResize]);
+  }, [resetResize, row]);
 
   return (
     <>
@@ -46,4 +46,4 @@ const UsersTableRow = ({ row, prepareRow, resetResize }) => {
   );
 };
 
-export default memo(UsersTableRow);
+export default UsersTableRow;

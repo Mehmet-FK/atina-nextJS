@@ -13,7 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
-import placeholder from "@/public/assets/placeholder.jpg";
+
 import { memo, useEffect, useRef, useState } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
@@ -110,6 +110,9 @@ const UserModal = ({ setOpenUserModal, openUserModal, user }) => {
   useEffect(() => {
     setIsAdmin(data?.user?.userInfo?.isAdministrator);
   }, [data]);
+  useEffect(() => {
+    setInputVal(user);
+  }, [user]);
 
   return (
     <>

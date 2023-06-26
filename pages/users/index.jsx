@@ -11,7 +11,7 @@ const AtinaUsers = ({ data }) => {
       <Head>
         <title>Benutzer</title>
       </Head>
-      <h1 style={{ marginBottom: "1rem" }}>Benutzer</h1>
+      <h2 style={{ marginBottom: "0.3rem", fontSize: "1.7rem" }}>Benutzer</h2>
       {/* <UsersTable data={data} /> */}
       <UsersTable data={data} />
     </Paper>

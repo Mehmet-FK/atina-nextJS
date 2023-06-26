@@ -9,7 +9,7 @@ const NfcTags = ({ data }) => {
       <Head>
         <title>NFC Tags</title>
       </Head>
-      <h1 style={{ marginBottom: "1rem" }}>NFC Tags</h1>
+      <h2 style={{ marginBottom: "0.3rem", fontSize: "1.7rem" }}>NFC Tags</h2>
       <NfcTable data={data} />
     </div>
   );

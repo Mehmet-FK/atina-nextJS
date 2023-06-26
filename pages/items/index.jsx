@@ -24,7 +24,7 @@ const AtinaItems = ({ atinaItems }) => {
       <Head>
         <title>Datensätze</title>
       </Head>
-      <h1 style={{ marginBottom: "1rem" }}>Datensätze</h1>
+      <h2 style={{ marginBottom: "0.3rem", fontSize: "1.7rem" }}>Datensätze</h2>
       <ItemsTable atinaItems={atinaItems} />
     </div>
   );
