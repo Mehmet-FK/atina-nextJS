@@ -1,0 +1,2 @@
+info  - Loaded env from D:\Attensam\next_auth\.env
+event - compiled client and server successfully in 1341 ms (1253 modules)

@@ -10,11 +10,6 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
 const MobileBookings = ({ data, error }) => {
-  const { getBookingTypes } = useAtinaCalls();
-  useEffect(() => {
-    getBookingTypes();
-  }, []);
-
   return (
     <div>
       <ErrorModal error={error} />
@@ -36,6 +31,7 @@ export const getServerSideProps = async (context) => {
   let data = null;
   let error = null;
   const session = await getSession(context);
+  console.log("SESSION", session);
   if (!session) {
     return {
       redirect: {

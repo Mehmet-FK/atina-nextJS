@@ -32,8 +32,11 @@ const NfcFilter = ({ filterVal, setFilterVal, handleFilter, handleReset }) => {
       component={Paper}
       sx={{ ...filterStyles.container, height: open ? "auto" : "3rem" }}
     >
-      <Box sx={filterStyles.iconWrapper}>
-        <IconButton onClick={() => setOpen(!open)}>
+      <Box
+        sx={{ ...filterStyles.iconWrapper, cursor: "pointer" }}
+        onClick={() => setOpen(!open)}
+      >
+        <IconButton>
           <Typography sx={filterStyles.icon}>
             {open ? <CloseFullscreenIcon /> : <OpenInFullIcon />}
           </Typography>

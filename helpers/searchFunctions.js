@@ -200,7 +200,7 @@ export const searchItems = async (params) => {
   if (data5) {
     base += `&Data5=${data5}`;
   }
-  console.log(base);
+
   try {
     const { data } = await axios(base);
     itemArray = data;

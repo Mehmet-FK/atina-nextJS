@@ -1,4 +1,3 @@
-"use client";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -8,7 +7,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useSelector } from "react-redux";
 import Pagination from "../Pagination";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Box } from "@mui/system";
 import useAtinaCalls from "../../hooks/useAtinaCalls";
 import { IconButton, Typography, useMediaQuery } from "@mui/material";
@@ -64,12 +63,7 @@ const ItemsTable = ({ atinaItems }) => {
   const [resetResize, setResetResize] = useState(false);
   const [contextMenu, setContextMenu] = useState(initalContextMenu);
   const [isAdmin, setIsAdmin] = useState(false);
-
-  //#region ===pagination states START===
-
   const [openItemsModal, setOpenItemsModal] = useState(false);
-
-  //#endregion ===pagination states END===
 
   //#region Table Utilities START
 
@@ -124,7 +118,7 @@ const ItemsTable = ({ atinaItems }) => {
   );
   //#endregion Table Utilities END
 
-  // ===Table Filter START===
+  //#region ===Table Filter START===
   const [filterVal, setFilterVal] = useState({});
 
   const handleFilter = () => {
@@ -140,7 +134,7 @@ const ItemsTable = ({ atinaItems }) => {
   const handleReset = () => {
     setFilterVal({});
   };
-  // ===Table Filter END===
+  //#endregion ===Table Filter END===
 
   //==== MediaQuery ===
   const xxl = useMediaQuery("(min-width:1500px)");
@@ -149,15 +143,10 @@ const ItemsTable = ({ atinaItems }) => {
 
   useEffect(() => {
     setShownData(allData);
-
     setLoading(false);
   }, [allData]);
 
-  useEffect(() => {
-    setType("Order");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
+  // checks, if user is admin
   useEffect(() => {
     setIsAdmin(data?.user?.userInfo?.isAdministrator);
   }, [data]);
@@ -343,7 +332,7 @@ const ItemsTable = ({ atinaItems }) => {
                     sx={{
                       textTransform: "capitalize",
                       fontWeight: "600",
-                      color: "#888",
+                      // color: "#888",
                       fontSize: "0.7rem",
                       cursor: "pointer",
                       borderRight: "1px solid #ddd",
@@ -358,9 +347,7 @@ const ItemsTable = ({ atinaItems }) => {
                         justifyContent: "space-around",
                       }}
                     >
-                      <Box sx={{ color: "#000" }}>
-                        {column.render("Header")}{" "}
-                      </Box>
+                      <Box>{column.render("Header")} </Box>
                       {column.isSorted ? (
                         column.isSortedDesc ? (
                           <ArrowDownwardIcon fontSize="small" />

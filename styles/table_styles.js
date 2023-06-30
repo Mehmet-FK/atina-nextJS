@@ -13,7 +13,7 @@ export const tableStyles = {
     cell: {
       textTransform: "capitalize",
       fontWeight: "600",
-      color: "#888",
+      // color: "#888",
       fontSize: "0.7rem",
       cursor: "pointer",
       borderRight: "1px solid #ddd",

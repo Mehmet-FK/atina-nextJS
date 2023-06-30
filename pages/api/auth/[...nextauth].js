@@ -15,10 +15,9 @@ export const authOptions = {
           const { data } = await axios.post(
             `https://pbsolutions.dev/atina/AtinaUsers/login?username=${credentials.username}&password=${credentials.password}`
           );
-          res = await data;
-          console.log("RES from AUTH ==>", data);
+          res = data;
         } catch (error) {
-          console.log(error);
+          console.log("ERRORRRRRRRR===>", error);
         }
         return res;
       },

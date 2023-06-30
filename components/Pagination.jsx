@@ -38,7 +38,10 @@ const Pagination = ({
     >
       <div style={{ display: "flex", alignItems: "center", columnGap: "15px" }}>
         <span style={{ fontSize: "0.8rem" }}>Anzahl Zeilen</span>
-        <FormControl variant="standard">
+        <FormControl
+          variant="standard"
+          sx={{ width: "55px", textAlign: "center" }}
+        >
           <Select
             size="small"
             labelId="demo-simple-select-label"

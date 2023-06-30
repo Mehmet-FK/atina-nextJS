@@ -37,6 +37,7 @@ const NfcTableRow = ({ row, prepareRow, resetResize }) => {
               sx={{ ...tableStyles.tr.cell, borderRight: "1px solid #eee" }}
               className={styles.td}
               align="left"
+              size="small"
             >
               {cell.render("Cell")}
             </TableCell>

@@ -207,9 +207,7 @@ const NfcTable = ({ data }) => {
                         justifyContent: "space-around",
                       }}
                     >
-                      <Box sx={{ color: "#000" }}>
-                        {column.render("Header")}{" "}
-                      </Box>
+                      <Box>{column.render("Header")} </Box>
 
                       {column.isSorted ? (
                         column.isSortedDesc ? (

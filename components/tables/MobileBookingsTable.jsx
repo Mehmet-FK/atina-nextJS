@@ -150,6 +150,7 @@ const MobileBookings = ({ data: dataFromServer = [], error }) => {
 
   useEffect(() => {
     getBookingTypes();
+    console.log("test");
   }, []);
   return (
     <>
@@ -180,11 +181,10 @@ const MobileBookings = ({ data: dataFromServer = [], error }) => {
           component={Paper}
           onContextMenu={handleRightClick}
           sx={{
+            ...tableStyles.tableContainer,
             maxWidth: xxl ? "90vw" : { lg: "1250px" },
-            margin: "auto",
-            padding: "1rem 10px",
-            position: "relative",
-            maxHeight: "83vh",
+
+            maxHeight: "82vh",
             overflow: "auto",
           }}
         >
@@ -258,9 +258,7 @@ const MobileBookings = ({ data: dataFromServer = [], error }) => {
                           justifyContent: "space-around",
                         }}
                       >
-                        <Box sx={{ color: "#000" }}>
-                          {column.render("Header")}{" "}
-                        </Box>
+                        <Box>{column.render("Header")} </Box>
 
                         {column.isSorted ? (
                           column.isSortedDesc ? (

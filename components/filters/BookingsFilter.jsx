@@ -56,11 +56,14 @@ const BookingsFilter = ({
       component={Paper}
       sx={{
         ...filterStyles.container,
-        height: open ? "auto" : "3rem",
+        // height: open ? "auto" : "3rem",
       }}
     >
-      <Box sx={filterStyles.iconWrapper}>
-        <IconButton onClick={() => setOpen(!open)}>
+      <Box
+        sx={{ ...filterStyles.iconWrapper, cursor: "pointer" }}
+        onClick={() => setOpen(!open)}
+      >
+        <IconButton>
           <Typography sx={filterStyles.icon}>
             {open ? <CloseFullscreenIcon /> : <OpenInFullIcon />}
           </Typography>
@@ -92,17 +95,6 @@ const BookingsFilter = ({
             />
           </Grid>
 
-          {/* <Grid item md={2}>
-            <TextField
-              sx={filterStyles.textField}
-              onChange={handleChange}
-              value={filterVal.personelNumber || ""}
-              variant="outlined"
-              size="small"
-              label="Personelnummer"
-              name="personelNumber"
-            />
-          </Grid> */}
           <Grid item md={2}>
             <TextField
               sx={filterStyles.textField}

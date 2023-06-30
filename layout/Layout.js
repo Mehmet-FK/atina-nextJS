@@ -267,7 +267,13 @@ export default function Layout({ children, toggleTheme }) {
           <Divider />
           <DarkModeSwitch toggleTheme={toggleTheme} />
         </Drawer>
-        <Box component="main" sx={{ flexGrow: 1, p: 1 }}>
+        <Box
+          component="main"
+          sx={{
+            flexGrow: 1,
+            p: 1,
+          }}
+        >
           <DrawerHeader />
           {children}
         </Box>

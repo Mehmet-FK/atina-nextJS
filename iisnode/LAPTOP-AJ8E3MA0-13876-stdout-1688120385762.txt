@@ -1,0 +1,231 @@
+info  - Loaded env from D:\Attensam\next_auth\.env
+event - compiled client and server successfully in 1390 ms (1253 modules)
+> Ready on http://localhost:\\.\pipe\c945d4cb-e388-4fd0-a050-4f35d2787e51
+wait  - compiling /api/auth/[...nextauth] (client and server)...
+event - compiled successfully in 20 ms (105 modules)
+wait  - compiling / (client and server)...
+event - compiled client and server successfully in 253 ms (1289 modules)
+SESSION {
+  user: {
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtZWhtZXQyIiwianRpIjoiNDYwM2Q4M2MtYTA1Zi00ZWQ0LTkwZmYtNDRkOWUwNzRkMzMxIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI1NTcxIiwiZXhwIjoxNjg4NzI0OTU4LCJpc3MiOiJteV9pc3N1ZXIiLCJhdWQiOiJteV9hdWRpZW5jZSJ9._LXd4Sc1FNy_AehIjKk_XA7jql2ZTaeobb4HfuDXCX4',
+    userInfo: {
+      userId: 5571,
+      number: 'mehmet',
+      firstname: 'mehmet',
+      lastname: 'mehmet',
+      isAdministrator: false
+    },
+    roles: [],
+    avatarUrl: 'https://pbsolutions.dev/atina/images/user.png',
+    iat: 1688120306,
+    exp: 1690712306,
+    jti: 'cd5f22e6-402f-48bb-b2ab-91e21fa0dfa0'
+  },
+  expires: '2023-07-30T10:19:49.385Z'
+}
+wait  - compiling /_error (client and server)...
+event - compiled client and server successfully in 203 ms (1290 modules)
+wait  - compiling /mobile-bookings (client and server)...
+event - compiled client and server successfully in 429 ms (1684 modules)
+SESSION {
+  user: {
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtZWhtZXQyIiwianRpIjoiNDYwM2Q4M2MtYTA1Zi00ZWQ0LTkwZmYtNDRkOWUwNzRkMzMxIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI1NTcxIiwiZXhwIjoxNjg4NzI0OTU4LCJpc3MiOiJteV9pc3N1ZXIiLCJhdWQiOiJteV9hdWRpZW5jZSJ9._LXd4Sc1FNy_AehIjKk_XA7jql2ZTaeobb4HfuDXCX4',
+    userInfo: {
+      userId: 5571,
+      number: 'mehmet',
+      firstname: 'mehmet',
+      lastname: 'mehmet',
+      isAdministrator: false
+    },
+    roles: [],
+    avatarUrl: 'https://pbsolutions.dev/atina/images/user.png',
+    iat: 1688120390,
+    exp: 1690712390,
+    jti: '936b0c49-17a8-4c0e-b678-692b44e3a485'
+  },
+  expires: '2023-07-30T10:19:51.214Z'
+}
+SESSION {
+  user: {
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtZWhtZXQyIiwianRpIjoiNDYwM2Q4M2MtYTA1Zi00ZWQ0LTkwZmYtNDRkOWUwNzRkMzMxIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI1NTcxIiwiZXhwIjoxNjg4NzI0OTU4LCJpc3MiOiJteV9pc3N1ZXIiLCJhdWQiOiJteV9hdWRpZW5jZSJ9._LXd4Sc1FNy_AehIjKk_XA7jql2ZTaeobb4HfuDXCX4',
+    userInfo: {
+      userId: 5571,
+      number: 'mehmet',
+      firstname: 'mehmet',
+      lastname: 'mehmet',
+      isAdministrator: false
+    },
+    roles: [],
+    avatarUrl: 'https://pbsolutions.dev/atina/images/user.png',
+    iat: 1688120390,
+    exp: 1690712390,
+    jti: '936b0c49-17a8-4c0e-b678-692b44e3a485'
+  },
+  expires: '2023-07-30T10:19:51.249Z'
+}
+SESSION {
+  user: {
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtZWhtZXQyIiwianRpIjoiNDYwM2Q4M2MtYTA1Zi00ZWQ0LTkwZmYtNDRkOWUwNzRkMzMxIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI1NTcxIiwiZXhwIjoxNjg4NzI0OTU4LCJpc3MiOiJteV9pc3N1ZXIiLCJhdWQiOiJteV9hdWRpZW5jZSJ9._LXd4Sc1FNy_AehIjKk_XA7jql2ZTaeobb4HfuDXCX4',
+    userInfo: {
+      userId: 5571,
+      number: 'mehmet',
+      firstname: 'mehmet',
+      lastname: 'mehmet',
+      isAdministrator: false
+    },
+    roles: [],
+    avatarUrl: 'https://pbsolutions.dev/atina/images/user.png',
+    iat: 1688120395,
+    exp: 1690712395,
+    jti: '8eddb00d-31c3-46fd-add2-c60b2756d74d'
+  },
+  expires: '2023-07-30T10:19:59.490Z'
+}
+SESSION null
+wait  - compiling /auth/login (client and server)...
+event - compiled client and server successfully in 254 ms (1327 modules)
+wait  - compiling /_error (client and server)...
+event - compiled client and server successfully in 106 ms (1328 modules)
+wait  - compiling /mobile-bookings...
+event - compiled client and server successfully in 179 ms (1721 modules)
+SESSION {
+  user: {
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtZWhtZXQyIiwianRpIjoiMmVhZjUyZmEtZDYwMy00MjM0LWFjMGEtN2Y1MjJlN2UxZjI5IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI1NTcxIiwiZXhwIjoxNjg4NzI1MjE4LCJpc3MiOiJteV9pc3N1ZXIiLCJhdWQiOiJteV9hdWRpZW5jZSJ9.WAhf3Du4VNOmvJAAM_p-kfC0_JkO7pZs7VD1zwKAIPw',
+    userInfo: {
+      userId: 5571,
+      number: 'mehmet',
+      firstname: 'mehmet',
+      lastname: 'mehmet',
+      isAdministrator: false
+    },
+    roles: [],
+    avatarUrl: 'https://pbsolutions.dev/atina/images/user.png',
+    iat: 1688120418,
+    exp: 1690712418,
+    jti: 'bac33c87-8996-423b-b3c1-e8f5fd136f6c'
+  },
+  expires: '2023-07-30T10:20:18.741Z'
+}
+wait  - compiling /nfc-tags...
+event - compiled client and server successfully in 373 ms (1734 modules)
+SESSION {
+  user: {
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtZWhtZXQyIiwianRpIjoiMmVhZjUyZmEtZDYwMy00MjM0LWFjMGEtN2Y1MjJlN2UxZjI5IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI1NTcxIiwiZXhwIjoxNjg4NzI1MjE4LCJpc3MiOiJteV9pc3N1ZXIiLCJhdWQiOiJteV9hdWRpZW5jZSJ9.WAhf3Du4VNOmvJAAM_p-kfC0_JkO7pZs7VD1zwKAIPw',
+    userInfo: {
+      userId: 5571,
+      number: 'mehmet',
+      firstname: 'mehmet',
+      lastname: 'mehmet',
+      isAdministrator: false
+    },
+    roles: [],
+    avatarUrl: 'https://pbsolutions.dev/atina/images/user.png',
+    iat: 1688120419,
+    exp: 1690712419,
+    jti: 'a739de80-9f7d-43a7-a7e0-26f45657704a'
+  },
+  expires: '2023-07-30T10:20:27.601Z'
+}
+wait  - compiling /items...
+event - compiled client and server successfully in 353 ms (1736 modules)
+SESSION {
+  user: {
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtZWhtZXQyIiwianRpIjoiMmVhZjUyZmEtZDYwMy00MjM0LWFjMGEtN2Y1MjJlN2UxZjI5IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI1NTcxIiwiZXhwIjoxNjg4NzI1MjE4LCJpc3MiOiJteV9pc3N1ZXIiLCJhdWQiOiJteV9hdWRpZW5jZSJ9.WAhf3Du4VNOmvJAAM_p-kfC0_JkO7pZs7VD1zwKAIPw',
+    userInfo: {
+      userId: 5571,
+      number: 'mehmet',
+      firstname: 'mehmet',
+      lastname: 'mehmet',
+      isAdministrator: false
+    },
+    roles: [],
+    avatarUrl: 'https://pbsolutions.dev/atina/images/user.png',
+    iat: 1688120419,
+    exp: 1690712419,
+    jti: 'a739de80-9f7d-43a7-a7e0-26f45657704a'
+  },
+  expires: '2023-07-30T10:20:41.383Z'
+}
+wait  - compiling /users...
+event - compiled client and server successfully in 306 ms (1761 modules)
+info  - Loaded env from D:\Attensam\next_auth\.env
+wait  - compiling...
+wait  - compiling /users (client and server)...
+event - compiled client and server successfully in 225 ms (1406 modules)
+wait  - compiling /api/auth/[...nextauth] (client and server)...
+event - compiled successfully in 10 ms (165 modules)
+info  - Loaded env from D:\Attensam\next_auth\.env
+wait  - compiling...
+wait  - compiling /users (client and server)...
+event - compiled client and server successfully in 194 ms (1406 modules)
+wait  - compiling /api/auth/[...nextauth] (client and server)...
+event - compiled successfully in 9 ms (165 modules)
+info  - Loaded env from D:\Attensam\next_auth\.env
+wait  - compiling...
+event - compiled client and server successfully in 111 ms (1418 modules)
+SESSION {
+  user: {
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtZWhtZXQyIiwianRpIjoiNDYwM2Q4M2MtYTA1Zi00ZWQ0LTkwZmYtNDRkOWUwNzRkMzMxIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI1NTcxIiwiZXhwIjoxNjg4NzI0OTU4LCJpc3MiOiJteV9pc3N1ZXIiLCJhdWQiOiJteV9hdWRpZW5jZSJ9._LXd4Sc1FNy_AehIjKk_XA7jql2ZTaeobb4HfuDXCX4',
+    userInfo: {
+      userId: 5571,
+      number: 'mehmet',
+      firstname: 'mehmet',
+      lastname: 'mehmet',
+      isAdministrator: false
+    },
+    roles: [],
+    avatarUrl: 'https://pbsolutions.dev/atina/images/user.png',
+    iat: 1688120783,
+    exp: 1690712783,
+    jti: '73c1e9e7-8528-4957-ab3d-cd1193aaacf3'
+  },
+  expires: '2023-07-30T10:27:10.683Z'
+}
+wait  - compiling /auth/login (client and server)...
+event - compiled client and server successfully in 271 ms (1441 modules)
+wait  - compiling /mobile-bookings...
+wait  - compiling /users (client and server)...
+event - compiled client and server successfully in 312 ms (1731 modules)
+SESSION {
+  user: {
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtZWhtZXQyIiwianRpIjoiMGRmNDM1NGMtY2RhYi00NjZjLTljZmQtNTE3NTFlMGMwMTA2IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI1NTcxIiwiZXhwIjoxNjg4NzI5ODY3LCJpc3MiOiJteV9pc3N1ZXIiLCJhdWQiOiJteV9hdWRpZW5jZSJ9.JzTND39ZJy8nejAEoCUKVy9DY43ZiFcDy9qhT2cxSgI',
+    userInfo: {
+      userId: 5571,
+      number: 'mehmet',
+      firstname: 'mehmet',
+      lastname: 'mehmet',
+      isAdministrator: false
+    },
+    roles: [],
+    avatarUrl: 'https://pbsolutions.dev/atina/images/user.png',
+    iat: 1688125067,
+    exp: 1690717067,
+    jti: '72231287-00f8-4d57-ac08-68c5e2b39523'
+  },
+  expires: '2023-07-30T11:37:48.147Z'
+}
+wait  - compiling...
+event - compiled client and server successfully in 314 ms (1657 modules)
+wait  - compiling /api/auth/[...nextauth] (client and server)...
+event - compiled successfully in 49 ms (163 modules)
+SESSION {
+  user: {
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtZWhtZXQyIiwianRpIjoiMGRmNDM1NGMtY2RhYi00NjZjLTljZmQtNTE3NTFlMGMwMTA2IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI1NTcxIiwiZXhwIjoxNjg4NzI5ODY3LCJpc3MiOiJteV9pc3N1ZXIiLCJhdWQiOiJteV9hdWRpZW5jZSJ9.JzTND39ZJy8nejAEoCUKVy9DY43ZiFcDy9qhT2cxSgI',
+    userInfo: {
+      userId: 5571,
+      number: 'mehmet',
+      firstname: 'mehmet',
+      lastname: 'mehmet',
+      isAdministrator: false
+    },
+    roles: [],
+    avatarUrl: 'https://pbsolutions.dev/atina/images/user.png',
+    iat: 1688125069,
+    exp: 1690717069,
+    jti: 'b9d3f081-1dc7-4646-84cc-59e3f8f56a1e'
+  },
+  expires: '2023-07-30T11:40:07.950Z'
+}
+SESSION null
+wait  - compiling /auth/login (client and server)...
+event - compiled client and server successfully in 285 ms (1706 modules)

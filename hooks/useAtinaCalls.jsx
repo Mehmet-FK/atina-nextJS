@@ -59,8 +59,10 @@ const useAtinaCalls = () => {
   };
   //GET
   const getUsersData = () => getAtinaData("AtinaUsers");
-  const getBookingTypes = () =>
-    getAtinaData("api/AtinaMasterData/GetBookingTypes");
+  const getBookingTypes = () => {
+    console.log("test in hooks");
+    return getAtinaData("api/AtinaMasterData/GetBookingTypes");
+  };
   const getMobileBookingsData = () => getAtinaData("api/AtinaMobileBookings");
   const getNfcTagsData = () => getAtinaData("AtinaNfcTags");
   const getAtinaItemsData = (type) =>

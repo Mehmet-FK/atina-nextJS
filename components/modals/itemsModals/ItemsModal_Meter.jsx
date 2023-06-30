@@ -29,8 +29,6 @@ const ItemsModal_Meter = ({
   isAdmin,
   setInputVal,
 }) => {
-  console.log(dayjs(inputVal?.data1));
-  console.log(inputVal?.data1);
   return (
     <>
       <Modal
@@ -63,17 +61,6 @@ const ItemsModal_Meter = ({
                 container
                 sx={{ justifyContent: "space-between", rowGap: 2 }}
               >
-                {/* <Grid item md={6}>
-                  <TextField
-                    variant="outlined"
-                    label="Itemtype"
-                    size="small"
-                    name="itemID"
-                    sx={{ width: "100%" }}
-                    value={"Zähler"}
-                    // onChange={handleChange}
-                  />{" "}
-                </Grid> */}
                 <Grid item md={12}>
                   <TextField
                     variant="outlined"

@@ -1,0 +1,134 @@
+(node:13876) [DEP0005] DeprecationWarning: Buffer() is deprecated due to security and usability issues. Please use the Buffer.alloc(), Buffer.allocUnsafe(), or Buffer.from() methods instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Warning: Each child in a list should have a unique "key" prop. See https://reactjs.org/link/warning-keys for more information.
+    at Row (webpack-internal:///./components/table_rows/CollapseRow.jsx:76:13)
+    at tbody
+    at D:\Attensam\next_auth\node_modules\@emotion\react\dist\emotion-element-b63ca7c6.cjs.dev.js:51:25
+    at renderElement (D:\Attensam\next_auth\node_modules\react-dom\cjs\react-dom-server.browser.development.js:6005:11)
+    at table
+    at D:\Attensam\next_auth\node_modules\@emotion\react\dist\emotion-element-b63ca7c6.cjs.dev.js:51:25
+    at renderElement (D:\Attensam\next_auth\node_modules\react-dom\cjs\react-dom-server.browser.development.js:6005:11)
+    at div
+    at D:\Attensam\next_auth\node_modules\@emotion\react\dist\emotion-element-b63ca7c6.cjs.dev.js:51:25
+    at renderElement (D:\Attensam\next_auth\node_modules\react-dom\cjs\react-dom-server.browser.development.js:6005:11)
+    at D:\Attensam\next_auth\node_modules\@emotion\react\dist\emotion-element-b63ca7c6.cjs.dev.js:51:25
+    at renderElement (D:\Attensam\next_auth\node_modules\react-dom\cjs\react-dom-server.browser.development.js:6005:11)
+    at CollapsibleTable
+    at div
+    at D:\Attensam\next_auth\node_modules\@emotion\react\dist\emotion-element-b63ca7c6.cjs.dev.js:51:25
+    at Box (D:\Attensam\next_auth\node_modules\@mui\system\createBox.js:30:41)
+    at Home
+    at main
+    at D:\Attensam\next_auth\node_modules\@emotion\react\dist\emotion-element-b63ca7c6.cjs.dev.js:51:25
+    at Box (D:\Attensam\next_auth\node_modules\@mui\system\createBox.js:30:41)
+    at div
+    at D:\Attensam\next_auth\node_modules\@emotion\react\dist\emotion-element-b63ca7c6.cjs.dev.js:51:25
+    at Box (D:\Attensam\next_auth\node_modules\@mui\system\createBox.js:30:41)
+    at div
+    at D:\Attensam\next_auth\node_modules\@emotion\react\dist\emotion-element-b63ca7c6.cjs.dev.js:51:25
+    at renderElement (D:\Attensam\next_auth\node_modules\react-dom\cjs\react-dom-server.browser.development.js:6005:11)
+    at Layout (webpack-internal:///./layout/Layout.js:165:19)
+    at SessionProvider (D:\Attensam\next_auth\node_modules\next-auth\react\index.js:454:24)
+    at ThemeProvider (D:\Attensam\next_auth\node_modules\@mui\private-theming\node\ThemeProvider\ThemeProvider.js:39:5)
+    at ThemeProvider (D:\Attensam\next_auth\node_modules\@mui\system\ThemeProvider\ThemeProvider.js:49:5)
+    at ThemeProvider (D:\Attensam\next_auth\node_modules\@mui\material\node\styles\ThemeProvider.js:20:14)
+    at Provider (D:\Attensam\next_auth\node_modules\react-redux\lib\components\Provider.js:19:3)
+    at App (webpack-internal:///./pages/_app.js:38:16)
+    at StyleRegistry (D:\Attensam\next_auth\node_modules\styled-jsx\dist\index\index.js:449:36)
+    at PathnameContextProviderAdapter (D:\Attensam\next_auth\node_modules\next\dist\shared\lib\router\adapters.js:78:11)
+    at AppContainer (D:\Attensam\next_auth\node_modules\next\dist\server\render.js:337:29)
+    at AppContainerWithIsomorphicFiberStructure (D:\Attensam\next_auth\node_modules\next\dist\server\render.js:373:57)
+    at div
+    at Body (D:\Attensam\next_auth\node_modules\next\dist\server\render.js:673:21)
+warn  - Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+warn  - Fast Refresh had to perform a full reload. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+Warning: data for page "/mobile-bookings" is 164 kB which exceeds the threshold of 128 kB, this amount of data can reduce performance.
+See more info here: https://nextjs.org/docs/messages/large-page-data
+Warning: data for page "/mobile-bookings" is 164 kB which exceeds the threshold of 128 kB, this amount of data can reduce performance.
+See more info here: https://nextjs.org/docs/messages/large-page-data
+Warning: Each child in a list should have a unique "key" prop. See https://reactjs.org/link/warning-keys for more information.
+    at Row (webpack-internal:///./components/table_rows/CollapseRow.jsx:76:13)
+    at tbody
+    at D:\Attensam\next_auth\node_modules\@emotion\react\dist\emotion-element-b63ca7c6.cjs.dev.js:51:25
+    at renderElement (D:\Attensam\next_auth\node_modules\react-dom\cjs\react-dom-server.browser.development.js:6005:11)
+    at table
+    at D:\Attensam\next_auth\node_modules\@emotion\react\dist\emotion-element-b63ca7c6.cjs.dev.js:51:25
+    at renderElement (D:\Attensam\next_auth\node_modules\react-dom\cjs\react-dom-server.browser.development.js:6005:11)
+    at div
+    at D:\Attensam\next_auth\node_modules\@emotion\react\dist\emotion-element-b63ca7c6.cjs.dev.js:51:25
+    at renderElement (D:\Attensam\next_auth\node_modules\react-dom\cjs\react-dom-server.browser.development.js:6005:11)
+    at D:\Attensam\next_auth\node_modules\@emotion\react\dist\emotion-element-b63ca7c6.cjs.dev.js:51:25
+    at renderElement (D:\Attensam\next_auth\node_modules\react-dom\cjs\react-dom-server.browser.development.js:6005:11)
+    at CollapsibleTable
+    at div
+    at D:\Attensam\next_auth\node_modules\@emotion\react\dist\emotion-element-b63ca7c6.cjs.dev.js:51:25
+    at Box (D:\Attensam\next_auth\node_modules\@mui\system\createBox.js:30:41)
+    at Home
+    at main
+    at D:\Attensam\next_auth\node_modules\@emotion\react\dist\emotion-element-b63ca7c6.cjs.dev.js:51:25
+    at Box (D:\Attensam\next_auth\node_modules\@mui\system\createBox.js:30:41)
+    at div
+    at D:\Attensam\next_auth\node_modules\@emotion\react\dist\emotion-element-b63ca7c6.cjs.dev.js:51:25
+    at Box (D:\Attensam\next_auth\node_modules\@mui\system\createBox.js:30:41)
+    at div
+    at D:\Attensam\next_auth\node_modules\@emotion\react\dist\emotion-element-b63ca7c6.cjs.dev.js:51:25
+    at renderElement (D:\Attensam\next_auth\node_modules\react-dom\cjs\react-dom-server.browser.development.js:6005:11)
+    at Layout (webpack-internal:///./layout/Layout.js:165:19)
+    at SessionProvider (D:\Attensam\next_auth\node_modules\next-auth\react\index.js:454:24)
+    at ThemeProvider (D:\Attensam\next_auth\node_modules\@mui\private-theming\node\ThemeProvider\ThemeProvider.js:39:5)
+    at ThemeProvider (D:\Attensam\next_auth\node_modules\@mui\system\ThemeProvider\ThemeProvider.js:49:5)
+    at ThemeProvider (D:\Attensam\next_auth\node_modules\@mui\material\node\styles\ThemeProvider.js:20:14)
+    at Provider (D:\Attensam\next_auth\node_modules\react-redux\lib\components\Provider.js:19:3)
+    at App (webpack-internal:///./pages/_app.js:38:16)
+    at StyleRegistry (D:\Attensam\next_auth\node_modules\styled-jsx\dist\index\index.js:449:36)
+    at PathnameContextProviderAdapter (D:\Attensam\next_auth\node_modules\next\dist\shared\lib\router\adapters.js:78:11)
+    at AppContainer (D:\Attensam\next_auth\node_modules\next\dist\server\render.js:337:29)
+    at AppContainerWithIsomorphicFiberStructure (D:\Attensam\next_auth\node_modules\next\dist\server\render.js:373:57)
+    at div
+    at Body (D:\Attensam\next_auth\node_modules\next\dist\server\render.js:673:21)
+Warning: data for page "/users" is 141 kB which exceeds the threshold of 128 kB, this amount of data can reduce performance.
+See more info here: https://nextjs.org/docs/messages/large-page-data
+Warning: data for page "/users" is 141 kB which exceeds the threshold of 128 kB, this amount of data can reduce performance.
+See more info here: https://nextjs.org/docs/messages/large-page-data
+Warning: Each child in a list should have a unique "key" prop. See https://reactjs.org/link/warning-keys for more information.
+    at Row (webpack-internal:///./components/table_rows/CollapseRow.jsx:76:13)
+    at tbody
+    at D:\Attensam\next_auth\node_modules\@emotion\react\dist\emotion-element-b63ca7c6.cjs.dev.js:51:25
+    at renderElement (D:\Attensam\next_auth\node_modules\react-dom\cjs\react-dom-server.browser.development.js:6005:11)
+    at table
+    at D:\Attensam\next_auth\node_modules\@emotion\react\dist\emotion-element-b63ca7c6.cjs.dev.js:51:25
+    at renderElement (D:\Attensam\next_auth\node_modules\react-dom\cjs\react-dom-server.browser.development.js:6005:11)
+    at div
+    at D:\Attensam\next_auth\node_modules\@emotion\react\dist\emotion-element-b63ca7c6.cjs.dev.js:51:25
+    at renderElement (D:\Attensam\next_auth\node_modules\react-dom\cjs\react-dom-server.browser.development.js:6005:11)
+    at D:\Attensam\next_auth\node_modules\@emotion\react\dist\emotion-element-b63ca7c6.cjs.dev.js:51:25
+    at renderElement (D:\Attensam\next_auth\node_modules\react-dom\cjs\react-dom-server.browser.development.js:6005:11)
+    at CollapsibleTable
+    at div
+    at D:\Attensam\next_auth\node_modules\@emotion\react\dist\emotion-element-b63ca7c6.cjs.dev.js:51:25
+    at Box (D:\Attensam\next_auth\node_modules\@mui\system\createBox.js:30:41)
+    at Home
+    at main
+    at D:\Attensam\next_auth\node_modules\@emotion\react\dist\emotion-element-b63ca7c6.cjs.dev.js:51:25
+    at Box (D:\Attensam\next_auth\node_modules\@mui\system\createBox.js:30:41)
+    at div
+    at D:\Attensam\next_auth\node_modules\@emotion\react\dist\emotion-element-b63ca7c6.cjs.dev.js:51:25
+    at Box (D:\Attensam\next_auth\node_modules\@mui\system\createBox.js:30:41)
+    at div
+    at D:\Attensam\next_auth\node_modules\@emotion\react\dist\emotion-element-b63ca7c6.cjs.dev.js:51:25
+    at renderElement (D:\Attensam\next_auth\node_modules\react-dom\cjs\react-dom-server.browser.development.js:6005:11)
+    at Layout (webpack-internal:///./layout/Layout.js:165:19)
+    at SessionProvider (D:\Attensam\next_auth\node_modules\next-auth\react\index.js:454:24)
+    at ThemeProvider (D:\Attensam\next_auth\node_modules\@mui\private-theming\node\ThemeProvider\ThemeProvider.js:39:5)
+    at ThemeProvider (D:\Attensam\next_auth\node_modules\@mui\system\ThemeProvider\ThemeProvider.js:49:5)
+    at ThemeProvider (D:\Attensam\next_auth\node_modules\@mui\material\node\styles\ThemeProvider.js:20:14)
+    at Provider (D:\Attensam\next_auth\node_modules\react-redux\lib\components\Provider.js:19:3)
+    at App (webpack-internal:///./pages/_app.js:38:16)
+    at StyleRegistry (D:\Attensam\next_auth\node_modules\styled-jsx\dist\index\index.js:449:36)
+    at PathnameContextProviderAdapter (D:\Attensam\next_auth\node_modules\next\dist\shared\lib\router\adapters.js:78:11)
+    at AppContainer (D:\Attensam\next_auth\node_modules\next\dist\server\render.js:337:29)
+    at AppContainerWithIsomorphicFiberStructure (D:\Attensam\next_auth\node_modules\next\dist\server\render.js:373:57)
+    at div
+    at Body (D:\Attensam\next_auth\node_modules\next\dist\server\render.js:673:21)
+Warning: data for page "/users" is 141 kB which exceeds the threshold of 128 kB, this amount of data can reduce performance.
+See more info here: https://nextjs.org/docs/messages/large-page-data

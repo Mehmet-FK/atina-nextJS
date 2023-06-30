@@ -30,12 +30,15 @@ const UsersFilter = ({
       [e.target.name]: e.target.value,
     });
   };
-  const xxl = useMediaQuery("(min-width:1500px)");
+  // const xxl = useMediaQuery("(min-width:1500px)");
 
   return (
     <Box component={Paper} sx={filterStyles.container}>
-      <Box sx={filterStyles.iconWrapper}>
-        <IconButton onClick={() => setOpen(!open)}>
+      <Box
+        sx={{ ...filterStyles.iconWrapper, cursor: "pointer" }}
+        onClick={() => setOpen(!open)}
+      >
+        <IconButton>
           <Typography sx={filterStyles.icon}>
             {open ? <CloseFullscreenIcon /> : <OpenInFullIcon />}
           </Typography>

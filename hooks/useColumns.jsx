@@ -7,10 +7,10 @@ import useAtinaCalls from "./useAtinaCalls";
 
 const useColumns = () => {
   // const [buchungTypes, setBuchungTypes] = useState();
-  const { getBookingTypes } = useAtinaCalls();
-  useEffect(() => {
-    getBookingTypes();
-  }, []);
+  // const { getBookingTypes } = useAtinaCalls();
+  // useEffect(() => {
+  //   getBookingTypes();
+  // }, []);
 
   const { bookingTypes } = useSelector((state) => state.atina);
 
