@@ -82,7 +82,7 @@ const UsersTable = ({ data }) => {
   } = useTable(
     {
       columns: tableColumns,
-      data: shownData,
+      data: allData,
       defaultColumn,
       isMultiSortEvent: (e) => {
         if (e.ctrlKey) return true;
@@ -90,8 +90,8 @@ const UsersTable = ({ data }) => {
     },
     useSortBy,
     usePagination,
-    useBlockLayout,
-    useResizeColumns
+    useResizeColumns,
+    useBlockLayout
   );
   //#endregion
   //? Table Utilities END
@@ -128,8 +128,8 @@ const UsersTable = ({ data }) => {
         onContextMenu={handleRightClick}
         ref={tableRef}
         sx={{
-          maxWidth: xxl && "90vw",
-
+          maxWidth: xxl ? "90vw" : "auto",
+          width: "100%",
           margin: "auto",
           padding: "0.5rem 10px",
           maxHeight: "83vh",

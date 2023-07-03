@@ -132,3 +132,27 @@ Warning: Each child in a list should have a unique "key" prop. See https://react
     at Body (D:\Attensam\next_auth\node_modules\next\dist\server\render.js:673:21)
 Warning: data for page "/users" is 141 kB which exceeds the threshold of 128 kB, this amount of data can reduce performance.
 See more info here: https://nextjs.org/docs/messages/large-page-data
+Warning: data for page "/users" is 141 kB which exceeds the threshold of 128 kB, this amount of data can reduce performance.
+See more info here: https://nextjs.org/docs/messages/large-page-data
+Warning: data for page "/users" is 141 kB which exceeds the threshold of 128 kB, this amount of data can reduce performance.
+See more info here: https://nextjs.org/docs/messages/large-page-data
+error - ./pages/index.js:4:0
+Module not found: Can't resolve '@/components/table_rows/CollapseRow'
+[0m [90m 2 | [39m[36mimport[39m { [33mInter[39m } [36mfrom[39m [32m"next/font/google"[39m[33m;[39m[0m
+[0m [90m 3 | [39m[36mimport[39m { getSession[33m,[39m signIn[33m,[39m signOut } [36mfrom[39m [32m"next-auth/react"[39m[33m;[39m[0m
+[0m[31m[1m>[22m[39m[90m 4 | [39m[36mimport[39m [33mCollapsibleTable[39m [36mfrom[39m [32m"@/components/table_rows/CollapseRow"[39m[33m;[39m[0m
+[0m [90m 5 | [39m[36mimport[39m { [33mBox[39m } [36mfrom[39m [32m"@mui/material"[39m[33m;[39m[0m
+[0m [90m 6 | [39m[0m
+[0m [90m 7 | [39m[36mconst[39m inter [33m=[39m [33mInter[39m({ subsets[33m:[39m [[32m"latin"[39m] })[33m;[39m[0m
+
+https://nextjs.org/docs/messages/module-not-found
+error - ./pages/index.js:4:0
+Module not found: Can't resolve '@/components/table_rows/CollapseRow'
+[0m [90m 2 | [39m[36mimport[39m { [33mInter[39m } [36mfrom[39m [32m"next/font/google"[39m[33m;[39m[0m
+[0m [90m 3 | [39m[36mimport[39m { getSession[33m,[39m signIn[33m,[39m signOut } [36mfrom[39m [32m"next-auth/react"[39m[33m;[39m[0m
+[0m[31m[1m>[22m[39m[90m 4 | [39m[36mimport[39m [33mCollapsibleTable[39m [36mfrom[39m [32m"@/components/table_rows/CollapseRow"[39m[33m;[39m[0m
+[0m [90m 5 | [39m[36mimport[39m { [33mBox[39m } [36mfrom[39m [32m"@mui/material"[39m[33m;[39m[0m
+[0m [90m 6 | [39m[0m
+[0m [90m 7 | [39m[36mconst[39m inter [33m=[39m [33mInter[39m({ subsets[33m:[39m [[32m"latin"[39m] })[33m;[39m[0m
+
+https://nextjs.org/docs/messages/module-not-found

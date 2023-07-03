@@ -1,14 +1,17 @@
 "use client";
 
-import { TableCell, TableRow } from "@mui/material";
+import { Box, Collapse, IconButton, TableCell, TableRow } from "@mui/material";
 import React, { memo, useEffect, useState } from "react";
 import BookingsModal from "../modals/BookingsModal";
 import { tableStyles } from "@/styles/table_styles";
 import styles from "./table_row_styles.module.css";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import BookingImageRow from "./BookingImageRow";
 
 const BookingsTableRow = ({ resetResize, row, prepareRow, cellWidth }) => {
   const [openBookingModal, setOpenBookingModal] = useState(false);
-  // const [buchungTypes, setBuchungTypes] = useState({});
+  const [open, setOpen] = useState(false);
 
   const handleDblClick = (e) => {
     if (e.detail === 2) {
@@ -21,6 +24,14 @@ const BookingsTableRow = ({ resetResize, row, prepareRow, cellWidth }) => {
     prepareRow(row);
   }, [resetResize]);
 
+  const arr = [
+    "https://upload.wikimedia.org/wikipedia/it/thumb/f/f0/Screenshot_Videoclip_Never_Gonna_Give_You_Up.png/390px-Screenshot_Videoclip_Never_Gonna_Give_You_Up.png",
+    "https://uproxx.com/wp-content/uploads/2021/02/rick-astley-never-gonna-give-you-up-video-full.jpg?w=1600&h=660&crop=1",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPg_IK_P-S8gdZrDaWorkEDLYylMHFmRgtsA&usqp=CAU",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5-EHlWeQn8VsiVOR6GxEFEqCC88lgJj-3JQ&usqp=CAU",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRInepRT1hvtJnFaJIc100EVgXe9bxqJi0y3vfIHrZwSTg2RtiB9awDQbOWk-HpZclDgQU&usqp=CAU",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1h4KVgoBCIP_CN38w6hTNKJjjaom6qyfRMQ&usqp=CAU",
+  ];
   return (
     <>
       <BookingsModal
@@ -34,6 +45,17 @@ const BookingsTableRow = ({ resetResize, row, prepareRow, cellWidth }) => {
         className={styles.tr}
         onClick={handleDblClick}
       >
+        <TableCell
+          sx={{ width: "2.5rem", borderRight: "0.5px solid #ccc", p: 0 }}
+        >
+          <IconButton
+            aria-label="expand row"
+            size="small"
+            onClick={() => setOpen(!open)}
+          >
+            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+          </IconButton>
+        </TableCell>
         {row.cells.map((cell) => {
           return (
             <TableCell
@@ -46,6 +68,24 @@ const BookingsTableRow = ({ resetResize, row, prepareRow, cellWidth }) => {
             </TableCell>
           );
         })}
+      </TableRow>
+      <TableRow>
+        <TableCell style={{ padding: 0 }} colSpan={6}>
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            <Box
+              sx={{
+                margin: 1,
+                maxHeight: "10rem",
+                overflow: "auto",
+                maxWidth: "100vw",
+              }}
+            >
+              {arr.map((item) => (
+                <BookingImageRow imgSrc={item} />
+              ))}
+            </Box>
+          </Collapse>
+        </TableCell>
       </TableRow>
     </>
 

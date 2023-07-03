@@ -15,7 +15,7 @@ const NfcTableRow = ({ row, prepareRow, resetResize }) => {
 
   useEffect(() => {
     prepareRow(row);
-  }, [resetResize]);
+  }, [resetResize, row]);
 
   return (
     <>

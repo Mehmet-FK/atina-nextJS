@@ -229,3 +229,348 @@ SESSION {
 SESSION null
 wait  - compiling /auth/login (client and server)...
 event - compiled client and server successfully in 285 ms (1706 modules)
+wait  - compiling /users (client and server)...
+event - compiled client and server successfully in 146 ms (1441 modules)
+wait  - compiling / (client and server)...
+event - compiled client and server successfully in 172 ms (1314 modules)
+wait  - compiling /api/auth/[...nextauth] (client and server)...
+event - compiled successfully in 9 ms (140 modules)
+SESSION null
+wait  - compiling /mobile-bookings...
+event - compiled client and server successfully in 156 ms (1720 modules)
+SESSION {
+  user: {
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtZWhtZXQyIiwianRpIjoiNDE5OGYyMzAtMmYxNC00ZWJkLWI4ZjMtMjQyMzQxMTQ0MzNjIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI1NTcxIiwiZXhwIjoxNjg4NzMwNzIwLCJpc3MiOiJteV9pc3N1ZXIiLCJhdWQiOiJteV9hdWRpZW5jZSJ9.p2LsAS2zO35GKeYzjFg6t_obz4GfV58ReBJT-4hGb5Q',
+    userInfo: {
+      userId: 5571,
+      number: 'mehmet',
+      firstname: 'mehmet',
+      lastname: 'mehmet',
+      isAdministrator: false
+    },
+    roles: [],
+    avatarUrl: 'https://pbsolutions.dev/atina/images/user.png',
+    iat: 1688125919,
+    exp: 1690717919,
+    jti: 'a0bb446f-04f6-43aa-81ea-8106831e0b44'
+  },
+  expires: '2023-07-30T11:52:00.344Z'
+}
+SESSION {
+  user: {
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtZWhtZXQyIiwianRpIjoiNDE5OGYyMzAtMmYxNC00ZWJkLWI4ZjMtMjQyMzQxMTQ0MzNjIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI1NTcxIiwiZXhwIjoxNjg4NzMwNzIwLCJpc3MiOiJteV9pc3N1ZXIiLCJhdWQiOiJteV9hdWRpZW5jZSJ9.p2LsAS2zO35GKeYzjFg6t_obz4GfV58ReBJT-4hGb5Q',
+    userInfo: {
+      userId: 5571,
+      number: 'mehmet',
+      firstname: 'mehmet',
+      lastname: 'mehmet',
+      isAdministrator: false
+    },
+    roles: [],
+    avatarUrl: 'https://pbsolutions.dev/atina/images/user.png',
+    iat: 1688125920,
+    exp: 1690717920,
+    jti: '0d7048d3-ad7d-41ca-bc77-cfba29012560'
+  },
+  expires: '2023-07-30T11:52:14.428Z'
+}
+wait  - compiling...
+event - compiled client and server successfully in 247 ms (1276 modules)
+wait  - compiling...
+event - compiled client and server successfully in 149 ms (1276 modules)
+wait  - compiling...
+event - compiled client and server successfully in 154 ms (1276 modules)
+wait  - compiling /mobile-bookings...
+event - compiled client and server successfully in 283 ms (1671 modules)
+wait  - compiling /api/auth/[...nextauth] (client and server)...
+event - compiled successfully in 23 ms (170 modules)
+SESSION {
+  user: {
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtZWhtZXQyIiwianRpIjoiNDE5OGYyMzAtMmYxNC00ZWJkLWI4ZjMtMjQyMzQxMTQ0MzNjIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI1NTcxIiwiZXhwIjoxNjg4NzMwNzIwLCJpc3MiOiJteV9pc3N1ZXIiLCJhdWQiOiJteV9hdWRpZW5jZSJ9.p2LsAS2zO35GKeYzjFg6t_obz4GfV58ReBJT-4hGb5Q',
+    userInfo: {
+      userId: 5571,
+      number: 'mehmet',
+      firstname: 'mehmet',
+      lastname: 'mehmet',
+      isAdministrator: false
+    },
+    roles: [],
+    avatarUrl: 'https://pbsolutions.dev/atina/images/user.png',
+    iat: 1688125920,
+    exp: 1690717920,
+    jti: '0d7048d3-ad7d-41ca-bc77-cfba29012560'
+  },
+  expires: '2023-07-30T11:57:19.971Z'
+}
+wait  - compiling...
+event - compiled client and server successfully in 131 ms (1683 modules)
+wait  - compiling...
+event - compiled client and server successfully in 175 ms (1683 modules)
+SESSION {
+  user: {
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtZWhtZXQyIiwianRpIjoiNDE5OGYyMzAtMmYxNC00ZWJkLWI4ZjMtMjQyMzQxMTQ0MzNjIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI1NTcxIiwiZXhwIjoxNjg4NzMwNzIwLCJpc3MiOiJteV9pc3N1ZXIiLCJhdWQiOiJteV9hdWRpZW5jZSJ9.p2LsAS2zO35GKeYzjFg6t_obz4GfV58ReBJT-4hGb5Q',
+    userInfo: {
+      userId: 5571,
+      number: 'mehmet',
+      firstname: 'mehmet',
+      lastname: 'mehmet',
+      isAdministrator: false
+    },
+    roles: [],
+    avatarUrl: 'https://pbsolutions.dev/atina/images/user.png',
+    iat: 1688126249,
+    exp: 1690718249,
+    jti: '72722104-f3ea-4474-9cc2-bb84e0877af9'
+  },
+  expires: '2023-07-30T11:57:55.981Z'
+}
+wait  - compiling...
+event - compiled client and server successfully in 136 ms (1683 modules)
+wait  - compiling...
+event - compiled client and server successfully in 138 ms (1683 modules)
+wait  - compiling...
+event - compiled client and server successfully in 103 ms (1276 modules)
+wait  - compiling /mobile-bookings...
+event - compiled client and server successfully in 161 ms (1671 modules)
+wait  - compiling /api/auth/[...nextauth] (client and server)...
+event - compiled successfully in 12 ms (170 modules)
+SESSION {
+  user: {
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtZWhtZXQyIiwianRpIjoiNDE5OGYyMzAtMmYxNC00ZWJkLWI4ZjMtMjQyMzQxMTQ0MzNjIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI1NTcxIiwiZXhwIjoxNjg4NzMwNzIwLCJpc3MiOiJteV9pc3N1ZXIiLCJhdWQiOiJteV9hdWRpZW5jZSJ9.p2LsAS2zO35GKeYzjFg6t_obz4GfV58ReBJT-4hGb5Q',
+    userInfo: {
+      userId: 5571,
+      number: 'mehmet',
+      firstname: 'mehmet',
+      lastname: 'mehmet',
+      isAdministrator: false
+    },
+    roles: [],
+    avatarUrl: 'https://pbsolutions.dev/atina/images/user.png',
+    iat: 1688126249,
+    exp: 1690718249,
+    jti: '72722104-f3ea-4474-9cc2-bb84e0877af9'
+  },
+  expires: '2023-07-30T11:59:13.734Z'
+}
+wait  - compiling...
+event - compiled client and server successfully in 147 ms (1683 modules)
+wait  - compiling...
+event - compiled client and server successfully in 290 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 212 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 268 ms (1661 modules)
+wait  - compiling /api/auth/[...nextauth] (client and server)...
+event - compiled successfully in 17 ms (165 modules)
+wait  - compiling...
+event - compiled client and server successfully in 152 ms (1673 modules)
+wait  - compiling...
+event - compiled client and server successfully in 142 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 135 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 302 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 142 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 193 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 150 ms (1661 modules)
+wait  - compiling /api/auth/[...nextauth] (client and server)...
+event - compiled successfully in 12 ms (165 modules)
+wait  - compiling...
+event - compiled client and server successfully in 311 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 222 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 163 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 150 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 216 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 247 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 180 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 208 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 156 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 187 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 154 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 180 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 203 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 138 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 166 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 206 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 173 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 131 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 196 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 154 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 158 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 128 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 273 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 229 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 177 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 165 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 206 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 202 ms (1661 modules)
+wait  - compiling /...
+event - compiled client and server successfully in 267 ms (1671 modules)
+wait  - compiling /api/auth/[...nextauth] (client and server)...
+event - compiled successfully in 21 ms (170 modules)
+SESSION {
+  user: {
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtZWhtZXQyIiwianRpIjoiNDE5OGYyMzAtMmYxNC00ZWJkLWI4ZjMtMjQyMzQxMTQ0MzNjIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI1NTcxIiwiZXhwIjoxNjg4NzMwNzIwLCJpc3MiOiJteV9pc3N1ZXIiLCJhdWQiOiJteV9hdWRpZW5jZSJ9.p2LsAS2zO35GKeYzjFg6t_obz4GfV58ReBJT-4hGb5Q',
+    userInfo: {
+      userId: 5571,
+      number: 'mehmet',
+      firstname: 'mehmet',
+      lastname: 'mehmet',
+      isAdministrator: false
+    },
+    roles: [],
+    avatarUrl: 'https://pbsolutions.dev/atina/images/user.png',
+    iat: 1688126710,
+    exp: 1690718710,
+    jti: 'a5193724-bc90-48eb-ab8d-e1c01cccf9a3'
+  },
+  expires: '2023-07-30T12:15:04.121Z'
+}
+wait  - compiling...
+event - compiled client and server successfully in 159 ms (1683 modules)
+SESSION {
+  user: {
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtZWhtZXQyIiwianRpIjoiNDE5OGYyMzAtMmYxNC00ZWJkLWI4ZjMtMjQyMzQxMTQ0MzNjIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI1NTcxIiwiZXhwIjoxNjg4NzMwNzIwLCJpc3MiOiJteV9pc3N1ZXIiLCJhdWQiOiJteV9hdWRpZW5jZSJ9.p2LsAS2zO35GKeYzjFg6t_obz4GfV58ReBJT-4hGb5Q',
+    userInfo: {
+      userId: 5571,
+      number: 'mehmet',
+      firstname: 'mehmet',
+      lastname: 'mehmet',
+      isAdministrator: false
+    },
+    roles: [],
+    avatarUrl: 'https://pbsolutions.dev/atina/images/user.png',
+    iat: 1688126710,
+    exp: 1690718710,
+    jti: 'a5193724-bc90-48eb-ab8d-e1c01cccf9a3'
+  },
+  expires: '2023-07-30T12:15:24.091Z'
+}
+wait  - compiling...
+event - compiled client and server successfully in 307 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 127 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 118 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 138 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 171 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 130 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 145 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 136 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 140 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 173 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 143 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 345 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 159 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 214 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 207 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 173 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 190 ms (1661 modules)
+wait  - compiling...
+event - compiled client and server successfully in 211 ms (1661 modules)
+wait  - compiling /nfc-tags...
+event - compiled client and server successfully in 504 ms (1674 modules)
+wait  - compiling /api/auth/[...nextauth] (client and server)...
+event - compiled successfully in 15 ms (171 modules)
+SESSION {
+  user: {
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtZWhtZXQyIiwianRpIjoiNDE5OGYyMzAtMmYxNC00ZWJkLWI4ZjMtMjQyMzQxMTQ0MzNjIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI1NTcxIiwiZXhwIjoxNjg4NzMwNzIwLCJpc3MiOiJteV9pc3N1ZXIiLCJhdWQiOiJteV9hdWRpZW5jZSJ9.p2LsAS2zO35GKeYzjFg6t_obz4GfV58ReBJT-4hGb5Q',
+    userInfo: {
+      userId: 5571,
+      number: 'mehmet',
+      firstname: 'mehmet',
+      lastname: 'mehmet',
+      isAdministrator: false
+    },
+    roles: [],
+    avatarUrl: 'https://pbsolutions.dev/atina/images/user.png',
+    iat: 1688127389,
+    exp: 1690719389,
+    jti: 'c4652721-f39a-4896-a187-fd9c02338e06'
+  },
+  expires: '2023-07-30T12:25:38.848Z'
+}
+wait  - compiling /users...
+event - compiled client and server successfully in 321 ms (1698 modules)
+wait  - compiling /nfc-tags...
+event - compiled client and server successfully in 104 ms (1711 modules)
+wait  - compiling...
+event - compiled client and server successfully in 220 ms (1391 modules)
+wait  - compiling...
+event - compiled client and server successfully in 130 ms (1391 modules)
+wait  - compiling /items...
+event - compiled client and server successfully in 402 ms (1698 modules)
+wait  - compiling /api/auth/[...nextauth] (client and server)...
+event - compiled successfully in 13 ms (183 modules)
+wait  - compiling /mobile-bookings...
+event - compiled client and server successfully in 147 ms (1726 modules)
+SESSION {
+  user: {
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtZWhtZXQyIiwianRpIjoiNDE5OGYyMzAtMmYxNC00ZWJkLWI4ZjMtMjQyMzQxMTQ0MzNjIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI1NTcxIiwiZXhwIjoxNjg4NzMwNzIwLCJpc3MiOiJteV9pc3N1ZXIiLCJhdWQiOiJteV9hdWRpZW5jZSJ9.p2LsAS2zO35GKeYzjFg6t_obz4GfV58ReBJT-4hGb5Q',
+    userInfo: {
+      userId: 5571,
+      number: 'mehmet',
+      firstname: 'mehmet',
+      lastname: 'mehmet',
+      isAdministrator: false
+    },
+    roles: [],
+    avatarUrl: 'https://pbsolutions.dev/atina/images/user.png',
+    iat: 1688128481,
+    exp: 1690720481,
+    jti: 'e94903bc-efaa-48e4-9ce8-18ec01aec2b8'
+  },
+  expires: '2023-07-30T12:41:13.110Z'
+}
+wait  - compiling /users...
+event - compiled client and server successfully in 93 ms (1751 modules)
+wait  - compiling...
+event - compiled client and server successfully in 135 ms (1392 modules)
+wait  - compiling /api/auth/[...nextauth] (client and server)...
+event - compiled successfully in 31 ms (158 modules)
+wait  - compiling / (client and server)...
+wait  - compiling /_error (client and server)...

@@ -98,7 +98,7 @@ const MobileBookings = ({ data: dataFromServer = [], error }) => {
   //#region
   const defaultColumn = useMemo(
     () => ({
-      minWidth: 30,
+      minWidth: 75,
       width: 135,
       maxWidth: 400,
     }),
@@ -243,6 +243,7 @@ const MobileBookings = ({ data: dataFromServer = [], error }) => {
                   className={styles.tr}
                   {...headerGroup.getHeaderGroupProps()}
                 >
+                  <TableCell sx={{ width: "2.5rem" }} />
                   {headerGroup.headers.map((column) => (
                     <TableCell
                       className={styles.th}

@@ -10,7 +10,6 @@ const UsersTableRow = ({ row, prepareRow, resetResize }) => {
   const handleDblClick = (e) => {
     if (e.detail === 2) {
       setOpenUserModal(true);
-      console.log(row);
     }
   };
   useEffect(() => {

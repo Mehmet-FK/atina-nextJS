@@ -173,7 +173,8 @@ const BookingsFilter = ({
               />
             </LocalizationProvider>
           </Grid>
-          {/* <Grid item md={2}>
+          <>
+            {/* <Grid item md={2}>
             <TextField
               onChange={handleChange}
               value={filterVal.dateFrom || ""}
@@ -232,6 +233,7 @@ const BookingsFilter = ({
               }}
             />
           </Grid> */}
+          </>
           <Grid item md={2}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DateField
@@ -249,7 +251,8 @@ const BookingsFilter = ({
                 value={filterVal.dateTo}
               />
             </LocalizationProvider>
-            {/* <TextField
+            <>
+              {/* <TextField
               onChange={handleChange}
               value={filterVal.dateTo || ""}
               className={"date-input"}
@@ -305,6 +308,7 @@ const BookingsFilter = ({
                 },
               }}
             /> */}
+            </>
           </Grid>
           <Grid item md={2}>
             <TextField
@@ -351,13 +355,13 @@ const BookingsFilter = ({
                       color: "#000",
                     },
                     "&::-webkit-datetime-edit-minute-field": {
-                      color: "#000",
+                      color: "auto",
                     },
                     "&::-webkit-datetime-edit-hour-field": {
-                      color: "#000",
+                      color: "auto",
                     },
                     "&::-webkit-datetime-edit-text": {
-                      color: "#000",
+                      color: "auto",
                     },
                   },
                 },
@@ -410,13 +414,13 @@ const BookingsFilter = ({
                       color: "#000",
                     },
                     "&::-webkit-datetime-edit-minute-field": {
-                      color: "#000",
+                      color: "auto",
                     },
                     "&::-webkit-datetime-edit-hour-field": {
-                      color: "#000",
+                      color: "auto",
                     },
                     "&::-webkit-datetime-edit-text": {
-                      color: "#000",
+                      color: "auto",
                     },
                   },
                 },

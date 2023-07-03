@@ -193,7 +193,7 @@ const NfcTable = ({ data }) => {
                 {headerGroup.headers.map((column) => (
                   <TableCell
                     {...column.getHeaderProps()}
-                    className={styles.th}
+                    // className={styles.th}
                     sx={{
                       ...tableStyles.th.cell,
                     }}
@@ -237,10 +237,10 @@ const NfcTable = ({ data }) => {
 
               return (
                 <NfcTableRow
-                  resetResize={resetResize}
                   key={i}
                   row={row}
                   prepareRow={prepareRow}
+                  resetResize={resetResize}
                 />
               );
             })}

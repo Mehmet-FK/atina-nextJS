@@ -86,22 +86,22 @@ const NfcFilter = ({ filterVal, setFilterVal, handleFilter, handleReset }) => {
                     },
                     "&:focus": {
                       "&::-webkit-datetime-edit-year-field": {
-                        color: "#000",
+                        color: "auto",
                       },
                       "&::-webkit-datetime-edit-month-field": {
-                        color: "#000",
+                        color: "auto",
                       },
                       "&::-webkit-datetime-edit-day-field": {
-                        color: "#000",
+                        color: "auto",
                       },
                       "&::-webkit-datetime-edit-minute-field": {
-                        color: "#000",
+                        color: "auto",
                       },
                       "&::-webkit-datetime-edit-hour-field": {
-                        color: "#000",
+                        color: "auto",
                       },
                       "&::-webkit-datetime-edit-text": {
-                        color: "#000",
+                        color: "auto",
                       },
                     },
                   },
@@ -142,29 +142,30 @@ const NfcFilter = ({ filterVal, setFilterVal, handleFilter, handleReset }) => {
                     },
                     "&:focus": {
                       "&::-webkit-datetime-edit-year-field": {
-                        color: "#000",
+                        color: "auto",
                       },
                       "&::-webkit-datetime-edit-month-field": {
-                        color: "#000",
+                        color: "auto",
                       },
                       "&::-webkit-datetime-edit-day-field": {
-                        color: "#000",
+                        color: "auto",
                       },
                       "&::-webkit-datetime-edit-minute-field": {
-                        color: "#000",
+                        color: "auto",
                       },
                       "&::-webkit-datetime-edit-hour-field": {
-                        color: "#000",
+                        color: "auto",
                       },
                       "&::-webkit-datetime-edit-text": {
-                        color: "#000",
+                        color: "auto",
                       },
                     },
                   },
                 }}
               />
             </Grid>
-            {/* <Grid item md={2}>
+            <>
+              {/* <Grid item md={2}>
               <TextField
                 onChange={handleChange}
                 value={filterVal.id || ""}
@@ -175,7 +176,7 @@ const NfcFilter = ({ filterVal, setFilterVal, handleFilter, handleReset }) => {
                 name="id"
               />
             </Grid> */}
-            {/* <Grid item md={2}>
+              {/* <Grid item md={2}>
               <TextField
                 onChange={handleChange}
                 value={filterVal.tagID || ""}
@@ -186,7 +187,7 @@ const NfcFilter = ({ filterVal, setFilterVal, handleFilter, handleReset }) => {
                 name="tagID"
               /> 
             </Grid>*/}
-            {/* <Grid item md={2}>
+              {/* <Grid item md={2}>
               <TextField
                 onChange={handleChange}
                 value={filterVal.desc || ""}
@@ -197,6 +198,7 @@ const NfcFilter = ({ filterVal, setFilterVal, handleFilter, handleReset }) => {
                 name="desc"
               />
             </Grid> */}
+            </>
             <Grid item md={2}>
               {/* <TextField
                 onChange={handleChange}
@@ -207,6 +209,7 @@ const NfcFilter = ({ filterVal, setFilterVal, handleFilter, handleReset }) => {
                 label="Tag Typ"
                 name="ItemType"
               /> */}
+
               <FormControl sx={{ minWidth: 120, width: "100%" }} size="small">
                 <InputLabel id="itemType">Typ</InputLabel>
                 <Select
@@ -228,7 +231,8 @@ const NfcFilter = ({ filterVal, setFilterVal, handleFilter, handleReset }) => {
                 </Select>
               </FormControl>
             </Grid>
-            {/* <Grid item md={2}>
+            <>
+              {/* <Grid item md={2}>
               <TextField
                 onChange={handleChange}
                 value={filterVal.nfcData || ""}
@@ -240,7 +244,7 @@ const NfcFilter = ({ filterVal, setFilterVal, handleFilter, handleReset }) => {
               />
             </Grid> */}
 
-            {/*  <Grid item md={2}>
+              {/*  <Grid item md={2}>
               <TextField
                 onChange={handleChange}
                 value={filterVal.itemID || ""}
@@ -251,6 +255,7 @@ const NfcFilter = ({ filterVal, setFilterVal, handleFilter, handleReset }) => {
                 name="itemID"
               />
             </Grid> */}
+            </>
             <>
               <Grid item md={2}>
                 <TextField
