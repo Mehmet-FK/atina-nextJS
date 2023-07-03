@@ -7,7 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Pagination from "../Pagination";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { Box } from "@mui/system";
 import NfcFilter from "../filters/NfcFilter";
 import { useMediaQuery } from "@mui/material";
@@ -19,7 +19,6 @@ import NfcTableRow from "../table_rows/NfcTableRow";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import { searchNfcTag } from "@/helpers/searchFunctions";
-import { getSession, useSession } from "next-auth/react";
 import {
   useBlockLayout,
   usePagination,
@@ -40,26 +39,26 @@ const initalContextMenu = {
 };
 
 const NfcTable = ({ data }) => {
-  const [contextMenu, setContextMenu] = useState(initalContextMenu);
   const tableRef = useRef(null);
+  const [contextMenu, setContextMenu] = useState(initalContextMenu);
   const { NFC_TABLE_COLUMNS } = useColumns();
 
   const [allData, setAllData] = useState(data);
 
   const [resetResize, setResetResize] = useState(false);
 
-  //* Table Utilities START
+  //? Table Utilities START
   //#region
+  const tableColumns = useMemo(() => NFC_TABLE_COLUMNS, []);
   const defaultColumn = useMemo(
     () => ({
       minWidth: 30,
       width: 150,
       maxWidth: 400,
     }),
-    []
+    [tableRef]
   );
 
-  const tableColumns = useMemo(() => NFC_TABLE_COLUMNS, []);
   const {
     headerGroups,
     getTableProps,
@@ -234,7 +233,6 @@ const NfcTable = ({ data }) => {
           <TableBody {...getTableBodyProps()}>
             {page?.map((row, i) => {
               prepareRow(row);
-
               return (
                 <NfcTableRow
                   key={i}

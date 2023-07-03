@@ -26,7 +26,7 @@ const NfcTableRow = ({ row, prepareRow, resetResize }) => {
       />
       <TableRow
         {...row.getRowProps()}
-        className={styles.tr}
+        // className={styles.tr}
         sx={tableStyles.tr.row}
         onClick={handleDblClick}
       >
@@ -34,10 +34,11 @@ const NfcTableRow = ({ row, prepareRow, resetResize }) => {
           return (
             <TableCell
               {...cell.getCellProps()}
-              sx={{ ...tableStyles.tr.cell, borderRight: "1px solid #eee" }}
-              className={styles.td}
+              sx={tableStyles.tr.cell}
+              // className={styles.td}
               align="left"
               size="small"
+              scope="row"
             >
               {cell.render("Cell")}
             </TableCell>
@@ -48,4 +49,4 @@ const NfcTableRow = ({ row, prepareRow, resetResize }) => {
   );
 };
 
-export default memo(NfcTableRow);
+export default NfcTableRow;

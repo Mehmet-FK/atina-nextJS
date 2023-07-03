@@ -7,7 +7,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { useMediaQuery } from "@mui/material";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { Box } from "@mui/system";
 import UsersTableRow from "../table_rows/UsersTableRow";
 import UsersFilter from "../filters/UsersFilter";
@@ -46,7 +46,6 @@ const UsersTable = ({ data }) => {
   const [allData, setAllData] = useState(data);
   const [shownData, setShownData] = useState(allData);
   const [resetResize, setResetResize] = useState(false);
-  const [tableWidth, setTableWidth] = useState(null);
 
   // ===pagination states END===
 
@@ -60,7 +59,7 @@ const UsersTable = ({ data }) => {
       width: 225,
       maxWidth: 600,
     }),
-    [tableRef, tableWidth]
+    [tableRef]
   );
 
   const {
@@ -195,9 +194,7 @@ const UsersTable = ({ data }) => {
                         justifyContent: "space-around",
                       }}
                     >
-                      <Box sx={{ color: "text.color" }}>
-                        {column.render("Header")}{" "}
-                      </Box>
+                      <Box>{column.render("Header")}</Box>
 
                       {column.isSorted ? (
                         column.isSortedDesc ? (

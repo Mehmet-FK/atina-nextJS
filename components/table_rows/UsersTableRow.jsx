@@ -1,5 +1,3 @@
-"use client";
-
 import { TableCell, TableRow } from "@mui/material";
 import React, { memo, useEffect, useState } from "react";
 import UserModal from "../modals/UserModal";

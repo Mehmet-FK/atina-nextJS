@@ -81,4 +81,4 @@ const ItemsTableRow = ({ row, prepareRow, resetResize }) => {
   );
 };
 
-export default memo(ItemsTableRow);
+export default ItemsTableRow;
