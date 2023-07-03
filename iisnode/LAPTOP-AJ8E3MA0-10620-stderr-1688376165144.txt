@@ -113,3 +113,5 @@ Warning: data for page "/mobile-bookings" is 193 kB which exceeds the threshold 
 See more info here: https://nextjs.org/docs/messages/large-page-data
 Warning: data for page "/mobile-bookings" is 194 kB which exceeds the threshold of 128 kB, this amount of data can reduce performance.
 See more info here: https://nextjs.org/docs/messages/large-page-data
+Warning: data for page "/mobile-bookings" is 194 kB which exceeds the threshold of 128 kB, this amount of data can reduce performance.
+See more info here: https://nextjs.org/docs/messages/large-page-data

@@ -423,3 +423,82 @@ wait  - compiling /items...
 event - compiled client and server successfully in 289 ms (1710 modules)
 wait  - compiling...
 event - compiled client and server successfully in 209 ms (1683 modules)
+wait  - compiling /api/auth/[...nextauth] (client and server)...
+event - compiled successfully in 35 ms (174 modules)
+wait  - compiling /mobile-bookings...
+event - compiled client and server successfully in 162 ms (1719 modules)
+SESSION {
+  user: {
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtZWhtZXQyIiwianRpIjoiNDE5OGYyMzAtMmYxNC00ZWJkLWI4ZjMtMjQyMzQxMTQ0MzNjIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI1NTcxIiwiZXhwIjoxNjg4NzMwNzIwLCJpc3MiOiJteV9pc3N1ZXIiLCJhdWQiOiJteV9hdWRpZW5jZSJ9.p2LsAS2zO35GKeYzjFg6t_obz4GfV58ReBJT-4hGb5Q',
+    userInfo: {
+      userId: 5571,
+      number: 'mehmet',
+      firstname: 'mehmet',
+      lastname: 'mehmet',
+      isAdministrator: false
+    },
+    roles: [],
+    avatarUrl: 'https://pbsolutions.dev/atina/images/user.png',
+    iat: 1688381623,
+    exp: 1690973623,
+    jti: '3594562c-38fc-4010-b316-cfe065eeda7c'
+  },
+  expires: '2023-08-02T10:53:53.434Z'
+}
+SESSION {
+  user: {
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtZWhtZXQyIiwianRpIjoiNDE5OGYyMzAtMmYxNC00ZWJkLWI4ZjMtMjQyMzQxMTQ0MzNjIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI1NTcxIiwiZXhwIjoxNjg4NzMwNzIwLCJpc3MiOiJteV9pc3N1ZXIiLCJhdWQiOiJteV9hdWRpZW5jZSJ9.p2LsAS2zO35GKeYzjFg6t_obz4GfV58ReBJT-4hGb5Q',
+    userInfo: {
+      userId: 5571,
+      number: 'mehmet',
+      firstname: 'mehmet',
+      lastname: 'mehmet',
+      isAdministrator: false
+    },
+    roles: [],
+    avatarUrl: 'https://pbsolutions.dev/atina/images/user.png',
+    iat: 1688381844,
+    exp: 1690973844,
+    jti: 'fe50cc53-a550-4bf9-a21f-d2bbcb5b7177'
+  },
+  expires: '2023-08-02T10:57:25.387Z'
+}
+SESSION {
+  user: {
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtZWhtZXQyIiwianRpIjoiNDE5OGYyMzAtMmYxNC00ZWJkLWI4ZjMtMjQyMzQxMTQ0MzNjIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI1NTcxIiwiZXhwIjoxNjg4NzMwNzIwLCJpc3MiOiJteV9pc3N1ZXIiLCJhdWQiOiJteV9hdWRpZW5jZSJ9.p2LsAS2zO35GKeYzjFg6t_obz4GfV58ReBJT-4hGb5Q',
+    userInfo: {
+      userId: 5571,
+      number: 'mehmet',
+      firstname: 'mehmet',
+      lastname: 'mehmet',
+      isAdministrator: false
+    },
+    roles: [],
+    avatarUrl: 'https://pbsolutions.dev/atina/images/user.png',
+    iat: 1688381847,
+    exp: 1690973847,
+    jti: 'b5276318-a0d1-4386-ad70-7569e1e4c5c6'
+  },
+  expires: '2023-08-02T10:57:28.658Z'
+}
+SESSION null
+wait  - compiling /auth/login (client and server)...
+event - compiled client and server successfully in 236 ms (1714 modules)
+SESSION {
+  user: {
+    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJtZWhtZXQyIiwianRpIjoiYmJkY2NmYmEtNTg0NC00ZDE0LWI5NmEtNmRkYjVmYjIwM2M1IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI1NTcxIiwiZXhwIjoxNjg4OTg2NjYwLCJpc3MiOiJteV9pc3N1ZXIiLCJhdWQiOiJteV9hdWRpZW5jZSJ9.KEO8_wzVRvdADLJZcBsGeO533GztqrwnApG97Q4zAQE',
+    userInfo: {
+      userId: 5571,
+      number: 'mehmet',
+      firstname: 'mehmet',
+      lastname: 'mehmet',
+      isAdministrator: false
+    },
+    roles: [],
+    avatarUrl: 'https://pbsolutions.dev/atina/images/user.png',
+    iat: 1688381860,
+    exp: 1690973860,
+    jti: '7276c597-844a-49ef-a4b9-257579ffc9a7'
+  },
+  expires: '2023-08-02T10:57:40.504Z'
+}
