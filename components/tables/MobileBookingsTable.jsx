@@ -150,7 +150,6 @@ const MobileBookings = ({ data: dataFromServer = [], error }) => {
 
   useEffect(() => {
     getBookingTypes();
-    console.log("test");
   }, []);
   return (
     <>
@@ -183,7 +182,6 @@ const MobileBookings = ({ data: dataFromServer = [], error }) => {
           sx={{
             ...tableStyles.tableContainer,
             maxWidth: xxl ? "90vw" : { lg: "1250px" },
-
             maxHeight: "82vh",
             overflow: "auto",
           }}
@@ -248,7 +246,7 @@ const MobileBookings = ({ data: dataFromServer = [], error }) => {
                     <TableCell
                       className={styles.th}
                       {...column.getHeaderProps()}
-                      sx={tableStyles.th.cell}
+                      sx={{ ...tableStyles.th.cell, userSelect: "none" }}
                       align="left"
                     >
                       <Box
@@ -272,6 +270,7 @@ const MobileBookings = ({ data: dataFromServer = [], error }) => {
                         )}
                       </Box>
                       <div
+                        style={{ border: "2px solid green" }}
                         {...column.getResizerProps()}
                         onClick={() => setResetResize(!resetResize)}
                         className={`${styles.resizer} ${

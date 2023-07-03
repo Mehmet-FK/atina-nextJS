@@ -3,23 +3,18 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 
 const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 550,
+  minWidth: 450,
+  maxHeight: "100%",
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,
-  p: 4,
+  p: 2,
   textAlign: "center",
   display: "grid",
   placeItems: "center",
 };
 
 const ImageModal = ({ imgSrc, open, setOpen }) => {
-  const handleClose = () => setOpen(false);
-
   return (
     <>
       <Modal
@@ -27,11 +22,16 @@ const ImageModal = ({ imgSrc, open, setOpen }) => {
         onClose={() => setOpen(false)}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        sx={{ display: "grid", placeItems: "center" }}
       >
         <Box sx={style}>
           <img
             style={{
-              width: "100%",
+              display: "block",
+              maxWidth: "100%",
+              maxHeight: "70vh",
+              width: "auto",
+              height: "auto",
             }}
             src={imgSrc}
           />

@@ -31,11 +31,11 @@ const ItemsFilter = ({
   return (
     <Box
       component={Paper}
-      onClick={() => !open && setOpen(true)}
+      onClick={() => setOpen(!open)}
       sx={{
         ...filterStyles.container,
         height: open ? "auto" : "3rem",
-        cursor: open ? "auto" : "pointer",
+        cursor: "pointer",
       }}
     >
       <Box sx={filterStyles.iconWrapper}>

@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { modalStyles } from "@/styles/modal_styles";
 import CloseIcon from "@mui/icons-material/Close";
 import { useSession } from "next-auth/react";
-import TapAndPlayIcon from "@mui/icons-material/TapAndPlay";
+import NfcIcon from "@mui/icons-material/Nfc";
 
 const NfcTagsModal = ({ openNfcModal, setOpenNfcModal, nfcData }) => {
   const { data } = useSession();
@@ -42,7 +42,7 @@ const NfcTagsModal = ({ openNfcModal, setOpenNfcModal, nfcData }) => {
             <Box
               sx={{ display: "flex", columnGap: "10px", alignItems: "center" }}
             >
-              <TapAndPlayIcon fontSize="large" />
+              <NfcIcon fontSize="large" />
               <Typography variant="h5">NFC TAGS</Typography>
             </Box>
             <Box sx={{ textAlign: "right" }}>

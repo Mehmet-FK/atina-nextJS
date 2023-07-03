@@ -5,7 +5,6 @@ import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
-import CssBaseline from "@mui/material/CssBaseline";
 import SettingsIcon from "@mui/icons-material/Settings";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
@@ -19,19 +18,13 @@ import ListItemText from "@mui/material/ListItemText";
 import LibraryBooksIcon from "@mui/icons-material/LibraryBooks";
 import NfcIcon from "@mui/icons-material/Nfc";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
-// import logo from "@/app/assets/attensam-logo.svg";
 import { Avatar, Button, Paper, Tooltip, Typography } from "@mui/material";
 import TapAndPlayOutlinedIcon from "@mui/icons-material/TapAndPlayOutlined";
-// import ErrorModal from "../modals/ErrorModal";
-// import Loading from "../Loading";
 import Link from "next/link";
 import { dashboardStyles } from "@/styles/dashboard_styles";
-import { getSession, signOut, useSession } from "next-auth/react";
+import { getSession, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
 import DarkModeSwitch from "@/components/DarkModeSwitch";
-// import useAtinaCalls from "@/app/hooks/useAtinaCalls";
-// import { dashboardStyles } from "@/app/styles/dashboard_styles";
 
 const drawerWidth = 240;
 

@@ -329,14 +329,7 @@ const ItemsTable = ({ atinaItems }) => {
                   <TableCell
                     className={styles.th}
                     {...column.getHeaderProps()}
-                    sx={{
-                      textTransform: "capitalize",
-                      fontWeight: "600",
-                      // color: "#888",
-                      fontSize: "0.7rem",
-                      cursor: "pointer",
-                      borderRight: "1px solid #ddd",
-                    }}
+                    sx={tableStyles.th.cell}
                     align="left"
                   >
                     <Box

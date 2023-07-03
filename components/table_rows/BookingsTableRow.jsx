@@ -1,13 +1,11 @@
-"use client";
-
 import { Box, Collapse, IconButton, TableCell, TableRow } from "@mui/material";
-import React, { memo, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import BookingsModal from "../modals/BookingsModal";
 import { tableStyles } from "@/styles/table_styles";
 import styles from "./table_row_styles.module.css";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import BookingImageRow from "./BookingImageRow";
+import BookingImages from "./BookingImages";
 
 const BookingsTableRow = ({ resetResize, row, prepareRow, cellWidth }) => {
   const [openBookingModal, setOpenBookingModal] = useState(false);
@@ -24,14 +22,6 @@ const BookingsTableRow = ({ resetResize, row, prepareRow, cellWidth }) => {
     prepareRow(row);
   }, [resetResize]);
 
-  const arr = [
-    "https://upload.wikimedia.org/wikipedia/it/thumb/f/f0/Screenshot_Videoclip_Never_Gonna_Give_You_Up.png/390px-Screenshot_Videoclip_Never_Gonna_Give_You_Up.png",
-    "https://uproxx.com/wp-content/uploads/2021/02/rick-astley-never-gonna-give-you-up-video-full.jpg?w=1600&h=660&crop=1",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPg_IK_P-S8gdZrDaWorkEDLYylMHFmRgtsA&usqp=CAU",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5-EHlWeQn8VsiVOR6GxEFEqCC88lgJj-3JQ&usqp=CAU",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRInepRT1hvtJnFaJIc100EVgXe9bxqJi0y3vfIHrZwSTg2RtiB9awDQbOWk-HpZclDgQU&usqp=CAU",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS1h4KVgoBCIP_CN38w6hTNKJjjaom6qyfRMQ&usqp=CAU",
-  ];
   return (
     <>
       <BookingsModal
@@ -74,73 +64,22 @@ const BookingsTableRow = ({ resetResize, row, prepareRow, cellWidth }) => {
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box
               sx={{
-                margin: 1,
-                maxHeight: "10rem",
+                p: 1,
+                maxHeight: "12rem",
                 overflow: "auto",
                 maxWidth: "100vw",
+                display: "flex",
+                alignItems: "center",
               }}
             >
-              {arr.map((item) => (
-                <BookingImageRow imgSrc={item} />
+              {row?.original?.Files?.map((item) => (
+                <BookingImages key={item} imgSrc={item} />
               ))}
             </Box>
           </Collapse>
         </TableCell>
       </TableRow>
     </>
-
-    // <TableRow {...row.getRowProps()} sx={tableStyles.tr.row}  onClick={handleDblClick}>
-    //   {selectedColumns.includes("datum") && (
-    //     <TableCell sx={tableStyles.tr.cell} align="left" scope="row">
-    //       <BookingsModal
-    //         openBookingModal={openBookingModal}
-    //         setOpenBookingModal={setOpenBookingModal}
-    //         booking={booking}
-    //       />
-    //       {date.toLocaleDateString("de")}
-    //     </TableCell>
-    //   )}
-    //   {selectedColumns.includes("uhrzeit") && (
-    //     <TableCell sx={tableStyles.tr.cell} align="left">
-    //       {time}
-    //     </TableCell>
-    //   )}
-    //   {selectedColumns.includes("buchungstyp") && (
-    //     <TableCell sx={tableStyles.tr.cell} align="left">
-    //       {booking?.bookingType}
-    //     </TableCell>
-    //   )}
-    //   {selectedColumns.includes("straße") && (
-    //     <TableCell sx={tableStyles.tr.cell} align="left">
-    //       {booking?.street}
-    //     </TableCell>
-    //   )}
-    //   {selectedColumns.includes("hausnummer") && (
-    //     <TableCell sx={tableStyles.tr.cell} align="left">
-    //       {booking?.streetnumber}
-    //     </TableCell>
-    //   )}
-    //   {selectedColumns.includes("plz") && (
-    //     <TableCell sx={tableStyles.tr.cell} align="left">
-    //       {booking?.zip}
-    //     </TableCell>
-    //   )}
-    //   {selectedColumns.includes("stadt") && (
-    //     <TableCell sx={tableStyles.tr.cell} align="left">
-    //       {booking?.city}
-    //     </TableCell>
-    //   )}
-    //   {selectedColumns.includes("land") && (
-    //     <TableCell sx={tableStyles.tr.cell} align="left">
-    //       {booking?.country}
-    //     </TableCell>
-    //   )}
-    //   {selectedColumns.includes("erstellt am") && (
-    //     <TableCell sx={tableStyles.tr.cell} align="left">
-    //       {JSON.stringify(booking?.createdDate)}
-    //     </TableCell>
-    //   )}
-    // </TableRow>
   );
 };
 

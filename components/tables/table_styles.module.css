@@ -15,7 +15,7 @@
     transform: translateX(50%);
     z-index: 1;
   cursor: col-resize ;
-    touch-action:none;
+    /* touch-action:none; */
 
     
   }

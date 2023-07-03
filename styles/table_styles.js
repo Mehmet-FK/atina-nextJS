@@ -17,6 +17,7 @@ export const tableStyles = {
       fontSize: "0.7rem",
       cursor: "pointer",
       borderRight: "1px solid #ddd",
+      userSelect: "none",
     },
   },
   tr: {
